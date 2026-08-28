@@ -618,7 +618,12 @@ footer strong{
         <textarea id="adDetails"
           placeholder="اكتب وصفًا مختصرًا وواضحًا للإعلان"></textarea>
       </div>
-
+<div class="form-group full">
+  <label>صور الإعلان</label>
+  <input type="file" id="adImages" accept="image/*" multiple>
+  <small>يمكنك اختيار حتى 5 صور للإعلان</small>
+  <div id="imagePreview"></div>
+</div>
       <div class="form-group full">
         <button class="send-btn" onclick="sendAd()">
           إرسال الإعلان عبر واتساب
@@ -794,6 +799,49 @@ ${details || 'لا توجد تفاصيل إضافية'}
 
   window.open(url,'_blank');
 }
+  const adImages = document.getElementById('adImages');
+const imagePreview = document.getElementById('imagePreview');
+
+adImages.addEventListener('change', function () {
+  const files = Array.from(this.files);
+
+  if (files.length > 5) {
+    alert('يمكنك اختيار 5 صور كحد أقصى');
+    this.value = '';
+    imagePreview.innerHTML = '';
+    return;
+  }
+
+  imagePreview.innerHTML = '';
+
+  files.forEach((file, index) => {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const box = document.createElement('div');
+      box.style.display = 'inline-block';
+      box.style.margin = '6px';
+      box.style.textAlign = 'center';
+
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.style.width = '90px';
+      img.style.height = '90px';
+      img.style.objectFit = 'cover';
+      img.style.borderRadius = '10px';
+
+      const label = document.createElement('div');
+      label.textContent = index === 0 ? 'الصورة الرئيسية' : 'صورة ' + (index + 1);
+      label.style.fontSize = '12px';
+
+      box.appendChild(img);
+      box.appendChild(label);
+      imagePreview.appendChild(box);
+    };
+
+    reader.readAsDataURL(file);
+  });
+});
 </script>
 
 </body>
