@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#075c3b">
+
+<title>دلالات السودان | سوق شامل للبيع والشراء والخدمات</title>
+
+<meta name="description" content="دلالات السودان منصة شاملة للإعلانات: عربات، عقارات، أثاث، مستلزمات منزلية ومكتبية، مواد بناء، خدمات وأشياء أخرى.">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Tahoma,Arial,sans-serif;
+  background:#f4f7f5;
+  color:#17211c;
+  line-height:1.7;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+header{
+  background:#075c3b;
+  color:white;
+  padding:18px 14px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 8px #0002;
+}
+
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:bold;
+}
+
+.logo span{
+  color:#e2b84b;
+}
+
+.add-top{
+  background:#e2b84b;
+  color:#183426;
+  padding:10px 15px;
+  border-radius:12px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.hero{
+  background:linear-gradient(135deg,#075c3b,#0d8057);
+  color:white;
+  padding:45px 16px;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.hero p{
+  max-width:700px;
+  margin:auto;
+  opacity:.95;
+  font-size:17px;
+}
+
+.search-box{
+  max-width:720px;
+  margin:25px auto 0;
+  background:white;
+  border-radius:16px;
+  padding:7px;
+  display:flex;
+  box-shadow:0 5px 18px #0002;
+}
+
+.search-box input{
+  flex:1;
+  border:0;
+  outline:0;
+  font-size:16px;
+  padding:13px;
+  border-radius:12px;
+  font-family:inherit;
+}
+
+.search-box button{
+  border:0;
+  background:#e2b84b;
+  padding:0 18px;
+  border-radius:12px;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.container{
+  width:min(1100px,94%);
+  margin:auto;
+}
+
+.section{
+  padding:32px 0;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.section-title h2{
+  color:#075c3b;
+  font-size:25px;
+}
+
+.section-title p{
+  color:#64736b;
+  margin-top:4px;
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.category{
+  background:white;
+  border-radius:16px;
+  padding:20px 10px;
+  text-align:center;
+  box-shadow:0 3px 12px #0000000d;
+  border:1px solid #e3ebe7;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.category:hover{
+  transform:translateY(-3px);
+  border-color:#0d8057;
+}
+
+.category .icon{
+  font-size:35px;
+  margin-bottom:7px;
+}
+
+.category strong{
+  display:block;
+  color:#075c3b;
+}
+
+.filter-bar{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  padding-bottom:8px;
+  margin-bottom:18px;
+}
+
+.filter-btn{
+  border:1px solid #d6e2dc;
+  background:white;
+  padding:9px 14px;
+  border-radius:20px;
+  font-family:inherit;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.filter-btn.active{
+  background:#075c3b;
+  color:white;
+  border-color:#075c3b;
+}
+
+.ads{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.ad-card{
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid #e0e8e4;
+  box-shadow:0 3px 12px #0000000b;
+}
+
+.ad-image{
+  height:170px;
+  background:#e7efeb;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:55px;
+}
+
+.ad-info{
+  padding:14px;
+}
+
+.ad-info h3{
+  color:#075c3b;
+  margin-bottom:5px;
+}
+
+.tag{
+  display:inline-block;
+  background:#edf6f1;
+  color:#075c3b;
+  border-radius:20px;
+  padding:3px 9px;
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.ad-info p{
+  color:#66736c;
+  font-size:14px;
+}
+
+.empty{
+  display:none;
+  text-align:center;
+  padding:25px;
+  color:#777;
+  background:white;
+  border-radius:14px;
+}
+
+.publish{
+  background:#075c3b;
+  color:white;
+  border-radius:20px;
+  padding:28px 18px;
+}
+
+.publish h2{
+  text-align:center;
+  margin-bottom:8px;
+}
+
+.publish > p{
+  text-align:center;
+  margin-bottom:22px;
+  opacity:.9;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.form-group{
+  margin-bottom:12px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:11px;
+  font-family:inherit;
+  font-size:15px;
+}
+
+.form-group textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.send-btn{
+  border:0;
+  background:#e2b84b;
+  color:#16372a;
+  padding:14px 24px;
+  border-radius:12px;
+  font-size:17px;
+  font-weight:bold;
+  font-family:inherit;
+  cursor:pointer;
+  width:100%;
+}
+
+.note{
+  margin-top:10px;
+  font-size:13px;
+  opacity:.8;
+}
+
+.contact{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.contact a{
+  background:white;
+  border:1px solid #dfe8e3;
+  border-radius:15px;
+  padding:17px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.whatsapp{
+  color:#087a4f;
+}
+
+footer{
+  margin-top:35px;
+  background:#10261c;
+  color:#d9e4de;
+  text-align:center;
+  padding:25px 15px;
+}
+
+footer strong{
+  color:#e2b84b;
+}
+
+.floating{
+  position:fixed;
+  bottom:20px;
+  left:18px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#18a866;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:28px;
+  box-shadow:0 4px 15px #0004;
+  z-index:99;
+}
+
+@media(max-width:850px){
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .ads{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:600px){
+  .logo{
+    font-size:19px;
+  }
+
+  .add-top{
+    font-size:13px;
+    padding:8px 10px;
+  }
+
+  .hero{
+    padding:35px 13px;
+  }
+
+  .hero h1{
+    font-size:25px;
+  }
+
+  .ads{
+    grid-template-columns:1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .contact{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">دلالات <span>السودان</span></div>
+    <a class="add-top" href="#add-ad">➕ أضف إعلانك</a>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>كل ما تبحث عنه في مكان واحد</h1>
+  <p>
+    منصة سودانية شاملة للبيع والشراء والعقارات والعربات
+    والأثاث ومواد البناء والخدمات والمزيد.
+  </p>
+
+  <div class="search-box">
+    <input id="searchInput"
+           type="search"
+           placeholder="ابحث عن عربة، منزل، أثاث، مواد بناء، خدمة...">
+    <button onclick="searchAds()">🔍</button>
+  </div>
+</section>
+
+<main class="container">
+
+<section class="section">
+  <div class="section-title">
+    <h2>تصفح الأقسام</h2>
+    <p>اختر القسم الذي يناسبك</p>
+  </div>
+
+  <div class="categories">
+    <div class="category" onclick="setCategory('عربات')">
+      <div class="icon">🚗</div>
+      <strong>العربات</strong>
+      <small>بيع وشراء المركبات</small>
+    </div>
+
+    <div class="category" onclick="setCategory('عقارات')">
+      <div class="icon">🏠</div>
+      <strong>العقارات</strong>
+      <small>بيع وإيجار المنازل والمكاتب</small>
+    </div>
+
+    <div class="category" onclick="setCategory('منزل')">
+      <div class="icon">🛋️</div>
+      <strong>الأثاث والمنزل</strong>
+      <small>أثاث ومستلزمات منزلية</small>
+    </div>
+
+    <div class="category" onclick="setCategory('مكاتب')">
+      <div class="icon">🪑</div>
+      <strong>المكاتب</strong>
+      <small>أثاث وتجهيزات مكتبية</small>
+    </div>
+
+    <div class="category" onclick="setCategory('مواد بناء')">
+      <div class="icon">🧱</div>
+      <strong>مواد البناء</strong>
+      <small>مواد وأدوات البناء</small>
+    </div>
+
+    <div class="category" onclick="setCategory('إلكترونيات')">
+      <div class="icon">📱</div>
+      <strong>إلكترونيات</strong>
+      <small>هواتف وأجهزة</small>
+    </div>
+
+    <div class="category" onclick="setCategory('خدمات')">
+      <div class="icon">🛠️</div>
+      <strong>الخدمات</strong>
+      <small>خدمات وأعمال متنوعة</small>
+    </div>
+
+    <div class="category" onclick="setCategory('أخرى')">
+      <div class="icon">📦</div>
+      <strong>أشياء أخرى</strong>
+      <small>كل ما لا يوجد في الأقسام السابقة</small>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ads-section">
+  <div class="section-title">
+    <h2>الإعلانات</h2>
+    <p>استخدم البحث أو اختر القسم</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterAds('الكل',this)">الكل</button>
+    <button class="filter-btn" onclick="filterAds('عربات',this)">عربات</button>
+    <button class="filter-btn" onclick="filterAds('عقارات',this)">عقارات</button>
+    <button class="filter-btn" onclick="filterAds('منزل',this)">أثاث ومنزل</button>
+    <button class="filter-btn" onclick="filterAds('مواد بناء',this)">مواد بناء</button>
+    <button class="filter-btn" onclick="filterAds('خدمات',this)">خدمات</button>
+  </div>
+
+  <div class="ads" id="ads">
+
+    <article class="ad-card" data-category="عربات" data-search="عربة سيارة سيارات">
+      <div class="ad-image">🚙</div>
+      <div class="ad-info">
+        <span class="tag">عربات</span>
+        <h3>قسم العربات</h3>
+        <p>يمكن نشر إعلانات السيارات والمركبات هنا.</p>
+      </div>
+    </article>
+
+    <article class="ad-card" data-category="عقارات" data-search="عقار منزل بيت مكتب بيع ايجار">
+      <div class="ad-image">🏡</div>
+      <div class="ad-info">
+        <span class="tag">عقارات</span>
+        <h3>قسم العقارات</h3>
+        <p>منازل ومكاتب وعقارات للبيع أو الإيجار.</p>
+      </div>
+    </article>
+
+    <article class="ad-card" data-category="منزل" data-search="اثاث منزل كراسي ترابيز دولاب سرير">
+      <div class="ad-image">🛋️</div>
+      <div class="ad-info">
+        <span class="tag">الأثاث والمنزل</span>
+        <h3>الأثاث والمستلزمات المنزلية</h3>
+        <p>بيع وشراء الأثاث والأدوات المنزلية.</p>
+      </div>
+    </article>
+
+    <article class="ad-card" data-category="مكاتب" data-search="مكتب مكاتب اثاث مكتبي كرسي طاولة">
+      <div class="ad-image">🪑</div>
+      <div class="ad-info">
+        <span class="tag">المكاتب</span>
+        <h3>مستلزمات المكاتب</h3>
+        <p>أثاث وتجهيزات وأدوات مكتبية.</p>
+      </div>
+    </article>
+
+    <article class="ad-card" data-category="مواد بناء" data-search="مواد بناء اسمنت حديد طوب أدوات">
+      <div class="ad-image">🧱</div>
+      <div class="ad-info">
+        <span class="tag">مواد بناء</span>
+        <h3>مواد وأدوات البناء</h3>
+        <p>اعرض مواد البناء والمعدات والأدوات.</p>
+      </div>
+    </article>
+
+    <article class="ad-card" data-category="خدمات" data-search="خدمة خدمات فني صيانة أعمال">
+      <div class="ad-image">🛠️</div>
+      <div class="ad-info">
+        <span class="tag">خدمات</span>
+        <h3>الخدمات</h3>
+        <p>مساحة لأصحاب المهن والخدمات المختلفة.</p>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="empty" id="empty">
+    لا توجد نتائج مطابقة لبحثك حاليًا.
+  </div>
+</section>
+
+<section class="section" id="add-ad">
+  <div class="publish">
+    <h2>📢 أضف إعلانك</h2>
+    <p>أدخل بيانات الإعلان ثم أرسله للإدارة عبر واتساب ليتم نشره.</p>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>عنوان الإعلان</label>
+        <input id="adTitle" placeholder="مثال: سيارة للبيع">
+      </div>
+
+      <div class="form-group">
+        <label>القسم</label>
+        <select id="adCategory">
+          <option>عربات</option>
+          <option>عقارات</option>
+          <option>أثاث ومستلزمات منزلية</option>
+          <option>مستلزمات مكاتب</option>
+          <option>مواد بناء</option>
+          <option>إلكترونيات</option>
+          <option>خدمات</option>
+          <option>أشياء أخرى</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>السعر</label>
+        <input id="adPrice" placeholder="اكتب السعر">
+      </div>
+
+      <div class="form-group">
+        <label>الموقع</label>
+        <input id="adLocation" placeholder="المدينة أو المنطقة">
+      </div>
+
+      <div class="form-group full">
+        <label>تفاصيل الإعلان</label>
+        <textarea id="adDetails"
+          placeholder="اكتب وصفًا مختصرًا وواضحًا للإعلان"></textarea>
+      </div>
+
+      <div class="form-group full">
+        <button class="send-btn" onclick="sendAd()">
+          إرسال الإعلان عبر واتساب
+        </button>
+
+        <div class="note">
+          بعد فتح واتساب يمكنك إرفاق صور الإعلان وإرسالها مع البيانات.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title">
+    <h2>تواصل معنا</h2>
+    <p>للإعلانات والاستفسارات والمشاركة في المنصة</p>
+  </div>
+
+  <div class="contact">
+    <a class="whatsapp"
+       href="https://wa.me/249123047479"
+       target="_blank">
+       💬 واتساب 0123047479
+    </a>
+
+    <a class="whatsapp"
+       href="https://wa.me/249917647479"
+       target="_blank">
+       💬 واتساب 0917647479
+    </a>
+
+    <a href="mailto:abadrhman9096@gmail.com">
+       ✉️ البريد الإلكتروني
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>دلالات السودان</strong>
+  <br>
+  منصة شاملة تجمع البائع والمشتري ومقدم الخدمة في مكان واحد.
+  <br><br>
+  جميع الحقوق محفوظة © 2026
+</footer>
+
+<a class="floating"
+   href="https://wa.me/249123047479"
+   target="_blank"
+   aria-label="واتساب">
+   ☎
+</a>
+
+<script>
+const cards = document.querySelectorAll('.ad-card');
+const empty = document.getElementById('empty');
+const searchInput = document.getElementById('searchInput');
+
+function updateEmpty(){
+  let visible = 0;
+
+  cards.forEach(card=>{
+    if(card.style.display !== 'none'){
+      visible++;
+    }
+  });
+
+  empty.style.display = visible ? 'none' : 'block';
+}
+
+function searchAds(){
+  const q = searchInput.value.trim().toLowerCase();
+
+  cards.forEach(card=>{
+    const text = (
+      card.innerText + ' ' +
+      card.dataset.search
+    ).toLowerCase();
+
+    card.style.display =
+      text.includes(q) ? 'block' : 'none';
+  });
+
+  updateEmpty();
+
+  document.getElementById('ads-section')
+    .scrollIntoView({behavior:'smooth'});
+}
+
+searchInput.addEventListener('input',searchAds);
+
+function filterAds(category,button){
+
+  document.querySelectorAll('.filter-btn')
+    .forEach(btn=>btn.classList.remove('active'));
+
+  if(button){
+    button.classList.add('active');
+  }
+
+  cards.forEach(card=>{
+    card.style.display =
+      category === 'الكل' ||
+      card.dataset.category === category
+      ? 'block'
+      : 'none';
+  });
+
+  updateEmpty();
+}
+
+function setCategory(category){
+
+  cards.forEach(card=>{
+
+    let match = card.dataset.category === category;
+
+    if(category === 'أخرى'){
+      match = false;
+    }
+
+    card.style.display = match ? 'block' : 'none';
+  });
+
+  updateEmpty();
+
+  document.getElementById('ads-section')
+    .scrollIntoView({behavior:'smooth'});
+}
+
+function sendAd(){
+
+  const title =
+    document.getElementById('adTitle').value.trim();
+
+  const category =
+    document.getElementById('adCategory').value;
+
+  const price =
+    document.getElementById('adPrice').value.trim();
+
+  const location =
+    document.getElementById('adLocation').value.trim();
+
+  const details =
+    document.getElementById('adDetails').value.trim();
+
+  if(!title){
+    alert('الرجاء كتابة عنوان الإعلان');
+    return;
+  }
+
+  const message =
+`السلام عليكم
+أرغب في نشر إعلان في منصة دلالات السودان.
+
+عنوان الإعلان: ${title}
+القسم: ${category}
+السعر: ${price || 'غير محدد'}
+الموقع: ${location || 'غير محدد'}
+
+التفاصيل:
+${details || 'لا توجد تفاصيل إضافية'}
+
+سأرسل صور الإعلان في واتساب.`;
+
+  const url =
+    'https://wa.me/249123047479?text=' +
+    encodeURIComponent(message);
+
+  window.open(url,'_blank');
+}
+</script>
+
+</body>
+  </html>
