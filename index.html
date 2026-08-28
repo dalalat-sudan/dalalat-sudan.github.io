@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0f5132" />
+  <title>دلالة العربات والعقارات - أم درمان الخرطوم</title>
+  <meta name="description" content="موقع دلالة لعرض العربات والعقارات وإضافة الإعلانات بسهولة." />
+  <style>
+    *{box-sizing:border-box}
+    :root{
+      --primary:#0f5132;
+      --primary2:#198754;
+      --gold:#d4a72c;
+      --bg:#f6f8f7;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --border:#e5e7eb;
+      --danger:#b42318;
+    }
+    body{
+      margin:0;
+      font-family:Tahoma, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1120px,92%);margin:auto}
+    header{
+      position:sticky;top:0;z-index:20;
+      background:#ffffffee;
+      backdrop-filter:blur(9px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    }
+    .brand{font-weight:800;color:var(--primary);font-size:1.06rem}
+    .menu{display:flex;gap:8px;flex-wrap:wrap}
+    .menu a{padding:9px 11px;border-radius:10px;font-size:.93rem}
+    .menu a:hover{background:#eef7f2;color:var(--primary)}
+    .hero{
+      background:linear-gradient(135deg,#0f5132,#198754);
+      color:#fff;
+      padding:70px 0 58px;
+    }
+    .hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center}
+    .hero h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.25;margin:0 0 12px}
+    .hero p{font-size:1.1rem;max-width:700px;margin:0 0 24px;color:#edf8f1}
+    .buttons{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer;
+    }
+    .btn-gold{background:var(--gold);color:#1d1d1d}
+    .btn-light{background:white;color:var(--primary)}
+    .btn-primary{background:var(--primary);color:white}
+    .hero-box{
+      border:1px solid #ffffff55;background:#ffffff14;border-radius:24px;padding:24px;
+    }
+    .hero-box strong{display:block;font-size:1.3rem;margin-bottom:12px}
+    section{padding:58px 0}
+    .section-title{text-align:center;margin-bottom:30px}
+    .section-title h2{margin:0 0 8px;font-size:2rem;color:var(--primary)}
+    .section-title p{margin:0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;
+      box-shadow:0 8px 30px rgba(15,81,50,.05);
+    }
+    .icon{font-size:2.1rem;margin-bottom:8px}
+    .card h3{margin:3px 0 8px}
+    .card p{margin:0;color:var(--muted)}
+    .empty{
+      background:#fff;border:2px dashed #cfd8d3;border-radius:18px;padding:28px;text-align:center;
+      color:var(--muted)
+    }
+    .form{
+      max-width:780px;margin:auto;background:white;border:1px solid var(--border);border-radius:20px;padding:24px;
+    }
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    label{display:block;font-weight:700;margin-bottom:6px}
+    input,select,textarea{
+      width:100%;border:1px solid #d1d5db;border-radius:11px;padding:12px 13px;
+      font:inherit;background:#fff;color:var(--text);outline:none;
+    }
+    input:focus,select:focus,textarea:focus{border-color:var(--primary2);box-shadow:0 0 0 3px #19875420}
+    textarea{min-height:120px;resize:vertical}
+    .full{grid-column:1/-1}
+    .helper{font-size:.88rem;color:var(--muted);margin-top:8px}
+    .output{
+      display:none;margin-top:18px;padding:16px;border-radius:14px;background:#f0f8f4;border:1px solid #cde7d7;
+      white-space:pre-wrap;
+    }
+    footer{background:#123b29;color:#fff;padding:28px 0;margin-top:20px}
+    footer p{margin:4px 0;color:#dce9e1}
+    .top-note{background:#fff8e7;border:1px solid #f3dfaa;border-radius:14px;padding:14px;margin-bottom:18px;color:#6d5313}
+    @media(max-width:800px){
+      .hero-grid,.grid,.fields{grid-template-columns:1fr}
+      .full{grid-column:auto}
+      .nav{align-items:flex-start;padding:12px 0;flex-direction:column}
+      .menu{width:100%;overflow:auto;flex-wrap:nowrap;padding-bottom:4px}
+      .hero{padding-top:42px}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="brand">دلالة العربات والعقارات</div>
+    <nav class="menu">
+      <a href="#home">الرئيسية</a>
+      <a href="#cars">العربات</a>
+      <a href="#realestate">العقارات</a>
+      <a href="#add">أضف إعلانك</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <h1>دلالة العربات والعقارات<br>أم درمان - الخرطوم</h1>
+        <p>مكان واحد لعرض وطلب العربات والعقارات بسهولة. أضف إعلانك، جهّز نصه، وانشره بسرعة.</p>
+        <div class="buttons">
+          <a class="btn btn-gold" href="#add">أضف إعلانك الآن</a>
+          <a class="btn btn-light" href="#cars">شاهد الأقسام</a>
+        </div>
+      </div>
+      <div class="hero-box">
+        <strong>بيع • شراء • إيجار</strong>
+        <div>🚗 عربات</div>
+        <div>🏠 منازل وشقق</div>
+        <div>🏢 محلات ومكاتب</div>
+        <div>🌍 أراضٍ</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <h2>خدمات الموقع</h2>
+        <p>اختر القسم المناسب وابدأ مباشرة.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="icon">🚗</div>
+          <h3>العربات</h3>
+          <p>إعلانات بيع وشراء العربات بمختلف الأنواع.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🏠</div>
+          <h3>العقارات</h3>
+          <p>منازل، شقق، أراضٍ، محلات ومكاتب للبيع أو الإيجار.</p>
+        </div>
+        <div class="card">
+          <div class="icon">📣</div>
+          <h3>أضف إعلانك</h3>
+          <p>املأ الحقول، وسيُجهّز لك الموقع نص الإعلان لتنسخه وتنشره.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cars">
+    <div class="container">
+      <div class="section-title">
+        <h2>العربات</h2>
+        <p>قسم الإعلانات الخاصة بالعربات.</p>
+      </div>
+      <div class="empty">لا توجد إعلانات مضافة داخل النسخة الجديدة حتى الآن.</div>
+    </div>
+  </section>
+
+  <section id="realestate">
+    <div class="container">
+      <div class="section-title">
+        <h2>العقارات</h2>
+        <p>قسم المنازل والشقق والأراضي والمحلات والمكاتب.</p>
+      </div>
+      <div class="empty">لا توجد إعلانات مضافة داخل النسخة الجديدة حتى الآن.</div>
+    </div>
+  </section>
+
+  <section id="add">
+    <div class="container">
+      <div class="section-title">
+        <h2>أضف إعلانك</h2>
+        <p>اكتب بيانات الإعلان ثم اضغط تجهيز الإعلان.</p>
+      </div>
+      <div class="form">
+        <div class="top-note">
+          هذه النسخة تعمل بدون اشتراك شهري. زر الإرسال المباشر للإدارة يمكن ربطه لاحقًا بواتساب أو بريد إلكتروني.
+        </div>
+
+        <div class="fields">
+          <div>
+            <label for="type">نوع الإعلان</label>
+            <select id="type">
+              <option>عربة</option>
+              <option>عقار</option>
+              <option>أرض</option>
+              <option>محل / مكتب</option>
+              <option>أخرى</option>
+            </select>
+          </div>
+          <div>
+            <label for="title">عنوان الإعلان</label>
+            <input id="title" placeholder="مثال: تويوتا كورولا للبيع" />
+          </div>
+          <div>
+            <label for="price">السعر</label>
+            <input id="price" placeholder="مثال: 25,000,000 جنيه" />
+          </div>
+          <div>
+            <label for="location">الموقع</label>
+            <input id="location" placeholder="مثال: أم درمان" />
+          </div>
+          <div>
+            <label for="phone">رقم الهاتف</label>
+            <input id="phone" inputmode="tel" placeholder="09xxxxxxxx" />
+          </div>
+          <div>
+            <label for="name">اسم المعلن</label>
+            <input id="name" placeholder="الاسم" />
+          </div>
+          <div class="full">
+            <label for="details">تفاصيل الإعلان</label>
+            <textarea id="details" placeholder="اكتب المواصفات والتفاصيل هنا..."></textarea>
+          </div>
+          <div class="full">
+            <button class="btn btn-primary" type="button" onclick="buildAd()">تجهيز الإعلان</button>
+            <button class="btn" type="button" onclick="copyAd()" style="margin-right:8px;background:#eef2f0">نسخ الإعلان</button>
+            <div class="helper">بعد التجهيز يمكنك نسخ الإعلان وإرساله للإدارة أو نشره في فيسبوك وواتساب.</div>
+          </div>
+        </div>
+        <div id="output" class="output"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>تواصل معنا</h2>
+        <p>يمكن إضافة رقم واتساب ورقم الاتصال وروابط صفحات التواصل هنا لاحقًا.</p>
+      </div>
+      <div class="card" style="max-width:720px;margin:auto;text-align:center">
+        <div class="icon">☎️</div>
+        <h3>بيانات التواصل</h3>
+        <p>أرسل بيانات التواصل التي تريدها وسنضيفها إلى الموقع.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <strong>دلالة العربات والعقارات - أم درمان الخرطوم</strong>
+    <p>جميع الحقوق محفوظة © <span id="year"></span></p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function val(id){
+    return document.getElementById(id).value.trim();
+  }
+
+  function buildAd(){
+    const text =
+`📣 إعلان جديد
+القسم: ${val('type')}
+العنوان: ${val('title') || 'غير محدد'}
+السعر: ${val('price') || 'غير محدد'}
+الموقع: ${val('location') || 'غير محدد'}
+اسم المعلن: ${val('name') || 'غير محدد'}
+الهاتف: ${val('phone') || 'غير محدد'}
+
+التفاصيل:
+${val('details') || 'لا توجد تفاصيل إضافية'}`;
+
+    const out = document.getElementById('output');
+    out.textContent = text;
+    out.style.display = 'block';
+    out.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+
+  async function copyAd(){
+    const out = document.getElementById('output');
+    if(!out.textContent.trim()){
+      buildAd();
+    }
+    try{
+      await navigator.clipboard.writeText(out.textContent);
+      alert('تم نسخ الإعلان بنجاح');
+    }catch(e){
+      alert('حدد نص الإعلان وانسخه يدويًا.');
+    }
+  }
+</script>
+
+</body>
+</html>
