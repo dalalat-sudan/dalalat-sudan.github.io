@@ -622,8 +622,8 @@ footer strong{
   <div id="imagePreview"></div>
 </div>
       <div class="form-group full">
-        <button class="send-btn" onclick="sendAd()">
-          إرسال الإعلان عبر واتساب
+    <button class="send-btn" onclick="publishAd()">
+        أنشر الاعلان
         </button>
 
         <div class="note">
@@ -839,6 +839,9 @@ adImages.addEventListener('change', function () {
     reader.readAsDataURL(file);
   });
 });
+function publishAd() {
+  alert("تم نشر الإعلان بنجاح ✅");
+  }
 </script>
 
 </body>
