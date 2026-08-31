@@ -688,13 +688,16 @@ const { createClient } = window.supabase;
   const SUPABASE_URL = 'https://jsojmvvxjuvoxtwdvarn.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_CDZQUIG4NgmOBcjutxQJKw_v0Ejsj6e';
 const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);const cards = document.querySelectorAll('.ad-card');
-
-  const cards = document.querySelectorAll('.ad-card');const empty = document.getElementById('empty');
-
-  const empty = document.getElementById('empty');const searchInput = document.getElementById('searchInput');
+const cards = document.querySelectorAll('.ad-card');
+const empty = document.getElementById('empty');
 const searchInput = document.getElementById('searchInput');
+
 function updateEmpty(){
   let visible = 0;
+  
+
+
+  
 
   cards.forEach(card=>{
     if(card.style.display !== 'none'){
