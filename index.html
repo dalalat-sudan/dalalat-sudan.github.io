@@ -620,6 +620,9 @@ footer strong{
   <input type="file" id="adImages" accept="image/*" multiple>
   <small>يمكنك اختيار حتى 5 صور للإعلان</small>
   <div id="imagePreview"></div>
+  <label>فيديو الإعلان (اختياري)</label>
+<input type="file" id="adVideo" accept="video/mp4,video/webm,video/quicktime">
+<small>يمكنك اختيار فيديو واحد للإعلان</small>
 </div>
       <div class="form-group full">
     <button class="send-btn" onclick="publishAd()">
@@ -677,11 +680,19 @@ footer strong{
    ☎
 </a>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const cards = document.querySelectorAll('.ad-card');
-const empty = document.getElementById('empty');
-const searchInput = document.getElementById('searchInput');
+const { createClient } = window.supabase;
 
+ 
+  const SUPABASE_URL = 'https://jsojmvvxjuvoxtwdvarn.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_CDZQUIG4NgmOBcjutxQJKw_v0Ejsj6e';
+const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);const cards = document.querySelectorAll('.ad-card');
+
+  const cards = document.querySelectorAll('.ad-card');const empty = document.getElementById('empty');
+
+  const empty = document.getElementById('empty');const searchInput = document.getElementById('searchInput');
+const searchInput = document.getElementById('searchInput');
 function updateEmpty(){
   let visible = 0;
 
@@ -838,9 +849,187 @@ adImages.addEventListener('change', function () {
     reader.readAsDataURL(file);
   });
 });
-function publishAd() {
-  alert("تم نشر الإعلان بنجاح ✅");
+async function publishAd() {
+  try {
+    const title = document.getElementById('adTitle')?.value.trim() || '';
+    const category = document.getElementById('adCategory')?.value || '';
+    const price = document.getElementById('adPrice')?.value.trim() || '';
+    const location = document.getElementById('adLocation')?.value.trim() || '';
+    const details = document.getElementById('adDetails')?.value.trim() || '';
+
+    let name = document.getElementById('adName')?.value.trim() || '';
+    let phone = document.getElementById('adPhone')?.value.trim() || '';
+
+    if (!name) name = (prompt('اكتب اسم المعلن') || '').trim();
+    if (!phone) phone = (prompt('اكتب رقم التواصل') || '').trim();
+
+    if (!title || !category || !location || details.length < 5 || !name || phone.length < 7) {
+      alert('أكمل بيانات الإعلان المطلوبة');
+      return;
+    }
+
+    const files = [...document.querySelectorAll('input[type="file"]')]
+      .flatMap(input => [...(input.files || [])])
+      .filter(file =>
+        file.type.startsWith('image/') ||
+        file.type.startsWith('video/')
+      );
+
+    if (!files.length) {
+      alert('أضف صورة أو فيديو للإعلان');
+      return;
+    }
+
+    if (files.length > 9) {
+      alert('الحد الأقصى 9 ملفات');
+      return;
+    }
+
+    const media = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      if (file.size > 20 * 1024 * 1024) {
+        throw new Error('يوجد ملف أكبر من 20MB');
+      }
+
+      const ext = file.name.split('.').pop() || 'bin';
+      const path = `public/${Date.now()}_${i}_${Math.random()
+        .toString(36).slice(2)}.${ext}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('ad-media')
+        .upload(path, file, {
+          contentType: file.type,
+          upsert: false
+        });
+
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage
+        .from('ad-media')
+        .getPublicUrl(path);
+
+      media.push({
+        url: data.publicUrl,
+        video: file.type.startsWith('video/')
+      });
+    }
+
+    const mediaUrls = media.map(item => item.url);
+    const cover =
+      media.find(item => !item.video)?.url ||
+      mediaUrls[0];
+
+    const { error } = await supabase
+      .from('ads')
+      .insert({
+        title: title,
+        category: category,
+        price: price || null,
+        description: details,
+        contact_name: name,
+        contact_phone: phone,
+        whatsapp: phone,
+        location: location,
+        media_urls: mediaUrls,
+        cover_url: cover,
+        published: true
+      });
+
+    if (error) throw error;
+
+    alert('✅ تم نشر الإعلان وحفظ الصور والفيديو بنجاح');
+    window.location.reload();
+
+  } catch (error) {
+    console.error(error);
+    alert('❌ تعذر نشر الإعلان: ' + error.message);
   }
+}
+  
+
+  async function loadPublishedAds() {
+  const host =
+    document.querySelector('.ad-card')?.parentElement ||
+    empty?.parentElement;
+
+  if (!host) return;
+
+  const { data, error } = await supabase
+    .from('ads')
+    .select('*')
+    .eq('published', true)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('خطأ تحميل الإعلانات:', error);
+    return;
+  }
+
+  (data || []).forEach(ad => {
+    const card = document.createElement('div');
+    card.className = 'ad-card';
+
+    card.dataset.title = ad.title || '';
+    card.dataset.category = ad.category || '';
+    card.dataset.location = ad.location || '';
+
+    const media = Array.isArray(ad.media_urls)
+      ? ad.media_urls
+      : [];
+
+    let mediaHtml = '';
+
+    media.forEach(url => {
+      const cleanUrl = String(url).replace(/"/g, '&quot;');
+      const isVideo = /\.(mp4|webm|mov|m4v)(\?|$)/i.test(cleanUrl);
+
+      if (isVideo) {
+        mediaHtml += `
+          <video
+            src="${cleanUrl}"
+            controls
+            playsinline
+            style="width:100%;max-height:350px;margin-top:8px;border-radius:10px">
+          </video>`;
+      } else {
+        mediaHtml += `
+          <img
+            src="${cleanUrl}"
+            alt="صورة الإعلان"
+            onclick="window.open(this.src,'_blank')"
+            style="width:100%;max-height:350px;object-fit:cover;margin-top:8px;border-radius:10px;cursor:pointer">`;
+      }
+    });
+
+    card.innerHTML = `
+      ${mediaHtml}
+      <div class="ad-body">
+        <h3>${ad.title || 'إعلان'}</h3>
+        <p><strong>القسم:</strong> ${ad.category || ''}</p>
+        ${ad.price ? `<p><strong>السعر:</strong> ${ad.price}</p>` : ''}
+        <p><strong>الموقع:</strong> ${ad.location || ''}</p>
+        <p>${ad.description || ''}</p>
+        <p><strong>المعلن:</strong> ${ad.contact_name || ''}</p>
+        <p><strong>التواصل:</strong> ${ad.contact_phone || ''}</p>
+      </div>
+    `;
+
+    if (empty) {
+      host.insertBefore(card, empty);
+    } else {
+      host.appendChild(card);
+    }
+  });
+
+  if (data?.length && empty) {
+    empty.style.display = 'none';
+  }
+}
+
+loadPublishedAds();
 </script>
 
 </body>
