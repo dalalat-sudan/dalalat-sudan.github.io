@@ -2147,5 +2147,165 @@
 
   </script>
 
-</body>
+<!-- ===== تواصل معنا ===== -->
+<section class="contact-section">
+  <div class="contact-box">
+    <h2>تواصل معنا</h2>
+    <p>يسعدنا تواصلك معنا في أي وقت</p>
+
+    <div class="contact-buttons">
+
+      <a class="contact-btn whatsapp"
+         href="https://wa.me/249123047479"
+         target="_blank">
+        📱 واتساب 0123047479
+      </a>
+
+      <a class="contact-btn whatsapp"
+         href="https://wa.me/249917647479"
+         target="_blank">
+        📱 واتساب 0917647479
+      </a>
+
+      <a class="contact-btn email"
+         href="mailto:abadrhman9096@gmail.com">
+        ✉️ البريد الإلكتروني
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== حركة الهاتف أثناء التمرير ===== -->
+<div class="floating-phone" id="floatingPhone">
+  📱
+</div>
+
+<style>
+/* قسم التواصل */
+.contact-section {
+  padding: 55px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #075c3b, #0b7a50);
+  color: white;
+}
+
+.contact-box {
+  max-width: 700px;
+  margin: auto;
+}
+
+.contact-box h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.contact-box p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.contact-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 230px;
+  padding: 15px 22px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.contact-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+.whatsapp {
+  background: #25D366;
+  color: white;
+}
+
+.email {
+  background: #e8bb43;
+  color: #073b2a;
+}
+
+/* الهاتف المتحرك */
+.floating-phone {
+  position: fixed;
+  left: 18px;
+  bottom: 22px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #e8bb43;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 5px 18px rgba(0,0,0,.3);
+  z-index: 9999;
+  animation: phoneFloat 2s ease-in-out infinite;
+}
+
+@keyframes phoneFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* حركة ناعمة أثناء ظهور العناصر */
+.contact-section {
+  animation: sectionAppear .8s ease;
+}
+
+@keyframes sectionAppear {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* تحسين الهاتف */
+@media (max-width: 600px) {
+  .contact-section {
+    padding: 45px 15px;
+  }
+
+  .contact-box h2 {
+    font-size: 28px;
+  }
+
+  .contact-btn {
+    width: 100%;
+    min-width: 0;
+    font-size: 17px;
+  }
+
+  .floating-phone {
+    width: 52px;
+    height: 52px;
+    font-size: 27px;
+    left: 12px;
+    bottom: 15px;
+  }
+}
+</style></body>
 </html>
