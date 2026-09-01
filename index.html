@@ -2178,7 +2178,7 @@
 
   <div class="floating-phone" id="floatingPhone" style="position:fixed;right:18px;bottom:90px;z-index:99999;font-size:48px;cursor:pointer;">
 </div>
-<style>#floatingPhone::before{content:"📞";}</style>
+<style>#floatingPhone::before{content:"✆";color:white;font-size:32px;font-weight:bold;}</style>
 <script>
 document.getElementById('floatingPhone').style.cursor = 'pointer';
 
@@ -2256,16 +2256,16 @@ document.getElementById('floatingPhone').onclick = function () {
 / المتحرك */
 .floating-phone {
   position: fixed;
-  left: 18px;
-  bottom: 22px;
+  left: 18px !important; right: auto;
+  bottom: 90px;
   width: 65px;
   height: 65px;
   border-radius: 50%;
-  background: #25D366;
+  background: #25D366; border: 3px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  font-size: 32px; color: white;
   box-shadow: 0 5px 18px rgba(0,0,0,.3);
   z-index: 9999;
   animation: phoneFloat 2s ease-in-out infinite;
