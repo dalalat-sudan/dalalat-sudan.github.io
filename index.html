@@ -2175,10 +2175,23 @@
     </div>
   </div>
 </section>
+<div class="floating-phone" id="floatingPhone">
+🟢
+</div>
 
-<!<div class="floating-phone" id="floatingPhone">
-  📱
-</div>-- ===== حركة الهاتف أثناء التمرير ===== -->
+<script>
+document.getElementById('floatingPhone').style.cursor = 'pointer';
+
+document.getElementById('floatingPhone').onclick = function () {
+    const whatsapp = document.querySelector(
+        'a[href*="wa.me"], a[href*="whatsapp.com"]'
+    );
+
+    if (whatsapp) {
+        window.location.href = whatsapp.href;
+    }
+};
+</script>
 
 
 <style>
