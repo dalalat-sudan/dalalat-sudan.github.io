@@ -2312,21 +2312,7 @@ document.getElementById('floatingPhone').onclick = function () {
     font-size: 17px;
   }
 
-.floating-phone {
-  width: 52px;
-  height: 52px;
-  font-size: 27px;
-  position: fixed;
-  left: 15px;
-  right: auto;
-  bottom: 15px;
-  background: #0f8f5b;
-  color: white;
-  border: 2px solid white;
-  border-radius: 50%;
-  z-index: 9999;
-  }
-    
+
     
     
     
@@ -2339,20 +2325,22 @@ document.getElementById('floatingPhone').onclick = function () {
     
   
 .floating-phone {
-  position: fixed;
-  left: 15px;
-  bottom: 15px;
-  width: 52px;
-  height: 52px;
-  background: #0f8f5b;
-  color: white;
-  border: 2px solid white;
+  position: fixed !important;
+  left: 15px !important;
+  right: auto !important;
+  bottom: 15px !important;
+  width: 56px;
+  height: 56px;
+  background: #e60000 !important;
+  color: #ffffff !important;
+  border: 3px solid #ffffff;
   border-radius: 50%;
+  font-size: 29px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 27px;
   z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
   }
 </style></body>
 </html>
