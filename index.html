@@ -522,7 +522,73 @@
         grid-column: auto;
       }
     }
-  </style>
+ .featured-ads{
+  padding:22px 16px;
+  background:#fff;
+}
+
+.featured-title{
+  font-size:26px;
+  font-weight:900;
+  color:#075c3b;
+  margin-bottom:4px;
+}
+
+.featured-sub{
+  color:#777;
+  margin-bottom:16px;
+}
+
+.featured-slider{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding:6px 2px 14px;
+}
+
+.featured-slider::-webkit-scrollbar{
+  display:none;
+}
+
+.featured-card{
+  min-width:82%;
+  min-height:170px;
+  border-radius:22px;
+  padding:24px 20px;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:10px;
+  scroll-snap-align:center;
+  box-shadow:0 8px 22px rgba(0,0,0,.20);
+}
+
+.featured-card span{
+  font-size:18px;
+  font-weight:800;
+}
+
+.featured-card strong{
+  font-size:25px;
+}
+
+.featured-card small{
+  font-size:16px;
+}
+
+.featured-red{
+  background:linear-gradient(135deg,#ff1744,#d50000);
+}
+
+.featured-gold{
+  background:linear-gradient(135deg,#ffb300,#ff6f00);
+}
+
+.featured-purple{
+  background:linear-gradient(135deg,#7c4dff,#d500f9);
+    } </style>
 </head>
 
 <body>
@@ -637,7 +703,30 @@
       جاري تحميل الإعلانات...
     </div>
 
+<section class="featured-ads">
+  <div class="featured-title">🔥 إعلانات مميزة</div>
+  <div class="featured-sub">صور وفيديوهات وعروض تستحق المشاهدة</div>
 
+  <div class="featured-slider">
+    <div class="featured-card featured-red">
+      <span>🔥 عرض اليوم</span>
+      <strong>إعلانات وعروض مميزة</strong>
+      <small>اكتشف أحدث العروض</small>
+    </div>
+
+    <div class="featured-card featured-gold">
+      <span>📸 إعلان بالصور</span>
+      <strong>منتجات وخدمات جديدة</strong>
+      <small>صور واضحة وألوان جذابة</small>
+    </div>
+
+    <div class="featured-card featured-purple">
+      <span>▶️ فيديو مميز</span>
+      <strong>شاهد الإعلان بالفيديو</strong>
+      <small>فيديوهات قصيرة ومشوّقة</small>
+    </div>
+  </div>
+</section>
     <div id="ads" class="ads"></div>
 
   </main>
