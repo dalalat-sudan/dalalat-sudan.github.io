@@ -922,7 +922,7 @@
               type="file"
               accept="image/jpeg,image/png,image/webp,image/gif"
               multiple
-              required
+              
             >
 
             <div class="help">
@@ -1813,6 +1813,9 @@
             el('video')
               .files?.[0] ||
             null;
+          if (images.length === 0 && !video) {
+  throw new Error('يرجى إضافة صورة أو فيديو واحد على الأقل.');
+    }
 
 
           if (
