@@ -703,7 +703,7 @@
       جاري تحميل الإعلانات...
     </div>
 
-<section class="featured-ads">
+<section class="featured-ads" id="adminFeaturedAds" style="display:none;">
   <div class="featured-title">🔥 إعلانات مميزة</div>
   <div class="featured-sub">صور وفيديوهات وعروض تستحق المشاهدة</div>
 
@@ -1008,7 +1008,30 @@
         SUPABASE_URL,
         SUPABASE_KEY
       );
+const ADMIN_URL = 'https://xzzzctvtgubqndikthrv.supabase.co';
+const ADMIN_KEY = 'sb_publishable_xUziBPa4puopoE6sMBV70Q_WvmcUVrH';
 
+const adminDb = window.supabase.createClient(
+  ADMIN_URL,
+  ADMIN_KEY
+);
+
+async function checkAdmin() {
+  const { data } = await adminDb.auth.getSession();
+  const box = document.getElementById('adminFeaturedAds');
+
+  if (
+    box &&
+    data.session &&
+    data.session.user.id === '9d63c7ea-55c7-4369-8b9d-d51538f0b33c'
+  ) {
+    box.style.display = 'block';
+  } else if (box) {
+    box.style.display = 'none';
+  }
+}
+
+checkAdmin();
 
     const BUCKET = 'ad-media';
 
