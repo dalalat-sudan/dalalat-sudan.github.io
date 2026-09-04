@@ -1025,29 +1025,78 @@ const adminDb = window.supabase.createClient(
   ADMIN_URL,
   ADMIN_KEY
 );
-
 async function checkAdmin() {
   const { data } = await adminDb.auth.getSession();
+
+  const adminBtn = document.getElementById('adminPanelBtn');
+  const adminPanel = document.getElementById('adminPanel');
   const box = document.getElementById('adminFeaturedAds');
-const adminBtn = document.getElementById('adminPanelBtn');
-if (data && data.session) {
-  if (box) box.style.display = 'block';
-  if (adminBtn) adminBtn.style.display = 'block';
-} else {
-  if (box) box.style.display = 'none';
-  if (adminBtn) adminBtn.style.display = 'none';
-    } 
-  
+
+  const loggedIn = !!data?.session;
+
+  if (adminBtn) {
+    adminBtn.style.display = 'block';
+    adminBtn.textContent = loggedIn
+      ? '⚙️ لوحة الإدارة'
+      : '🔐 دخول الإدارة';
+  }
+
+  if (!loggedIn) {
+    if (adminPanel) adminPanel.style.display = 'none';
+    if (box) box.style.display = 'none';
+  }
 }
 
 checkAdmin();
-    const adminPanel = document.getElementById('adminPanel');
-document.getElementById('adminPanelBtn').addEventListener('click', () => {
-  adminPanel.style.display = 'block';
-});
-    document.getElementById('closeAdminPanel').addEventListener('click', () => {
-  adminPanel.style.display = 'none';
-});
+
+const adminPanel = document.getElementById('adminPanel');
+const adminPanelBtn = document.getElementById('adminPanelBtn');
+const closeAdminPanel = document.getElementById('closeAdminPanel');
+
+if (adminPanelBtn) {
+  adminPanelBtn.addEventListener('click', async () => {
+
+    const { data } = await adminDb.auth.getSession();
+
+    if (!data?.session) {
+      const email = prompt('أدخل بريد الإدارة');
+      if (!email) return;
+
+      const password = prompt('أدخل كلمة مرور الإدارة');
+      if (!password) return;
+
+      const { error } = await adminDb.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        alert('البريد أو كلمة المرور غير صحيحة');
+        return;
+      }
+    }
+
+    const box = document.getElementById('adminFeaturedAds');
+
+    if (box && adminPanel) {
+      adminPanel.appendChild(box);
+      box.style.display = 'block';
+    }
+
+    if (adminPanel) adminPanel.style.display = 'block';
+
+    checkAdmin();
+  });
+}
+
+if (closeAdminPanel) {
+  closeAdminPanel.addEventListener('click', () => {
+    adminPanel.style.display = 'none';
+  });
+    }
+    
+  
+
     const BUCKET = 'ad-media';
 
     const MAX_FILE_SIZE =
