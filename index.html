@@ -643,7 +643,9 @@
 
 
   <main class="section">
-
+<button id="adminPanelBtn" type="button" style="display:none; width:100%; margin:0 0 18px; padding:14px; border:0; border-radius:14px; background:#0b6b4b; color:white; font-size:18px; font-weight:bold;">
+⚙️ لوحة الإدارة
+</button>
     <h3>الإعلانات</h3>
 
     <p class="section-sub">
@@ -725,9 +727,17 @@
       <strong>شاهد الإعلان بالفيديو</strong>
       <small>فيديوهات قصيرة ومشوّقة</small>
     </div>
+    
+  
+  
+    
   </div>
 </section>
     <div id="ads" class="ads"></div>
+    <section id="adminPanel" style="display:none;">
+  <h2>⚙️ لوحة الإدارة</h2>
+  <button id="closeAdminPanel" type="button">إغلاق</button>
+    </section>
 
   </main>
 
@@ -1019,20 +1029,28 @@ const adminDb = window.supabase.createClient(
 async function checkAdmin() {
   const { data } = await adminDb.auth.getSession();
   const box = document.getElementById('adminFeaturedAds');
-
+const adminBtn = document.getElementById('adminPanelBtn');
   if (
     box &&
     data.session &&
     data.session.user.id === '9d63c7ea-55c7-4369-8b9d-d51538f0b33c'
   ) {
     box.style.display = 'block';
+    if (adminBtn) adminBtn.style.display = 'block';
   } else if (box) {
     box.style.display = 'none';
+    if (adminBtn) adminBtn.style.display = 'none';
   }
 }
 
 checkAdmin();
-
+    const adminPanel = document.getElementById('adminPanel');
+document.getElementById('adminPanelBtn').addEventListener('click', () => {
+  adminPanel.style.display = 'block';
+});
+    document.getElementById('closeAdminPanel').addEventListener('click', () => {
+  adminPanel.style.display = 'none';
+});
     const BUCKET = 'ad-media';
 
     const MAX_FILE_SIZE =
