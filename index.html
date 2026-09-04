@@ -1048,7 +1048,22 @@ async function checkAdmin() {
 }
 
 checkAdmin();
+adminDb.auth.onAuthStateChange(async (event, session) => {
+  if (event === 'PASSWORD_RECOVERY') {
+    const newPassword = prompt('اكتب كلمة مرور الإدارة الجديدة');
+    if (!newPassword) return;
 
+    const { error } = await adminDb.auth.updateUser({
+      password: newPassword
+    });
+
+    if (error) {
+      alert('فشل تغيير كلمة المرور: ' + error.message);
+    } else {
+      alert('تم تغيير كلمة مرور الإدارة بنجاح ✅');
+    }
+  }
+});
 const adminPanel = document.getElementById('adminPanel');
 const adminPanelBtn = document.getElementById('adminPanelBtn');
 const closeAdminPanel = document.getElementById('closeAdminPanel');
