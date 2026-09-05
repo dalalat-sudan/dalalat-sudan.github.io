@@ -2402,7 +2402,8 @@ if (closeAdminPanel) {
         <input id="adminPassword" type="password"
                autocomplete="current-password"
                placeholder="كلمة مرور الإدارة">
-      </div>
+      
+      <button type="button" onclick="const p=document.getElementById('adminPassword');p.type=p.type==='password'?'text':'password';this.textContent=p.type==='password'?'👁 إظهار كلمة المرور':'🙈 إخفاء كلمة المرور';">👁 إظهار كلمة المرور</button></div>
 
       <button class="publish" id="adminLoginBtn" type="button">
         دخول
@@ -2484,7 +2485,7 @@ if (adminLoginBtn) {
       }
 
       adminLoginMsg.textContent = "✅ تم تسجيل الدخول";
-      adminModal.style.display = "none";
+      adminLoginModal.classList.remove("open");
 document.body.style.overflow = ""; setTimeout(() => promoAdminPanel.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
 
     } catch (err) {
