@@ -671,9 +671,13 @@
     
   </div>
  </section>
-    <button id="adminPanelBtn" type="button" style="display:none;">id="adminPanelBtn" type="button" style="display:none; width:100%; margin:0 0 18px; padding:14px; border:0; border-radius:14px; background:#0b6b4b; color:white; font-size:18px; font-weight:bold;">
-⚙️ لوحة الإدارة
-  </button>
+    
+
+
+
+      
+
+  
     <h3>الإعلانات</h3>
 
     <p class="section-sub">
@@ -2341,7 +2345,72 @@ if (closeAdminPanel) {
     loadAds();
 
   </script>
+<!-- أدوات الدعاية: مخفية تمامًا إلا عن حساب الإدارة المعتمد في Supabase -->
+<section class="promo-admin-panel" id="promoAdminPanel" hidden>
+  <div class="promo-admin-box">
+    <div class="promo-admin-title">🔐 إدارة الدعاية المميزة</div>
+    <div class="promo-admin-note">هذه الأدوات لا تعمل إلا لحساب الإدارة المعتمد.</div>
 
+    <div class="promo-admin-actions">
+      <button class="promo-admin-btn" id="promoImageBtn" type="button">
+        📷 دعاية صورة
+      </button>
+
+      <button class="promo-admin-btn" id="promoVideoBtn" type="button">
+        🎥 دعاية فيديو
+      </button>
+    </div>
+
+    <input id="promoImageInput" type="file"
+           accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+
+    <input id="promoVideoInput" type="file"
+           accept="video/mp4,video/webm,video/quicktime" hidden>
+
+    <div class="promo-admin-status" id="promoAdminStatus"></div>
+  </div>
+</section>
+
+<div class="admin-login-wrap">
+  <button class="admin-login-link" id="adminLoginOpen" type="button">
+    🔐 دخول الإدارة
+  </button>
+</div>
+
+<div class="modal" id="adminLoginModal">
+  <div class="panel admin-login-panel">
+
+    <div class="panel-head">
+      <h3>دخول الإدارة</h3>
+      <button class="close" id="adminLoginClose" type="button" aria-label="إغلاق">
+        ×
+      </button>
+    </div>
+
+    <div class="form admin-login-form">
+
+      <div class="full">
+        <label for="adminEmail">البريد الإلكتروني</label>
+        <input id="adminEmail" type="email"
+               autocomplete="username"
+               placeholder="بريد حساب الإدارة">
+      </div>
+
+      <div class="full">
+        <label for="adminPassword">كلمة المرور</label>
+        <input id="adminPassword" type="password"
+               autocomplete="current-password"
+               placeholder="كلمة مرور الإدارة">
+      </div>
+
+      <button class="publish" id="adminLoginBtn" type="button">
+        دخول
+      </button>
+
+      <div class="form-msg" id="adminLoginMsg"></div>
+    </div>
+  </div>
+  </div>
 <!-- ===== تواصل معنا ===== -->
 <section class="contact-section">
   <div class="contact-box">
