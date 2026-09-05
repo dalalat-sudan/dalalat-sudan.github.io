@@ -2474,7 +2474,7 @@ if (adminLoginBtn) {
       }
 
       if (email.toLowerCase() !== "abadrhman9096@gmail.com") {
-        await supabase.auth.signOut();
+        await adminDb.auth.signOut();
         adminLoginMsg.textContent = "❌ هذا الحساب ليس حساب الإدارة";
         return;
       }
