@@ -2439,6 +2439,61 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 });
+    const adminLoginBtn = document.getElementById("adminLoginBtn");
+const adminEmail = document.getElementById("adminEmail");
+const adminPassword = document.getElementById("adminPassword");
+const adminLoginMsg = document.getElementById("adminLoginMsg");
+const promoAdminPanel = document.getElementById("promoAdminPanel");
+
+if (adminLoginBtn) {
+  adminLoginBtn.addEventListener("click", async function () {
+
+    const email = adminEmail.value.trim();
+    const password = adminPassword.value;
+
+    adminLoginMsg.textContent = "";
+
+    if (!email || !password) {
+      adminLoginMsg.textContent = "❌ اكتب البريد وكلمة المرور";
+      return;
+    }
+
+    adminLoginBtn.disabled = true;
+    adminLoginBtn.textContent = "جاري الدخول...";
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+        adminLoginMsg.textContent = "❌ البريد أو كلمة المرور غير صحيحة";
+        return;
+      }
+
+      if (email.toLowerCase() !== "abadrhman9096@gmail.com") {
+        await supabase.auth.signOut();
+        adminLoginMsg.textContent = "❌ هذا الحساب ليس حساب الإدارة";
+        return;
+      }
+
+      if (promoAdminPanel) {
+        promoAdminPanel.hidden = false;
+      }
+
+      adminLoginMsg.textContent = "✅ تم تسجيل الدخول";
+      adminModal.style.display = "none";
+
+    } catch (err) {
+      adminLoginMsg.textContent = "❌ حدث خطأ أثناء تسجيل الدخول";
+    } finally {
+      adminLoginBtn.disabled = false;
+      adminLoginBtn.textContent = "دخول";
+    }
+  });
+    }
+    });
   </script>
 <!-- ===== تواصل معنا ===== -->
 <section class="contact-section">
