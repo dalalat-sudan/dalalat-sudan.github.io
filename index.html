@@ -2419,85 +2419,136 @@ document.addEventListener("DOMContentLoaded", function () {
   const adminOpen = document.getElementById("adminLoginOpen");
   const adminModal = document.getElementById("adminLoginModal");
   const adminClose = document.getElementById("adminLoginClose");
+  const adminLoginBtn = document.getElementById("adminLoginBtn");
+  const adminEmail = document.getElementById("adminEmail");
+  const adminPassword = document.getElementById("adminPassword");
+  const adminLoginMsg = document.getElementById("adminLoginMsg");
+  const promoAdminPanel = document.getElementById("promoAdminPanel");
 
+  // فتح نافذة الإدارة
   if (adminOpen && adminModal) {
     adminOpen.addEventListener("click", function () {
       adminModal.style.display = "flex";
+      document.body.style.overflow = "hidden";
     });
   }
 
+  // زر X
   if (adminClose && adminModal) {
     adminClose.addEventListener("click", function () {
       adminModal.style.display = "none";
+      document.body.style.overflow = "";
     });
   }
 
+  // إغلاق النافذة عند الضغط خارجها
   if (adminModal) {
     adminModal.addEventListener("click", function (e) {
       if (e.target === adminModal) {
         adminModal.style.display = "none";
+        document.body.style.overflow = "";
       }
     });
   }
 
-});
-    const adminLoginBtn = document.getElementById("adminLoginBtn");
-const adminEmail = document.getElementById("adminEmail");
-const adminPassword = document.getElementById("adminPassword");
-const adminLoginMsg = document.getElementById("adminLoginMsg");
-const promoAdminPanel = document.getElementById("promoAdminPanel");
+  // تسجيل دخول الإدارة
+  if (adminLoginBtn && adminEmail && adminPassword) {
 
-if (adminLoginBtn) {
-  adminLoginBtn.addEventListener("click", async function () {
+    adminLoginBtn.addEventListener("click", async function () {
 
-    const email = adminEmail.value.trim();
-    const password = adminPassword.value;
+      const email = adminEmail.value.trim().toLowerCase();
+      const password = adminPassword.value;
 
-    adminLoginMsg.textContent = "";
+      if (adminLoginMsg) {
+        adminLoginMsg.textContent = "";
+      }
 
-    if (!email || !password) {
-      adminLoginMsg.textContent = "❌ اكتب البريد وكلمة المرور";
-      return;
-    }
-
-    adminLoginBtn.disabled = true;
-    adminLoginBtn.textContent = "جاري الدخول...";
-
-    try {
-      const { data, error } = await adminDb.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
-
-      if (error) {
-        adminLoginMsg.textContent = "❌ البريد أو كلمة المرور غير صحيحة";
+      if (!email || !password) {
+        if (adminLoginMsg) {
+          adminLoginMsg.textContent = "❌ اكتب البريد وكلمة المرور";
+        }
         return;
       }
 
-      if (email.toLowerCase() !== "abadrhman9096@gmail.com") {
-        await adminDb.auth.signOut();
-        adminLoginMsg.textContent = "❌ هذا الحساب ليس حساب الإدارة";
-        return;
+      adminLoginBtn.disabled = true;
+      adminLoginBtn.textContent = "جاري الدخول...";
+
+      try {
+
+        const { data, error } =
+          await adminDb.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
+
+        if (error) {
+          if (adminLoginMsg) {
+            adminLoginMsg.textContent =
+              "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة";
+          }
+          return;
+        }
+
+        // السماح لحساب الإدارة فقط
+        if (email !== "abadrhman9096@gmail.com") {
+
+          await adminDb.auth.signOut();
+
+          if (adminLoginMsg) {
+            adminLoginMsg.textContent =
+              "❌ هذا الحساب ليس حساب الإدارة";
+          }
+
+          return;
+        }
+
+        if (promoAdminPanel) {
+          promoAdminPanel.hidden = false;
+          promoAdminPanel.style.display = "block";
+        }
+
+        if (adminLoginMsg) {
+          adminLoginMsg.textContent = "✅ تم تسجيل الدخول";
+        }
+
+        if (adminModal) {
+          adminModal.style.display = "none";
+        }
+
+        document.body.style.overflow = "";
+
+        setTimeout(function () {
+          if (promoAdminPanel) {
+            promoAdminPanel.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+          }
+        }, 300);
+
+      } catch (err) {
+
+        console.error(err);
+
+        if (adminLoginMsg) {
+          adminLoginMsg.textContent =
+            "❌ حدث خطأ أثناء تسجيل الدخول";
+        }
+
+      } finally {
+
+        adminLoginBtn.disabled = false;
+        adminLoginBtn.textContent = "دخول";
+
       }
 
-      if (promoAdminPanel) {
-        promoAdminPanel.hidden = false;
-      }
-
-      adminLoginMsg.textContent = "✅ تم تسجيل الدخول";
-    document.getElementById("adminLoginModal").style.display = "none";
-document.body.style.overflow = ""; setTimeout(() => promoAdminPanel.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
-
-    } catch (err) {
-      adminLoginMsg.textContent = "❌ حدث خطأ أثناء تسجيل الدخول";
-    } finally {
-      adminLoginBtn.disabled = false;
-      adminLoginBtn.textContent = "دخول";
-    }
-  });
-    }
     });
+  }
+
+});
   </script>
+
+      
 <!-- ===== تواصل معنا ===== -->
 <section class="contact-section">
   <div class="contact-box">
