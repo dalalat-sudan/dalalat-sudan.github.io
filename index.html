@@ -643,7 +643,7 @@
 
 
   <main class="section">
- <section class="featured-ads" id="adminFeaturedAds" style="display:none;">
+ <section class="featured-ads" id="adminFeaturedAds">
   <div class="featured-title">🔥 إعلانات مميزة</div>
   <div class="featured-sub">صور وفيديوهات وعروض تستحق المشاهدة</div>
 
@@ -1044,7 +1044,7 @@ async function checkAdmin() {
 
   if (!loggedIn) {
     if (adminPanel) adminPanel.style.display = 'none';
-    if (box) box.style.display = 'none';
+    
   }
 }
 
