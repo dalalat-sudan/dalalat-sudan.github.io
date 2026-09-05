@@ -2485,6 +2485,7 @@ if (adminLoginBtn) {
 
       adminLoginMsg.textContent = "✅ تم تسجيل الدخول";
       adminModal.style.display = "none";
+document.body.style.overflow = ""; setTimeout(() => promoAdminPanel.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
 
     } catch (err) {
       adminLoginMsg.textContent = "❌ حدث خطأ أثناء تسجيل الدخول";
