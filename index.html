@@ -2411,6 +2411,35 @@ if (closeAdminPanel) {
     </div>
   </div>
   </div>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const adminOpen = document.getElementById("adminLoginOpen");
+  const adminModal = document.getElementById("adminLoginModal");
+  const adminClose = document.getElementById("adminLoginClose");
+
+  if (adminOpen && adminModal) {
+    adminOpen.addEventListener("click", function () {
+      adminModal.style.display = "flex";
+    });
+  }
+
+  if (adminClose && adminModal) {
+    adminClose.addEventListener("click", function () {
+      adminModal.style.display = "none";
+    });
+  }
+
+  if (adminModal) {
+    adminModal.addEventListener("click", function (e) {
+      if (e.target === adminModal) {
+        adminModal.style.display = "none";
+      }
+    });
+  }
+
+});
+  </script>
 <!-- ===== تواصل معنا ===== -->
 <section class="contact-section">
   <div class="contact-box">
