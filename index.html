@@ -1023,8 +1023,9 @@
         SUPABASE_URL,
         SUPABASE_KEY
       );
-const ADMIN_URL = 'https://xzzzctvtgubqndikthrv.supabase.co';
-const ADMIN_KEY = 'sb_publishable_xUziBPa4puopoE6sMBV70Q_WvmcUVrH';
+const ADMIN_URL = SUPABASE_URL;
+const ADMIN_KEY = SUPABASE_KEY;
+
 
 const adminDb = window.supabase.createClient(
   ADMIN_URL,
