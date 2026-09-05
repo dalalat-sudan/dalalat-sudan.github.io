@@ -2485,7 +2485,7 @@ if (adminLoginBtn) {
       }
 
       adminLoginMsg.textContent = "✅ تم تسجيل الدخول";
-      adminLoginModal.classList.remove("open");
+    adminLoginModal.style.display = "none";
 document.body.style.overflow = ""; setTimeout(() => promoAdminPanel.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
 
     } catch (err) {
