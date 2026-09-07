@@ -2390,7 +2390,7 @@ if (promoVideoBtn && promoVideoInput) {
 }
  </script>
  <script>
-  const adminFeaturedMedia = document.getElementById("adminFeaturedMedia");
+  const adminFeaturedMedia = document.getElementById("adminFeaturedMedia") || document.querySelector(".featured-slider");
 
 promoImageInput.addEventListener("change", function () {
   const file = this.files && this.files[0];
@@ -2398,11 +2398,11 @@ promoImageInput.addEventListener("change", function () {
 
   const url = URL.createObjectURL(file);
 
-  adminFeaturedMedia.innerHTML = `
+  adminFeaturedMedia.insertAdjacentHTML("beforeend", `
     <div class="featured-card">
       <img src="${url}" style="width:100%;max-height:350px;object-fit:cover;border-radius:16px;">
     </div>
-  `;
+  `);
 });
 
 promoVideoInput.addEventListener("change", function () {
@@ -2411,12 +2411,12 @@ promoVideoInput.addEventListener("change", function () {
 
   const url = URL.createObjectURL(file);
 
-  adminFeaturedMedia.innerHTML = `
+  adminFeaturedMedia.insertAdjacentHTML("beforeend", `
     <div class="featured-card">
       <video src="${url}" controls playsinline
         style="width:100%;max-height:350px;border-radius:16px;"></video>
     </div>
-  `;
+  `);
 });
    </script>
 <div class="admin-login-wrap">
