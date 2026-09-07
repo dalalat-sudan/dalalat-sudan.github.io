@@ -2388,7 +2388,37 @@ if (promoVideoBtn && promoVideoInput) {
     promoVideoInput.click();
   });
 }
-</script>
+ </script>
+ <script>
+  const adminFeaturedMedia = document.getElementById("adminFeaturedMedia");
+
+promoImageInput.addEventListener("change", function () {
+  const file = this.files && this.files[0];
+  if (!file || !adminFeaturedMedia) return;
+
+  const url = URL.createObjectURL(file);
+
+  adminFeaturedMedia.innerHTML = `
+    <div class="featured-card">
+      <img src="${url}" style="width:100%;max-height:350px;object-fit:cover;border-radius:16px;">
+    </div>
+  `;
+});
+
+promoVideoInput.addEventListener("change", function () {
+  const file = this.files && this.files[0];
+  if (!file || !adminFeaturedMedia) return;
+
+  const url = URL.createObjectURL(file);
+
+  adminFeaturedMedia.innerHTML = `
+    <div class="featured-card">
+      <video src="${url}" controls playsinline
+        style="width:100%;max-height:350px;border-radius:16px;"></video>
+    </div>
+  `;
+});
+   </script>
 <div class="admin-login-wrap">
   <button class="admin-login-link" id="adminLoginOpen" type="button" onclick="document.getElementById('adminLoginModal').style.display='flex'">
     🔐 دخول الإدارة
