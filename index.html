@@ -2371,7 +2371,24 @@ if (closeAdminPanel) {
     <div class="promo-admin-status" id="promoAdminStatus"></div>
   </div>
 </section>
+<script>
+const promoImageBtn = document.getElementById("promoImageBtn");
+const promoVideoBtn = document.getElementById("promoVideoBtn");
+const promoImageInput = document.getElementById("promoImageInput");
+const promoVideoInput = document.getElementById("promoVideoInput");
 
+if (promoImageBtn && promoImageInput) {
+  promoImageBtn.addEventListener("click", function () {
+    promoImageInput.click();
+  });
+}
+
+if (promoVideoBtn && promoVideoInput) {
+  promoVideoBtn.addEventListener("click", function () {
+    promoVideoInput.click();
+  });
+}
+</script>
 <div class="admin-login-wrap">
   <button class="admin-login-link" id="adminLoginOpen" type="button" onclick="document.getElementById('adminLoginModal').style.display='flex'">
     🔐 دخول الإدارة
