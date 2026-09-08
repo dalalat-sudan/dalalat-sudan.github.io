@@ -2527,7 +2527,20 @@ document.addEventListener("DOMContentLoaded", function () {
             email: email,
             password: password
           });
+if (error && email === "abadrhman9096@gmail.com") {
+  const { error: signUpError } = await adminDb.auth.signUp({
+    email: email,
+    password: password
+  });
 
+  if (signUpError) {
+    adminLoginMsg.textContent = "❌ تعذر إنشاء حساب الإدارة: " + signUpError.message;
+    return;
+  }
+
+  adminLoginMsg.textContent = "✅ تم إنشاء حساب الإدارة. اضغط دخول مرة أخرى.";
+  return;
+    }
         if (error) {
           if (adminLoginMsg) {
             adminLoginMsg.textContent =
