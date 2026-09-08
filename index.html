@@ -1565,7 +1565,7 @@ if (closeAdminPanel) {
                     whatsappButton +
 
                     emailButton +
-
+'<button class="delete-ad-btn" data-ad-id="' + ad.id + '">🗑 حذف الإعلان</button>' +
                   '</div>' +
 
                 '</div>' +
@@ -1578,7 +1578,40 @@ if (closeAdminPanel) {
           .join('');
 
     }
+adsBox.addEventListener('click', async function (e) {
+  const deleteBtn = e.target.closest('.delete-ad-btn');
+  if (!deleteBtn) return;
 
+  const { data: sessionData } = await adminDb.auth.getSession();
+  const user = sessionData?.session?.user;
+
+  if (!user || user.email !== 'abadrhman9096@gmail.com') {
+    alert('❌ الحذف متاح للإدارة فقط');
+    return;
+  }
+
+  const adId = deleteBtn.dataset.adId;
+
+  if (!confirm('هل تريد حذف هذا الإعلان نهائياً؟')) return;
+
+  deleteBtn.disabled = true;
+  deleteBtn.textContent = 'جاري الحذف...';
+
+  const { error } = await adminDb
+    .from('ads')
+    .delete()
+    .eq('id', adId);
+
+  if (error) {
+    alert('❌ فشل حذف الإعلان: ' + error.message);
+    deleteBtn.disabled = false;
+    deleteBtn.textContent = '🗑 حذف الإعلان';
+    return;
+  }
+
+  alert('✅ تم حذف الإعلان');
+  await loadAds();
+});
 
     async function loadAds() {
 
