@@ -2424,34 +2424,35 @@ if (promoVideoBtn && promoVideoInput) {
  </script>
  <script>
   const adminFeaturedMedia = document.getElementById("adminFeaturedMedia") || document.querySelector(".featured-slider");
-
+const featuredImageSlot = document.getElementById('featuredImageSlot');
+const featuredVideoSlot = document.getElementById('featuredVideoSlot');
 promoImageInput.addEventListener("change", function () {
   const file = this.files && this.files[0];
-  if (!file || !adminFeaturedMedia) return;
+  if (!file || !featuredImageSlot) return;
 
   const url = URL.createObjectURL(file);
 
-  adminFeaturedMedia.insertAdjacentHTML("beforeend", `
+  featuredImageSlot.innerHTML = `
     <div class="featured-card">
       <img src="${url}" style="width:100%;max-height:350px;object-fit:cover;border-radius:16px;">
     <button type="button" class="delete-featured-btn">🗑 حذف الدعاية</button></div>
-  `);
+`;
 });
 
 promoVideoInput.addEventListener("change", function () {
   const file = this.files && this.files[0];
-  if (!file || !adminFeaturedMedia) return;
+  if (!file || !featuredVideoSlot) return;
 
   const url = URL.createObjectURL(file);
 
-  adminFeaturedMedia.insertAdjacentHTML("beforeend", `
+  featuredVideoSlot.innerHTML = `
     <div class="featured-card">
       <video src="${url}" controls playsinline
         style="width:100%;max-height:350px;border-radius:16px;"></video>
     <button type="button" class="delete-featured-btn">🗑 حذف الدعاية</button></div>
-  `);
+  `;
 });
-   adminFeaturedMedia.addEventListener('click', function (e) {
+   document.addEventListener('click', async function (e) {
   const btn = e.target.closest('.delete-featured-btn');
   if (!btn) return;
 
