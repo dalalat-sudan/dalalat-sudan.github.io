@@ -2434,7 +2434,7 @@ promoImageInput.addEventListener("change", function () {
   adminFeaturedMedia.insertAdjacentHTML("beforeend", `
     <div class="featured-card">
       <img src="${url}" style="width:100%;max-height:350px;object-fit:cover;border-radius:16px;">
-    </div>
+    <button type="button" class="delete-featured-btn">🗑 حذف الدعاية</button></div>
   `);
 });
 
@@ -2448,10 +2448,18 @@ promoVideoInput.addEventListener("change", function () {
     <div class="featured-card">
       <video src="${url}" controls playsinline
         style="width:100%;max-height:350px;border-radius:16px;"></video>
-    </div>
+    <button type="button" class="delete-featured-btn">🗑 حذف الدعاية</button></div>
   `);
 });
-   </script>
+   adminFeaturedMedia.addEventListener('click', function (e) {
+  const btn = e.target.closest('.delete-featured-btn');
+  if (!btn) return;
+
+  if (!confirm('هل تريد حذف هذه الدعاية؟')) return;
+
+  const card = btn.closest('.featured-card');
+  if (card) card.remove();
+});</script>
 <div class="admin-login-wrap">
   <button class="admin-login-link" id="adminLoginOpen" type="button" onclick="document.getElementById('adminLoginModal').style.display='flex'">
     🔐 دخول الإدارة
