@@ -2404,11 +2404,14 @@ adsBox.addEventListener('click', async function (e) {
     <div class="promo-admin-status" id="promoAdminStatus"></div>
   </div>
 </section>
+
 <script>
 const promoImageBtn = document.getElementById("promoImageBtn");
 const promoVideoBtn = document.getElementById("promoVideoBtn");
 const promoImageInput = document.getElementById("promoImageInput");
 const promoVideoInput = document.getElementById("promoVideoInput");
+
+ 
 
 if (promoImageBtn && promoImageInput) {
   promoImageBtn.addEventListener("click", function () {
@@ -2452,7 +2455,7 @@ const { data: publicData } = dalalatSupabase
 const url = publicData.publicUrl;
 
 const { error: dbError } = await dalalatSupabase
-  .from('featured_ads')
+  .from('promo_ads')
   .insert({
     media_type: 'image',
     media_url: url,
@@ -2494,7 +2497,7 @@ const { data: publicData } = dalalatSupabase
 
 const url = publicData.publicUrl;
 const { error: dbError } = await dalalatSupabase
-  .from('featured_ads')
+  .from('promo_ads')
   .insert({
     media_type: 'video',
     media_url: url,
