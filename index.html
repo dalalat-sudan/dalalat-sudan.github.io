@@ -2439,7 +2439,7 @@ promoImageInput.addEventListener("change", async function() {
 
 const { error: uploadError } = await dalalatSupabase
   .storage
-  .from('dalalat-media')
+  .from('ad-media')
   .upload(path, file, { contentType: file.type });
 
 if (uploadError) {
@@ -2449,17 +2449,27 @@ if (uploadError) {
 
 const { data: publicData } = dalalatSupabase
   .storage
-  .from('dalalat-media')
+  .from('ad-media')
   .getPublicUrl(path);
 
 const url = publicData.publicUrl;
 
+const { data: { user } } = await dalalatSupabase.auth.getUser();
+
+if (!user) {
+  alert('يجب تسجيل دخول الإدارة أولاً');
+  return;
+}
+
 const { error: dbError } = await dalalatSupabase
   .from('promo_ads')
   .insert({
+    title: 'إعلان مميز',
     media_type: 'image',
     media_url: url,
-    storage_path: path
+    storage_path: path,
+    created_by: user.id,
+    is_active: true
   });
 
 if (dbError) {
@@ -2482,7 +2492,7 @@ promoVideoInput.addEventListener("change", async function() {
 
 const { error: uploadError } = await dalalatSupabase
   .storage
-  .from('dalalat-media')
+  .from('ad-media')
   .upload(path, file, { contentType: file.type });
 
 if (uploadError) {
@@ -2492,7 +2502,7 @@ if (uploadError) {
 
 const { data: publicData } = dalalatSupabase
   .storage
-  .from('dalalat-media')
+  .from('ad-media')
   .getPublicUrl(path);
 
 const url = publicData.publicUrl;
