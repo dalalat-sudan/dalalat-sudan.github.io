@@ -2496,13 +2496,29 @@ const { data: publicData } = dalalatSupabase
   .getPublicUrl(path);
 
 const url = publicData.publicUrl;
+const { data: { user } } = await dalalatSupabase.auth.getUser();
+
+if (!user) {
+  alert('يجب تسجيل دخول الإدارة أولاً');
+  return;
+}
+
 const { error: dbError } = await dalalatSupabase
   .from('promo_ads')
   .insert({
+    title: 'فيديو مميز',
     media_type: 'video',
     media_url: url,
-    storage_path: path
+    storage_path: path,
+    created_by: user.id,
+    is_active: true
   });
+  
+  
+    
+    
+    
+  
 
 if (dbError) {
   alert('فشل حفظ الإعلان: ' + dbError.message);
