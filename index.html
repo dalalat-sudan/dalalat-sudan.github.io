@@ -1377,22 +1377,22 @@ if (closeAdminPanel) {
         filtered
           .map(ad => {
 
-            const media =
-              Array.isArray(ad.media_urls)
-                ? ad.media_urls.filter(Boolean)
-                : [];
+            const media = [];
 
+if (Array.isArray(ad.media_urls)) {
+  media.push(...ad.media_urls.filter(Boolean));
+}
 
-            if (
-              !media.length &&
-              ad.cover_url
-            ) {
-
-              media.push(
-                ad.cover_url
-              );
-
-            }
+[
+  ad.cover_url,
+  ad.image_url,
+  ad.video_url,
+  ad.media_url
+].filter(Boolean).forEach(url => {
+  if (!media.includes(url)) {
+    media.push(url);
+  }
+});
 
 
             let mediaHtml =
