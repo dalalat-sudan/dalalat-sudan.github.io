@@ -588,7 +588,78 @@
 
 .featured-purple{
   background:linear-gradient(135deg,#7c4dff,#d500f9);
-    } </style>
+    }
+
+    /* لوحة قوالب الدعاية المميزة - تظهر للإدارة فقط */
+    .promo-admin-panel[hidden] {
+      display: none !important;
+    }
+
+    .promo-admin-panel {
+      padding: 14px 16px 8px;
+      background: #f4f7f5;
+    }
+
+    .promo-admin-box {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #dfe9e4;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 8px 24px rgba(7, 92, 59, .08);
+    }
+
+    .promo-admin-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 5px;
+    }
+
+    .promo-admin-note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .promo-admin-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .promo-admin-btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 13px 10px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 5px 14px rgba(7, 92, 59, .16);
+    }
+
+    .promo-admin-btn:active {
+      transform: translateY(1px);
+    }
+
+    .promo-admin-status {
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    @media (max-width: 520px) {
+      .promo-admin-actions {
+        grid-template-columns: 1fr 1fr;
+      }
+      .promo-admin-btn {
+        font-size: 14px;
+        padding: 12px 6px;
+      }
+    }
+ </style>
 </head>
 
 <body>
@@ -614,6 +685,32 @@
     </div>
   </header>
 
+
+<!-- أدوات الدعاية: مخفية تمامًا إلا عن حساب الإدارة المعتمد في Supabase -->
+<section class="promo-admin-panel" id="promoAdminPanel" hidden>
+  <div class="promo-admin-box">
+    <div class="promo-admin-title">🔐 إدارة الدعاية المميزة</div>
+    <div class="promo-admin-note">هذه الأدوات لا تعمل إلا لحساب الإدارة المعتمد.</div>
+
+    <div class="promo-admin-actions">
+      <button class="promo-admin-btn" id="promoImageBtn" type="button">
+        📷 دعاية صورة
+      </button>
+
+      <button class="promo-admin-btn" id="promoVideoBtn" type="button">
+        🎥 دعاية فيديو
+      </button>
+    </div>
+
+    <input id="promoImageInput" type="file"
+           accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+
+    <input id="promoVideoInput" type="file"
+           accept="video/mp4,video/webm,video/quicktime" hidden>
+
+    <div class="promo-admin-status" id="promoAdminStatus"></div>
+  </div>
+</section>
 
   <section class="hero">
     <div class="hero-inner">
@@ -2387,31 +2484,6 @@ adsBox.addEventListener('click', async function (e) {
     loadAds();
 
   </script>
-<!-- أدوات الدعاية: مخفية تمامًا إلا عن حساب الإدارة المعتمد في Supabase -->
-<section class="promo-admin-panel" id="promoAdminPanel" hidden>
-  <div class="promo-admin-box">
-    <div class="promo-admin-title">🔐 إدارة الدعاية المميزة</div>
-    <div class="promo-admin-note">هذه الأدوات لا تعمل إلا لحساب الإدارة المعتمد.</div>
-
-    <div class="promo-admin-actions">
-      <button class="promo-admin-btn" id="promoImageBtn" type="button">
-        📷 دعاية صورة
-      </button>
-
-      <button class="promo-admin-btn" id="promoVideoBtn" type="button">
-        🎥 دعاية فيديو
-      </button>
-    </div>
-
-    <input id="promoImageInput" type="file"
-           accept="image/jpeg,image/png,image/webp,image/gif" hidden>
-
-    <input id="promoVideoInput" type="file"
-           accept="video/mp4,video/webm,video/quicktime" hidden>
-
-    <div class="promo-admin-status" id="promoAdminStatus"></div>
-  </div>
-</section>
 
 <script>
 const promoImageBtn = document.getElementById("promoImageBtn");
@@ -2834,23 +2906,42 @@ if (error && email === "abadrhman9096@gmail.com") {
   </div>
 </section>
 
-  <div class="floating-phone" id="floatingPhone" style="position:fixed;right:18px;bottom:90px;z-index:99999;font-size:48px;cursor:pointer;">
-</div>
-<style>#floatingPhone::before{content:"✆";color:white;font-size:32px;font-weight:bold;}</style>
+  <button class="floating-phone" id="floatingPhone" type="button" aria-label="تواصل عبر واتساب" title="تواصل عبر واتساب"></button>
+
 <script>
-document.getElementById('floatingPhone').style.cursor = 'pointer';
+(function () {
+  const floatingPhone = document.getElementById('floatingPhone');
+  const contactSection = document.querySelector('.contact-section');
 
-document.getElementById('floatingPhone').onclick = function () {
-    const whatsapp = document.querySelector(
-        'a[href*="wa.me"], a[href*="whatsapp.com"]'
-    );
+  if (!floatingPhone) return;
 
-    if (whatsapp) {
-        window.location.href = whatsapp.href;
+  floatingPhone.addEventListener('click', function () {
+    const whatsapp = document.querySelector('a[href*="wa.me"], a[href*="whatsapp.com"]');
+    if (whatsapp) window.location.href = whatsapp.href;
+  });
+
+  function setFloatingVisibility(hide) {
+    floatingPhone.classList.toggle('is-hidden', !!hide);
+  }
+
+  if (contactSection && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        setFloatingVisibility(entry.isIntersecting);
+      });
+    }, { threshold: 0.08 });
+    observer.observe(contactSection);
+  } else if (contactSection) {
+    function checkContactVisibility() {
+      const rect = contactSection.getBoundingClientRect();
+      setFloatingVisibility(rect.top < window.innerHeight && rect.bottom > 0);
     }
-};
+    window.addEventListener('scroll', checkContactVisibility, { passive: true });
+    window.addEventListener('resize', checkContactVisibility);
+    checkContactVisibility();
+  }
+})();
 </script>
-
 
 <style>
 /* قسم التواصل */
@@ -2859,6 +2950,7 @@ document.getElementById('floatingPhone').onclick = function () {
   text-align: center;
   background: linear-gradient(135deg, #075c3b, #0b7a50);
   color: white;
+  animation: sectionAppear .8s ease;
 }
 
 .contact-box {
@@ -2911,94 +3003,66 @@ document.getElementById('floatingPhone').onclick = function () {
   color: #073b2a;
 }
 
-/ المتحرك */
+/* زر التواصل العائم: ثابت وصغير ولا يغطي المحتوى */
 .floating-phone {
-  position: fixed;
-  left: 18px !important; right: auto;
-  bottom: 90px;
-  width: 65px;
-  height: 65px;
+  position: fixed !important;
+  left: 20px !important;
+  right: auto !important;
+  bottom: 80px !important;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: 3px solid #fff;
   border-radius: 50%;
-  background: #25D366; border: 3px solid white;
+  background: #e60000;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px; color: white;
-  box-shadow: 0 5px 18px rgba(0,0,0,.3);
   z-index: 9999;
-  animation: phoneFloat 2s ease-in-out infinite;
-  }* الهاتف
-
-@keyframes phoneFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+  cursor: pointer;
+  box-shadow: 0 5px 16px rgba(0,0,0,.30);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .25s ease, visibility .25s ease, box-shadow .25s ease;
+  animation: phonePulse 2.4s ease-in-out infinite;
 }
 
-/* حركة ناعمة أثناء ظهور العناصر */
-.contact-section {
-  animation: sectionAppear .8s ease;
+.floating-phone::before {
+  content: "✆";
+  color: #fff;
+  font-size: 27px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.floating-phone.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes phonePulse {
+  0%, 100% { box-shadow: 0 5px 16px rgba(0,0,0,.30); }
+  50% { box-shadow: 0 5px 16px rgba(0,0,0,.30), 0 0 0 7px rgba(230,0,0,.10); }
 }
 
 @keyframes sectionAppear {
-  from {
-    opacity: 0;
-    transform: translateY(35px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(35px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* تحسين الهاتف */
 @media (max-width: 600px) {
-  .contact-section {
-    padding: 45px 15px;
+  .contact-section { padding: 45px 15px; }
+  .contact-box h2 { font-size: 28px; }
+  .contact-btn { width: 100%; min-width: 0; font-size: 17px; }
+  .floating-phone {
+    left: 18px !important;
+    bottom: 78px !important;
+    width: 50px;
+    height: 50px;
   }
-
-  .contact-box h2 {
-    font-size: 28px;
-  }
-
-  .contact-btn {
-    width: 100%;
-    min-width: 0;
-    font-size: 17px;
-  }
-
-
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-  
-.floating-phone {
-  position: fixed !important;
-  left: 15px !important;
-  right: auto !important;
-  bottom: 15px !important;
-  width: 56px;
-  height: 56px;
-  background: #e60000 !important;
-  color: #ffffff !important;
-  border: 3px solid #ffffff;
-  border-radius: 50%;
-  font-size: 29px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-  }
+  .floating-phone::before { font-size: 25px; }
+}
 </style></body>
 </html>
