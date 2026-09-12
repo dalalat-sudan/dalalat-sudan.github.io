@@ -659,7 +659,97 @@
         padding: 12px 6px;
       }
     }
- </style>
+ 
+
+    .admin-tool-title {
+      margin: 12px 0 9px;
+      font-size: 16px;
+      font-weight: 900;
+      color: #254337;
+    }
+
+    .admin-divider {
+      height: 1px;
+      background: var(--line);
+      margin: 16px 0 12px;
+    }
+
+    .admin-actions-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .admin-secondary-btn,
+    .admin-danger-btn,
+    .edit-ad-btn,
+    .hide-ad-btn,
+    .restore-ad-btn,
+    .delete-ad-btn {
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .admin-secondary-btn,
+    .edit-ad-btn,
+    .hide-ad-btn,
+    .restore-ad-btn {
+      border: 1px solid #b9d6c8;
+      background: #edf8f2;
+      color: var(--green);
+    }
+
+    .admin-danger-btn,
+    .delete-ad-btn {
+      border: 1px solid #efb8b3;
+      background: #fff2f1;
+      color: var(--danger);
+    }
+
+    .admin-small-status {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .hidden-ads-list {
+      margin-top: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .hidden-ads-list[hidden] {
+      display: none !important;
+    }
+
+    .hidden-ad-item {
+      border: 1px solid var(--line);
+      background: #f9fbfa;
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .hidden-ad-title {
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 5px;
+    }
+
+    .hidden-ad-meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 9px;
+    }
+
+    .hidden-ad-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+</style>
 </head>
 
 <body>
@@ -689,26 +779,27 @@
 <!-- أدوات الدعاية: مخفية تمامًا إلا عن حساب الإدارة المعتمد في Supabase -->
 <section class="promo-admin-panel" id="promoAdminPanel" hidden>
   <div class="promo-admin-box">
-    <div class="promo-admin-title">🔐 إدارة الدعاية المميزة</div>
-    <div class="promo-admin-note">هذه الأدوات لا تعمل إلا لحساب الإدارة المعتمد.</div>
+    <div class="promo-admin-title">⚙️ لوحة الإدارة</div>
+    <div class="promo-admin-note">هذه الأدوات خاصة بحساب الإدارة المعتمد فقط.</div>
 
+    <div class="admin-tool-title">🔥 الدعاية المميزة</div>
     <div class="promo-admin-actions">
-      <button class="promo-admin-btn" id="promoImageBtn" type="button">
-        📷 دعاية صورة
-      </button>
-
-      <button class="promo-admin-btn" id="promoVideoBtn" type="button">
-        🎥 دعاية فيديو
-      </button>
+      <button class="promo-admin-btn" id="promoImageBtn" type="button">📷 دعاية صورة</button>
+      <button class="promo-admin-btn" id="promoVideoBtn" type="button">🎥 دعاية فيديو</button>
     </div>
 
-    <input id="promoImageInput" type="file"
-           accept="image/jpeg,image/png,image/webp,image/gif" hidden>
-
-    <input id="promoVideoInput" type="file"
-           accept="video/mp4,video/webm,video/quicktime" hidden>
-
+    <input id="promoImageInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+    <input id="promoVideoInput" type="file" accept="video/mp4,video/webm,video/quicktime" hidden>
     <div class="promo-admin-status" id="promoAdminStatus"></div>
+
+    <div class="admin-divider"></div>
+    <div class="admin-tool-title">📋 إدارة الإعلانات العادية</div>
+    <div class="admin-actions-row">
+      <button class="admin-secondary-btn" id="showHiddenAdsBtn" type="button">🙈 الإعلانات المخفية</button>
+      <button class="admin-danger-btn" id="adminLogoutBtn" type="button">🚪 تسجيل الخروج</button>
+    </div>
+    <div id="hiddenAdsStatus" class="admin-small-status"></div>
+    <div id="hiddenAdsList" class="hidden-ads-list" hidden></div>
   </div>
 </section>
 
@@ -836,10 +927,6 @@
 
 
     <div id="ads" class="ads"></div>
-    <section id="adminPanel" style="display:none;">
-  <h2>⚙️ لوحة الإدارة</h2>
-  <button id="closeAdminPanel" type="button">إغلاق</button>
-    </section>
 
   </main>
 
@@ -850,7 +937,7 @@
 
       <div class="panel-head">
 
-        <h3>
+        <h3 id="adFormTitle">
           نشر إعلان جديد
         </h3>
 
@@ -1040,6 +1127,7 @@
             <div class="help">
               اختر من صورة واحدة إلى 5 صور.
               الحد الأقصى لكل صورة 20 ميجابايت.
+              <span id="editMediaHint" hidden>عند تعديل إعلان: اترك الصور والفيديو بدون اختيار للاحتفاظ بالوسائط الحالية، أو اختر ملفات جديدة لاستبدالها.</span>
             </div>
 
             <div
@@ -1097,18 +1185,6 @@
   </div>
 
 
-  <!-- ===== زر الإدارة ===== -->
-  <section id="adminAccess" style="padding:18px 16px;text-align:center;background:#fff;">
-    <button id="adminPanelBtn" type="button"
-      style="display:block;width:min(420px,100%);margin:0 auto;border:0;border-radius:14px;padding:14px 18px;background:#075c3b;color:#fff;font-size:18px;font-weight:800;cursor:pointer;box-shadow:0 8px 20px #0002;">
-      🔐 دخول الإدارة
-    </button>
-  </section>
-
-  <footer>
-    دلالة العربات والعقارات أم درمان الخرطوم الشاملة
-  </footer>
-
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1130,98 +1206,38 @@
       );
 const ADMIN_URL = SUPABASE_URL;
 const ADMIN_KEY = SUPABASE_KEY;
+const ADMIN_EMAIL = 'abadrhman9096@gmail.com';
 
+const adminDb = window.supabase.createClient(ADMIN_URL, ADMIN_KEY);
+let adminActive = false;
 
-const adminDb = window.supabase.createClient(
-  ADMIN_URL,
-  ADMIN_KEY
-);
-async function checkAdmin() {
+function isApprovedAdmin(user) {
+  return !!user && String(user.email || '').toLowerCase() === ADMIN_EMAIL;
+}
+
+async function syncAdminState() {
   const { data } = await adminDb.auth.getSession();
+  const user = data?.session?.user || null;
+  adminActive = isApprovedAdmin(user);
 
-  const adminBtn = document.getElementById('adminPanelBtn');
-  const adminPanel = document.getElementById('adminPanel');
-  const box = document.getElementById('adminFeaturedAds');
-
-  const loggedIn = !!data?.session;
-
-  if (adminBtn) {
-    adminBtn.style.display = 'block';
-    adminBtn.textContent = loggedIn
-      ? '⚙️ لوحة الإدارة'
-      : '🔐 دخول الإدارة';
+  const panel = document.getElementById('promoAdminPanel');
+  const openBtn = document.getElementById('adminLoginOpen');
+  if (panel) {
+    panel.hidden = !adminActive;
+    panel.style.display = adminActive ? 'block' : 'none';
+  }
+  if (openBtn) {
+    openBtn.textContent = adminActive ? '⚙️ لوحة الإدارة' : '🔐 دخول الإدارة';
   }
 
-  if (!loggedIn) {
-    if (adminPanel) adminPanel.style.display = 'none';
-    
-  }
+  if (typeof renderAds === 'function' && Array.isArray(allAds)) renderAds();
+  return adminActive;
 }
 
-checkAdmin();
-adminDb.auth.onAuthStateChange(async (event, session) => {
-  if (event === 'PASSWORD_RECOVERY') {
-    const newPassword = prompt('اكتب كلمة مرور الإدارة الجديدة');
-    if (!newPassword) return;
-
-    const { error } = await adminDb.auth.updateUser({
-      password: newPassword
-    });
-
-    if (error) {
-      alert('فشل تغيير كلمة المرور: ' + error.message);
-    } else {
-      alert('تم تغيير كلمة مرور الإدارة بنجاح ✅');
-    }
-  }
+adminDb.auth.onAuthStateChange((event, session) => {
+  adminActive = isApprovedAdmin(session?.user || null);
+  setTimeout(syncAdminState, 0);
 });
-const adminPanel = document.getElementById('adminPanel');
-const adminPanelBtn = document.getElementById('adminPanelBtn');
-const closeAdminPanel = document.getElementById('closeAdminPanel');
-
-if (adminPanelBtn) {
-  adminPanelBtn.addEventListener('click', async () => {
-
-    const { data } = await adminDb.auth.getSession();
-
-    if (!data?.session) {
-      const email = prompt('أدخل بريد الإدارة');
-      if (!email) return;
-
-      const password = prompt('أدخل كلمة مرور الإدارة');
-      if (!password) return;
-
-      const { error } = await adminDb.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if (error) {
-        alert('البريد أو كلمة المرور غير صحيحة');
-        return;
-      }
-    }
-
-    const box = document.getElementById('adminFeaturedAds');
-
-    if (box && adminPanel) {
-      adminPanel.appendChild(box);
-      box.style.display = 'block';
-    }
-
-    if (adminPanel) adminPanel.style.display = 'block';
-
-    checkAdmin();
-  });
-}
-
-if (closeAdminPanel) {
-  closeAdminPanel.addEventListener('click', () => {
-    adminPanel.style.display = 'none';
-  });
-    }
-    
-  
 
     const BUCKET = 'ad-media';
 
@@ -1232,6 +1248,8 @@ if (closeAdminPanel) {
     let allAds = [];
 
     let selectedCategory = '';
+    let editingAdId = null;
+    let editingAdOriginal = null;
 
 
     const el =
@@ -1266,15 +1284,50 @@ if (closeAdminPanel) {
       el('searchInput');
 
 
+    function setAdFormMode(ad = null) {
+      editingAdId = ad?.id || null;
+      editingAdOriginal = ad || null;
+
+      const titleEl = el('adFormTitle');
+      const mediaHint = el('editMediaHint');
+
+      if (editingAdId) {
+        if (titleEl) titleEl.textContent = 'تعديل الإعلان';
+        if (mediaHint) mediaHint.hidden = false;
+        publishBtn.textContent = 'حفظ التعديل';
+      } else {
+        if (titleEl) titleEl.textContent = 'نشر إعلان جديد';
+        if (mediaHint) mediaHint.hidden = true;
+        publishBtn.textContent = 'انشر الإعلان';
+      }
+    }
+
+    function fillAdFormForEdit(ad) {
+      el('title').value = ad.title || '';
+      el('category').value = ad.category || '';
+      el('price').value = ad.price || '';
+      el('location').value = ad.location || '';
+      el('contactName').value = ad.contact_name || '';
+      el('phone').value = ad.contact_phone || ad.whatsapp || '';
+      el('email').value = ad.contact_email || '';
+      el('description').value = ad.description || '';
+      el('images').value = '';
+      el('video').value = '';
+      el('imagePreview').innerHTML = '';
+      el('videoPreview').innerHTML = '';
+      clearFormMsg();
+    }
+
     el('openForm').addEventListener(
       'click',
       () => {
-
+        form.reset();
+        el('imagePreview').innerHTML = '';
+        el('videoPreview').innerHTML = '';
+        clearFormMsg();
+        setAdFormMode(null);
         modal.classList.add('open');
-
-        document.body.style.overflow =
-          'hidden';
-
+        document.body.style.overflow = 'hidden';
       }
     );
 
@@ -1670,7 +1723,13 @@ if (Array.isArray(ad.media_urls)) {
                     whatsappButton +
 
                     emailButton +
-'<button class="delete-ad-btn" data-ad-id="' + ad.id + '">🗑 حذف الإعلان</button>' +
+                    (adminActive
+                      ? (
+                          '<button type="button" class="edit-ad-btn" data-ad-id="' + safeText(ad.id) + '">✏️ تعديل الإعلان</button>' +
+                          '<button type="button" class="hide-ad-btn" data-ad-id="' + safeText(ad.id) + '">🙈 إخفاء الإعلان</button>' +
+                          '<button type="button" class="delete-ad-btn" data-ad-id="' + safeText(ad.id) + '">🗑 حذف الإعلان</button>'
+                        )
+                      : '') +
                   '</div>' +
 
                 '</div>' +
@@ -1684,31 +1743,84 @@ if (Array.isArray(ad.media_urls)) {
 
     }
 adsBox.addEventListener('click', async function (e) {
+  const editBtn = e.target.closest('.edit-ad-btn');
+  const hideBtn = e.target.closest('.hide-ad-btn');
   const deleteBtn = e.target.closest('.delete-ad-btn');
-  if (!deleteBtn) return;
+  if (!editBtn && !hideBtn && !deleteBtn) return;
 
-  const { data: sessionData } = await adminDb.auth.getSession();
-  const user = sessionData?.session?.user;
+  const { data: sessionData, error: sessionError } = await adminDb.auth.getSession();
+  if (sessionError) {
+    alert('❌ تعذر التحقق من جلسة الإدارة. سجل الدخول مرة أخرى.');
+    return;
+  }
 
-  if (!user || user.email !== 'abadrhman9096@gmail.com') {
-    alert('❌ الحذف متاح للإدارة فقط');
+  const user = sessionData?.session?.user || null;
+  if (!isApprovedAdmin(user)) {
+    adminActive = false;
+    renderAds();
+    alert('❌ هذا الإجراء متاح للإدارة فقط. سجل الدخول من لوحة الإدارة.');
+    return;
+  }
+
+  if (editBtn) {
+    const adId = editBtn.dataset.adId;
+    const ad = allAds.find(item => String(item.id) === String(adId));
+    if (!ad) {
+      alert('❌ لم يتم العثور على الإعلان. حدّث الصفحة وحاول مرة أخرى.');
+      return;
+    }
+
+    setAdFormMode(ad);
+    fillAdFormForEdit(ad);
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => el('title')?.focus(), 120);
+    return;
+  }
+
+  if (hideBtn) {
+    const adId = hideBtn.dataset.adId;
+    if (!confirm('هل تريد إخفاء هذا الإعلان من الموقع؟ يمكنك إعادته لاحقًا من لوحة الإدارة.')) return;
+
+    hideBtn.disabled = true;
+    hideBtn.textContent = 'جاري الإخفاء...';
+
+    const { data, error } = await adminDb
+      .from('ads')
+      .update({ published: false, updated_at: new Date().toISOString() })
+      .eq('id', adId)
+      .select('id,published')
+      .maybeSingle();
+
+    if (error || !data || data.published !== false) {
+      console.error('hide ad error', error, data);
+      alert('❌ لم يتم إخفاء الإعلان. ' + (error?.message || 'لم تسمح قاعدة البيانات بالتعديل. سجل الدخول من جديد وحاول مرة أخرى.'));
+      hideBtn.disabled = false;
+      hideBtn.textContent = '🙈 إخفاء الإعلان';
+      return;
+    }
+
+    alert('✅ تم إخفاء الإعلان');
+    await loadAds();
     return;
   }
 
   const adId = deleteBtn.dataset.adId;
-
-  if (!confirm('هل تريد حذف هذا الإعلان نهائياً؟')) return;
+  if (!confirm('هل تريد حذف هذا الإعلان نهائيًا؟ لا يمكن التراجع عن الحذف.')) return;
 
   deleteBtn.disabled = true;
   deleteBtn.textContent = 'جاري الحذف...';
 
-  const { error } = await adminDb
+  const { data, error } = await adminDb
     .from('ads')
     .delete()
-    .eq('id', adId);
+    .eq('id', adId)
+    .select('id')
+    .maybeSingle();
 
-  if (error) {
-    alert('❌ فشل حذف الإعلان: ' + error.message);
+  if (error || !data) {
+    console.error('delete ad error', error, data);
+    alert('❌ فشل حذف الإعلان: ' + (error?.message || 'لم يتم حذف أي إعلان.'));
     deleteBtn.disabled = false;
     deleteBtn.textContent = '🗑 حذف الإعلان';
     return;
@@ -1822,15 +1934,14 @@ adsBox.addEventListener('click', async function (e) {
 
     function validateFiles(
       images,
-      video
+      video,
+      allowEmpty = false
     ) {
 
-      if (images.length < 1) {
-
+      if (!allowEmpty && images.length < 1 && !video) {
         throw new Error(
-          'اختر صورة واحدة على الأقل.'
+          'يرجى إضافة صورة أو فيديو واحد على الأقل.'
         );
-
       }
 
 
@@ -2059,9 +2170,10 @@ adsBox.addEventListener('click', async function (e) {
             el('video')
               .files?.[0] ||
             null;
-          if (images.length === 0 && !video) {
-  throw new Error('يرجى إضافة صورة أو فيديو واحد على الأقل.');
-    }
+          const isEditing = Boolean(editingAdId);
+          if (!isEditing && images.length === 0 && !video) {
+            throw new Error('يرجى إضافة صورة أو فيديو واحد على الأقل.');
+          }
 
 
           if (
@@ -2130,7 +2242,8 @@ adsBox.addEventListener('click', async function (e) {
 
           validateFiles(
             images,
-            video
+            video,
+            isEditing
           );
 
 
@@ -2139,7 +2252,7 @@ adsBox.addEventListener('click', async function (e) {
 
 
           publishBtn.textContent =
-            'جاري رفع الصور...';
+            isEditing ? 'جاري تجهيز التعديل...' : 'جاري رفع الصور...';
 
 
           const imageUrls =
@@ -2191,17 +2304,16 @@ adsBox.addEventListener('click', async function (e) {
           }
 
 
-          const mediaUrls =
-            videoUrl
-              ? [
-                  ...imageUrls,
-                  videoUrl
-                ]
-              : imageUrls;
-
+          const hasNewMedia = imageUrls.length > 0 || Boolean(videoUrl);
+          const newMediaUrls = videoUrl
+            ? [...imageUrls, videoUrl]
+            : imageUrls;
+          const mediaUrls = isEditing && !hasNewMedia
+            ? (Array.isArray(editingAdOriginal?.media_urls) ? editingAdOriginal.media_urls : [])
+            : newMediaUrls;
 
           publishBtn.textContent =
-            'جاري نشر الإعلان...';
+            isEditing ? 'جاري حفظ التعديل...' : 'جاري نشر الإعلان...';
 
 
           const payload = {
@@ -2235,7 +2347,7 @@ adsBox.addEventListener('click', async function (e) {
 
             cover_url:
               imageUrls[0] ||
-              null,
+              (isEditing ? (editingAdOriginal?.cover_url || null) : null),
 
             whatsapp:
               phone,
@@ -2246,28 +2358,42 @@ adsBox.addEventListener('click', async function (e) {
           };
 
 
-          const {
-            data,
-            error
-          } =
-            await db
+          let data;
+          let error;
+
+          if (isEditing) {
+            const result = await adminDb
+              .from('ads')
+              .update({ ...payload, updated_at: new Date().toISOString() })
+              .eq('id', editingAdId)
+              .select()
+              .maybeSingle();
+            data = result.data;
+            error = result.error;
+
+            if (!error && !data) {
+              throw new Error('لم يتم تعديل الإعلان. تحقق من صلاحيات الإدارة ثم حاول مرة أخرى.');
+            }
+          } else {
+            const result = await db
               .from('ads')
               .insert(payload)
               .select()
               .single();
-
-
-          if (error) {
-
-            throw error;
-
+            data = result.data;
+            error = result.error;
           }
 
+          if (error) {
+            throw error;
+          }
 
-          allAds.unshift(
-            data
-          );
-
+          if (isEditing) {
+            const idx = allAds.findIndex(item => String(item.id) === String(data.id));
+            if (idx >= 0) allAds[idx] = data;
+          } else {
+            allAds.unshift(data);
+          }
 
           renderAds();
 
@@ -2288,13 +2414,12 @@ adsBox.addEventListener('click', async function (e) {
 
 
           showFormMsg(
-            '✅ تم نشر الإعلان بنجاح وظهر في الموقع.',
+            isEditing ? '✅ تم تعديل الإعلان بنجاح.' : '✅ تم نشر الإعلان بنجاح وظهر في الموقع.',
             'ok'
           );
 
-
           publishBtn.textContent =
-            'تم النشر ✅';
+            isEditing ? 'تم الحفظ ✅' : 'تم النشر ✅';
 
 
           setTimeout(
@@ -2307,8 +2432,8 @@ adsBox.addEventListener('click', async function (e) {
               publishBtn.disabled =
                 false;
 
-              publishBtn.textContent =
-                'انشر الإعلان';
+              setAdFormMode(null);
+              publishBtn.textContent = 'انشر الإعلان';
 
 
               const section =
@@ -2350,7 +2475,7 @@ adsBox.addEventListener('click', async function (e) {
 
 
           publishBtn.textContent =
-            'انشر الإعلان';
+            editingAdId ? 'حفظ التعديل' : 'انشر الإعلان';
 
         }
 
@@ -2543,7 +2668,7 @@ async function loadPromoAds() {
   try {
     const { data: userData } = await dalalatSupabase.auth.getUser();
     const user = userData?.user || null;
-    const canDelete = !!user;
+    const canDelete = isApprovedAdmin(user);
     const { data, error } = await dalalatSupabase
       .from('promo_ads')
       .select('id,media_type,media_url,storage_path,is_active,created_at')
@@ -2727,7 +2852,6 @@ loadPromoAds();
   </div>
   <script>
 document.addEventListener("DOMContentLoaded", function () {
-
   const adminOpen = document.getElementById("adminLoginOpen");
   const adminModal = document.getElementById("adminLoginModal");
   const adminClose = document.getElementById("adminLoginClose");
@@ -2736,16 +2860,70 @@ document.addEventListener("DOMContentLoaded", function () {
   const adminPassword = document.getElementById("adminPassword");
   const adminLoginMsg = document.getElementById("adminLoginMsg");
   const promoAdminPanel = document.getElementById("promoAdminPanel");
+  const showHiddenAdsBtn = document.getElementById("showHiddenAdsBtn");
+  const hiddenAdsList = document.getElementById("hiddenAdsList");
+  const hiddenAdsStatus = document.getElementById("hiddenAdsStatus");
+  const adminLogoutBtn = document.getElementById("adminLogoutBtn");
 
-  // فتح نافذة الإدارة
+  syncAdminState();
+
+  async function loadHiddenAds() {
+    if (!hiddenAdsList || !hiddenAdsStatus) return;
+    const { data: sessionData } = await adminDb.auth.getSession();
+    const user = sessionData?.session?.user || null;
+    if (!isApprovedAdmin(user)) {
+      hiddenAdsStatus.textContent = "❌ هذه القائمة متاحة للإدارة فقط";
+      hiddenAdsList.hidden = true;
+      return;
+    }
+
+    hiddenAdsStatus.textContent = "جاري تحميل الإعلانات المخفية...";
+    const { data, error } = await adminDb
+      .from('ads')
+      .select('id,title,category,location,created_at')
+      .eq('published', false)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      hiddenAdsStatus.textContent = "❌ تعذر تحميل الإعلانات المخفية: " + error.message;
+      hiddenAdsList.hidden = true;
+      return;
+    }
+
+    const rows = Array.isArray(data) ? data : [];
+    hiddenAdsStatus.textContent = rows.length ? `عدد الإعلانات المخفية: ${rows.length}` : "لا توجد إعلانات مخفية الآن.";
+
+    if (!rows.length) {
+      hiddenAdsList.innerHTML = '';
+      hiddenAdsList.hidden = true;
+      return;
+    }
+
+    hiddenAdsList.innerHTML = rows.map(ad => `
+      <div class="hidden-ad-item">
+        <div class="hidden-ad-title">${safeText(ad.title || 'إعلان بدون عنوان')}</div>
+        <div class="hidden-ad-meta">${safeText(ad.category || '')}${ad.location ? ' • 📍 ' + safeText(ad.location) : ''}</div>
+        <div class="hidden-ad-actions">
+          <button class="restore-ad-btn" type="button" data-ad-id="${safeText(ad.id)}">👁️ إعادة النشر</button>
+          <button class="delete-ad-btn hidden-delete-ad-btn" type="button" data-ad-id="${safeText(ad.id)}">🗑 حذف نهائي</button>
+        </div>
+      </div>
+    `).join('');
+    hiddenAdsList.hidden = false;
+  }
+
   if (adminOpen && adminModal) {
-    adminOpen.addEventListener("click", function () {
+    adminOpen.addEventListener("click", async function () {
+      const active = await syncAdminState();
+      if (active) {
+        if (promoAdminPanel) promoAdminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
       adminModal.style.display = "flex";
       document.body.style.overflow = "hidden";
     });
   }
 
-  // زر X
   if (adminClose && adminModal) {
     adminClose.addEventListener("click", function () {
       adminModal.style.display = "none";
@@ -2753,7 +2931,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // إغلاق النافذة عند الضغط خارجها
   if (adminModal) {
     adminModal.addEventListener("click", function (e) {
       if (e.target === adminModal) {
@@ -2763,118 +2940,134 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // تسجيل دخول الإدارة
   if (adminLoginBtn && adminEmail && adminPassword) {
-
     adminLoginBtn.addEventListener("click", async function () {
-
       const email = adminEmail.value.trim().toLowerCase();
       const password = adminPassword.value;
-
-      if (adminLoginMsg) {
-        adminLoginMsg.textContent = "";
-      }
+      if (adminLoginMsg) adminLoginMsg.textContent = "";
 
       if (!email || !password) {
-        if (adminLoginMsg) {
-          adminLoginMsg.textContent = "❌ اكتب البريد وكلمة المرور";
-        }
+        if (adminLoginMsg) adminLoginMsg.textContent = "❌ اكتب البريد وكلمة المرور";
+        return;
+      }
+      if (email !== ADMIN_EMAIL) {
+        if (adminLoginMsg) adminLoginMsg.textContent = "❌ هذا الحساب ليس حساب الإدارة";
         return;
       }
 
       adminLoginBtn.disabled = true;
       adminLoginBtn.textContent = "جاري الدخول...";
-
       try {
-
-        const { data, error } =
-          await adminDb.auth.signInWithPassword({
-            email: email,
-            password: password
-          });
-if (error && email === "abadrhman9096@gmail.com") {
-  const { error: signUpError } = await adminDb.auth.signUp({
-    email: email,
-    password: password
-  });
-
-  if (signUpError) {
-    adminLoginMsg.textContent = "❌ تعذر إنشاء حساب الإدارة: " + signUpError.message;
-    return;
-  }
-
-  adminLoginMsg.textContent = "✅ تم إنشاء حساب الإدارة. اضغط دخول مرة أخرى.";
-  return;
-    }
-        if (error) {
-          if (adminLoginMsg) {
-            adminLoginMsg.textContent =
-              "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة";
-          }
+        const { data, error } = await adminDb.auth.signInWithPassword({ email, password });
+        if (error || !isApprovedAdmin(data?.user)) {
+          if (!error) await adminDb.auth.signOut();
+          if (adminLoginMsg) adminLoginMsg.textContent = "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة";
           return;
         }
 
-        // السماح لحساب الإدارة فقط
-        if (email !== "abadrhman9096@gmail.com") {
-
-          await adminDb.auth.signOut();
-
-          if (adminLoginMsg) {
-            adminLoginMsg.textContent =
-              "❌ هذا الحساب ليس حساب الإدارة";
-          }
-
-          return;
-        }
-
-        if (promoAdminPanel) {
-          promoAdminPanel.hidden = false;
-          promoAdminPanel.style.display = "block";
-        }
-        if (window.loadPromoAds) {
-          await window.loadPromoAds();
-        }
-
-        if (adminLoginMsg) {
-          adminLoginMsg.textContent = "✅ تم تسجيل الدخول";
-        }
-
-        if (adminModal) {
-          adminModal.style.display = "none";
-        }
-
+        await syncAdminState();
+        await loadAds();
+        if (typeof loadPromoAds === 'function') await loadPromoAds();
+        if (adminLoginMsg) adminLoginMsg.textContent = "✅ تم تسجيل الدخول";
+        adminPassword.value = "";
+        if (adminModal) adminModal.style.display = "none";
         document.body.style.overflow = "";
 
         setTimeout(function () {
-          if (promoAdminPanel) {
-            promoAdminPanel.scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-          }
-        }, 300);
-
+          if (promoAdminPanel) promoAdminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 250);
       } catch (err) {
-
         console.error(err);
-
-        if (adminLoginMsg) {
-          adminLoginMsg.textContent =
-            "❌ حدث خطأ أثناء تسجيل الدخول";
-        }
-
+        if (adminLoginMsg) adminLoginMsg.textContent = "❌ حدث خطأ أثناء تسجيل الدخول";
       } finally {
-
         adminLoginBtn.disabled = false;
         adminLoginBtn.textContent = "دخول";
-
       }
-
     });
   }
 
+  if (showHiddenAdsBtn) {
+    showHiddenAdsBtn.addEventListener('click', async function () {
+      if (hiddenAdsList && !hiddenAdsList.hidden) {
+        hiddenAdsList.hidden = true;
+        if (hiddenAdsStatus) hiddenAdsStatus.textContent = '';
+        showHiddenAdsBtn.textContent = '🙈 الإعلانات المخفية';
+        return;
+      }
+      showHiddenAdsBtn.textContent = '⏳ جاري التحميل...';
+      await loadHiddenAds();
+      showHiddenAdsBtn.textContent = '🙈 إخفاء القائمة';
+    });
+  }
+
+  if (hiddenAdsList) {
+    hiddenAdsList.addEventListener('click', async function (e) {
+      const restoreBtn = e.target.closest('.restore-ad-btn');
+      const deleteBtn = e.target.closest('.hidden-delete-ad-btn');
+      if (!restoreBtn && !deleteBtn) return;
+
+      const { data: sessionData } = await adminDb.auth.getSession();
+      if (!isApprovedAdmin(sessionData?.session?.user || null)) {
+        alert('❌ هذا الإجراء متاح للإدارة فقط');
+        return;
+      }
+
+      const btn = restoreBtn || deleteBtn;
+      const adId = btn.dataset.adId;
+
+      if (restoreBtn) {
+        restoreBtn.disabled = true;
+        restoreBtn.textContent = 'جاري النشر...';
+        const { data, error } = await adminDb
+          .from('ads')
+          .update({ published: true, updated_at: new Date().toISOString() })
+          .eq('id', adId)
+          .select('id,published')
+          .maybeSingle();
+        if (error || !data || data.published !== true) {
+          alert('❌ فشل إعادة نشر الإعلان: ' + (error?.message || 'لم يتم تعديل الإعلان.'));
+          restoreBtn.disabled = false;
+          restoreBtn.textContent = '👁️ إعادة النشر';
+          return;
+        }
+        alert('✅ عاد الإعلان إلى الموقع');
+        await loadAds();
+        await loadHiddenAds();
+        return;
+      }
+
+      if (!confirm('هل تريد حذف هذا الإعلان المخفي نهائيًا؟')) return;
+      deleteBtn.disabled = true;
+      deleteBtn.textContent = 'جاري الحذف...';
+      const { error } = await adminDb.from('ads').delete().eq('id', adId);
+      if (error) {
+        alert('❌ فشل حذف الإعلان: ' + error.message);
+        deleteBtn.disabled = false;
+        deleteBtn.textContent = '🗑 حذف نهائي';
+        return;
+      }
+      alert('✅ تم حذف الإعلان نهائيًا');
+      await loadHiddenAds();
+    });
+  }
+
+  if (adminLogoutBtn) {
+    adminLogoutBtn.addEventListener('click', async function () {
+      if (!confirm('هل تريد تسجيل الخروج من لوحة الإدارة؟')) return;
+      await adminDb.auth.signOut();
+      adminActive = false;
+      if (hiddenAdsList) {
+        hiddenAdsList.hidden = true;
+        hiddenAdsList.innerHTML = '';
+      }
+      if (hiddenAdsStatus) hiddenAdsStatus.textContent = '';
+      await syncAdminState();
+      renderAds();
+      alert('✅ تم تسجيل الخروج');
+    });
+  }
 });
-  </script>
+</script>
 
       
 <!-- ===== تواصل معنا ===== -->
@@ -2905,6 +3098,10 @@ if (error && email === "abadrhman9096@gmail.com") {
     </div>
   </div>
 </section>
+
+<footer>
+  دلالة العربات والعقارات أم درمان الخرطوم الشاملة
+</footer>
 
   <button class="floating-phone" id="floatingPhone" type="button" aria-label="تواصل عبر واتساب" title="تواصل عبر واتساب"></button>
 
@@ -2944,6 +3141,33 @@ if (error && email === "abadrhman9096@gmail.com") {
 </script>
 
 <style>
+/* زر دخول الإدارة الوحيد */
+.admin-login-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 22px 18px 28px;
+  text-align: center;
+}
+
+.admin-login-link {
+  display: block;
+  width: min(640px, 100%);
+  margin: 0 auto;
+  border: 0;
+  border-radius: 18px;
+  padding: 17px 20px;
+  background: #075c3b;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,.14);
+}
+
+.admin-login-link:active {
+  transform: translateY(1px);
+}
+
 /* قسم التواصل */
 .contact-section {
   padding: 55px 20px;
@@ -3006,11 +3230,11 @@ if (error && email === "abadrhman9096@gmail.com") {
 /* زر التواصل العائم: ثابت وصغير ولا يغطي المحتوى */
 .floating-phone {
   position: fixed !important;
-  left: 20px !important;
+  left: 14px !important;
   right: auto !important;
-  bottom: 80px !important;
-  width: 54px;
-  height: 54px;
+  bottom: 86px !important;
+  width: 48px;
+  height: 48px;
   padding: 0;
   border: 3px solid #fff;
   border-radius: 50%;
@@ -3031,7 +3255,7 @@ if (error && email === "abadrhman9096@gmail.com") {
 .floating-phone::before {
   content: "✆";
   color: #fff;
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 800;
   line-height: 1;
 }
@@ -3057,12 +3281,12 @@ if (error && email === "abadrhman9096@gmail.com") {
   .contact-box h2 { font-size: 28px; }
   .contact-btn { width: 100%; min-width: 0; font-size: 17px; }
   .floating-phone {
-    left: 18px !important;
-    bottom: 78px !important;
-    width: 50px;
-    height: 50px;
+    left: 12px !important;
+    bottom: 86px !important;
+    width: 46px;
+    height: 46px;
   }
-  .floating-phone::before { font-size: 25px; }
+  .floating-phone::before { font-size: 23px; }
 }
 </style></body>
 </html>
