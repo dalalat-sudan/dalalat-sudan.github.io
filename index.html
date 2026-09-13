@@ -831,28 +831,132 @@
       gap: 8px;
     }
 </style>
+
+<style id="dalala-appstyle-v2">
+:root{
+  --app-green:#059447;
+  --app-green-dark:#06723d;
+  --app-lime:#63d62b;
+  --app-yellow:#ffd21a;
+  --app-blue:#1687ff;
+  --app-red:#ff3f3f;
+  --app-purple:#8b22ff;
+  --app-pink:#f2389b;
+  --app-shadow:0 10px 28px rgba(12,64,39,.13);
+}
+html{background:#f7fbf8;scroll-padding-bottom:100px}
+body{background:linear-gradient(180deg,#f6fbf8 0,#fff 42%,#f7faf8 100%);padding-bottom:92px}
+.topbar{
+  position:sticky;top:0;z-index:40;
+  padding:12px 14px 15px;
+  background:linear-gradient(135deg,#13a443 0%,#008d55 48%,#007c49 100%);
+  border-bottom:4px solid var(--app-yellow);
+  box-shadow:0 7px 25px rgba(0,83,48,.24);
+}
+.topbar:before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(circle at 8% 0%,rgba(130,239,38,.42),transparent 28%),
+  radial-gradient(circle at 88% 10%,rgba(0,105,72,.55),transparent 34%)}
+.topbar-inner{max-width:1100px;position:relative;gap:10px;align-items:center;display:grid;grid-template-columns:auto 1fr auto}
+.app-menu-btn{width:44px;height:44px;border:0;border-radius:13px;background:rgba(255,255,255,.15);color:#fff;font-size:27px;line-height:1;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.brand{text-align:center;min-width:0}
+.brand h1{font-size:clamp(20px,4.8vw,34px);font-weight:1000;line-height:1.1;text-shadow:0 2px 5px #004f2c55}
+.brand h1 span{display:block;color:var(--app-yellow);font-size:.62em;margin-top:6px}
+.brand p{display:inline-block;margin-top:8px!important;padding:5px 16px;border-radius:999px;background:rgba(196,255,234,.68);color:#083a29!important;font-weight:800;font-size:13px!important}
+.app-location{border:0;border-radius:999px;background:#fff;color:#132b23;padding:10px 12px;font-weight:900;box-shadow:0 4px 14px #004c2f38;white-space:nowrap;max-width:170px;overflow:hidden;text-overflow:ellipsis}
+.primary#openForm{display:none}
+
+.hero{background:transparent;color:inherit;padding:16px 14px 8px}
+.hero-inner{max-width:1100px;background:#fff;border-radius:25px;padding:12px;box-shadow:var(--app-shadow);border:1px solid #e3eee7}
+.hero h2,.hero p,.visitor-note{display:none}
+.search-row{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center}
+.search-row:before{content:"☰  تصفية";display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 13px;background:#eef4fb;border-radius:16px;font-weight:900;color:#1d2f2a;white-space:nowrap}
+.search-row:after{content:"⌕";display:flex;align-items:center;justify-content:center;width:56px;height:52px;background:linear-gradient(135deg,#0ca14b,#007e49);color:#fff;border-radius:17px;font-size:38px;font-weight:900}
+.search-row input{order:0;min-width:0!important;width:100%;height:52px;border:1px solid #d9e5de!important;background:#fff!important;border-radius:17px!important;padding:0 18px!important;font-size:16px;box-shadow:inset 0 1px 2px #0000000c}
+.search-row input::placeholder{color:#78827d;font-weight:700}
+
+.app-hero-banner{max-width:1100px;margin:8px auto 16px;padding:0 14px}
+.app-hero-banner-inner{position:relative;overflow:hidden;min-height:270px;border-radius:26px;padding:30px 24px;background:
+ radial-gradient(circle at 15% 10%,#fff6b9 0 8%,transparent 9%),
+ linear-gradient(135deg,#d9f4ff 0%,#b7e9ff 30%,#95e5cc 58%,#8ed39c 100%);box-shadow:var(--app-shadow);border:1px solid #d8e9df}
+.app-hero-banner-inner:before{content:"🏙️";position:absolute;left:-5px;bottom:-16px;font-size:150px;opacity:.82;filter:saturate(.9)}
+.app-hero-banner-inner:after{content:"🚙  🏡";position:absolute;right:18px;bottom:18px;font-size:72px;letter-spacing:6px;filter:drop-shadow(0 6px 6px #0002)}
+.app-banner-copy{position:relative;z-index:2;max-width:58%;margin-right:auto;text-align:center}
+.app-banner-copy strong{display:block;background:#078b4d;color:#fff;padding:9px 12px;border-radius:4px 4px 4px 18px;font-size:clamp(19px,4vw,30px);transform:rotate(-1deg);box-shadow:0 5px 14px #007c4944}
+.app-banner-copy b{display:block;background:var(--app-yellow);color:#101b17;padding:8px 12px;margin-top:-2px;font-size:clamp(18px,3.8vw,28px);transform:rotate(1deg)}
+.app-banner-free{position:absolute;z-index:3;left:18px;bottom:20px;background:linear-gradient(145deg,#ff3156,#e60029);color:#fff;border:4px solid #fff;border-radius:20px;padding:13px 15px;font-weight:1000;font-size:20px;transform:rotate(-6deg);box-shadow:0 10px 20px #a900313d}
+
+.quick-wrap{max-width:1100px;margin:0 auto;padding:0 14px 12px}
+.quick-cats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.quick-cat{border:0;border-radius:20px;padding:14px 8px 10px;min-height:148px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;box-shadow:var(--app-shadow);font-family:inherit;position:relative;overflow:hidden}
+.quick-cat:after{content:"";position:absolute;inset:auto -25% -55% -25%;height:90px;background:#fff7;border-radius:50%}
+.quick-cat .qc-icon{font-size:45px;line-height:1;filter:drop-shadow(0 4px 3px #0001);position:relative;z-index:2}
+.quick-cat strong{position:relative;z-index:2;background:#fff;border-radius:999px;padding:5px 11px;font-size:16px;box-shadow:0 2px 7px #0001;white-space:nowrap}
+.quick-cat small{position:relative;z-index:2;text-align:center;line-height:1.5;color:#20372f;font-weight:700}
+.qc-service{background:linear-gradient(160deg,#ff951a,#fff0c4)}.qc-service strong{color:#ec5a0b}
+.qc-property{background:linear-gradient(160deg,#ff4141,#ffe1e1)}.qc-property strong{color:#e12b2b}
+.qc-car{background:linear-gradient(160deg,#1687ff,#d9edff)}.qc-car strong{color:#1264c9}
+.qc-market{background:linear-gradient(160deg,#8625ff,#ead9ff)}.qc-market strong{color:#6920d7}
+.qc-home{background:linear-gradient(160deg,#0bd56d,#d8fae8)}.qc-home strong{color:#087b45}
+.qc-other{background:linear-gradient(160deg,#f33a9c,#ffe0ef)}.qc-other strong{color:#d42078}
+
+.cta-grid{max-width:1100px;margin:0 auto;padding:8px 14px 2px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cta-card{min-height:145px;border-radius:22px;padding:19px;box-shadow:var(--app-shadow);position:relative;overflow:hidden;border:1px solid #e5ece8}
+.cta-card h4{font-size:24px;margin:0 0 4px;color:#0b3150}.cta-card p{margin:0 0 14px;color:#243b48;font-weight:700}
+.cta-card button{border:0;border-radius:999px;padding:11px 18px;font-family:inherit;font-weight:900;color:#fff;font-size:15px}
+.cta-ad{background:linear-gradient(135deg,#fff0dd,#ffe7c4)}.cta-ad:after{content:"📣";position:absolute;left:18px;bottom:5px;font-size:85px;transform:rotate(-12deg)}.cta-ad button{background:#f3213f}
+.cta-property{background:linear-gradient(135deg,#dffff4,#d5f8ec)}.cta-property:after{content:"🏡";position:absolute;left:15px;bottom:4px;font-size:88px}.cta-property button{background:#06a956}
+.cta-card > *{position:relative;z-index:2;max-width:65%}
+
+.section{max-width:1100px;padding:18px 14px 28px}
+.featured-ads{padding:16px!important;border-radius:24px;background:#fff!important;box-shadow:var(--app-shadow);border:1px solid #e8efeb;margin-bottom:14px}
+.featured-title{font-size:24px!important}.featured-sub{font-size:13px;margin-bottom:12px!important}
+.featured-slider{gap:10px!important}
+.featured-card{min-width:46%!important;min-height:175px!important;border-radius:20px!important;padding:18px!important}
+.section>h3{margin-top:18px!important;font-size:25px!important;display:flex;align-items:center;justify-content:space-between}
+.section>h3:after{content:"عرض الكل ‹";font-size:14px;color:#078b4d;background:#e8f8ef;border-radius:999px;padding:7px 12px}
+.section-sub{font-size:13px!important;margin-bottom:12px!important}
+.chips{padding:0 0 12px}.chip{font-weight:800;box-shadow:0 3px 10px #00000008}.chip.active{background:#0a9a4b!important}
+.ads{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+.ad{border-radius:20px!important;box-shadow:0 7px 20px rgba(7,65,37,.1)!important;border-color:#e4ece7!important}
+.media{aspect-ratio:1.25/1!important}.ad-body{padding:11px!important}.ad-title{font-size:16px!important;line-height:1.45;margin-bottom:4px!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.price{font-size:16px!important;color:#07804a!important;margin:5px 0!important}.meta{font-size:11px!important;margin:5px 0 8px!important;gap:4px!important}.badge{padding:4px 6px!important}.desc{font-size:12px;line-height:1.55!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}.contact{gap:5px!important;margin-top:9px!important}.contact a{padding:8px 9px!important;font-size:12px!important}
+.admin-ad-actions{grid-template-columns:1fr!important}.admin-ad-actions button{font-size:12px;padding:8px!important}
+
+.bottom-nav{position:fixed;z-index:45;right:0;left:0;bottom:0;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid #e0e9e4;box-shadow:0 -8px 25px rgba(0,59,33,.1);height:82px;display:grid;grid-template-columns:repeat(5,1fr);direction:rtl}
+.bottom-nav button{border:0;background:transparent;color:#5b6561;font-family:inherit;font-weight:800;font-size:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;position:relative}
+.bottom-nav .nav-icon{font-size:25px;line-height:1}.bottom-nav button.active{color:#07854c}.bottom-nav .nav-add{transform:translateY(-15px);color:#08743f}.bottom-nav .nav-add .nav-icon{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#16c950,#ffe20b);font-size:37px;color:#075d37;border:4px solid #fff;box-shadow:0 4px 15px #00833e40}.bottom-nav .nav-add span:last-child{margin-top:-1px}
+
+.contact-section{margin-bottom:10px}
+@media(max-width:800px){
+ .quick-cats{grid-template-columns:repeat(3,1fr)}
+ .quick-cat{min-height:138px}
+ .cta-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+ .topbar{padding:10px 9px 12px}.topbar-inner{grid-template-columns:42px 1fr auto}.app-menu-btn{width:40px;height:40px;font-size:24px}.app-location{font-size:11px;padding:8px 9px;max-width:118px}.brand h1{font-size:19px}.brand h1 span{font-size:12px}.brand p{font-size:11px!important;padding:4px 10px}
+ .hero{padding:10px 8px 6px}.hero-inner{padding:9px;border-radius:20px}.search-row{grid-template-columns:auto 1fr auto;gap:6px}.search-row:before{content:"☰";min-height:46px;width:46px;padding:0;font-size:0}.search-row:before{font-size:22px}.search-row:after{width:46px;height:46px;font-size:33px}.search-row input{height:46px;font-size:14px;padding:0 12px!important}
+ .app-hero-banner{padding:0 8px;margin-bottom:10px}.app-hero-banner-inner{min-height:220px;border-radius:22px;padding:20px 14px}.app-banner-copy{max-width:64%}.app-banner-copy strong{font-size:18px}.app-banner-copy b{font-size:17px}.app-hero-banner-inner:before{font-size:112px;left:-14px}.app-hero-banner-inner:after{font-size:52px;right:8px}.app-banner-free{left:10px;bottom:12px;font-size:16px;padding:10px}
+ .quick-wrap{padding:0 8px 8px}.quick-cats{grid-template-columns:repeat(3,1fr);gap:7px}.quick-cat{min-height:124px;border-radius:17px;padding:10px 4px}.quick-cat .qc-icon{font-size:35px}.quick-cat strong{font-size:13px;padding:4px 7px}.quick-cat small{font-size:10px}
+ .cta-grid{padding:6px 8px 0;gap:8px}.cta-card{min-height:128px;padding:14px;border-radius:19px}.cta-card h4{font-size:18px}.cta-card p{font-size:12px}.cta-card button{font-size:12px;padding:9px 12px}.cta-card:after{font-size:60px!important;opacity:.92}.cta-card>*{max-width:74%}
+ .section{padding:14px 8px 22px}.featured-ads{padding:12px!important;border-radius:20px}.featured-title{font-size:20px!important}.featured-card{min-width:74%!important;min-height:150px!important}.featured-card strong{font-size:20px!important}.featured-card span{font-size:15px!important}.featured-card small{font-size:13px!important}
+ .ads{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}.ad{border-radius:16px!important}.ad-body{padding:8px!important}.ad-title{font-size:14px!important}.price{font-size:14px!important}.meta{display:block!important}.badge{display:inline-block;margin:2px 0;font-size:10px}.desc{font-size:11px;min-height:33px}.contact a{font-size:11px!important;padding:7px!important}.media .count{font-size:9px!important;left:5px!important;bottom:5px!important}
+ .bottom-nav{height:76px}.bottom-nav button{font-size:10px}.bottom-nav .nav-icon{font-size:22px}.bottom-nav .nav-add .nav-icon{width:58px;height:58px;font-size:34px}
+}
+</style>
+
 </head>
 
 <body>
 
   <header class="topbar">
     <div class="topbar-inner">
-
+      <button class="app-menu-btn" id="appMenuBtn" type="button" aria-label="القائمة">☰</button>
       <div class="brand">
-        <h1>
-          دلالة العربات والعقارات أم درمان
-          <span>الخرطوم الشاملة</span>
-        </h1>
-
-        <p>
-          تصفح مجاني للزائر • بيع وشراء وخدمات في مكان واحد
-        </p>
+        <h1>دلالة العربات والعقارات<span>أم درمان - الخرطوم الشاملة</span></h1>
+        <p>كل ما تبحث عنه في مكان واحد</p>
       </div>
-
-      <button class="primary" id="openForm" type="button">
-        ➕ أضف إعلانك
-      </button>
-
+      <button class="app-location" id="appLocationBtn" type="button">📍 الخرطوم وأم درمان ▾</button>
+      <button class="primary" id="openForm" type="button">➕ أضف إعلانك</button>
     </div>
   </header>
 
@@ -891,28 +995,39 @@
 
   <section class="hero">
     <div class="hero-inner">
-
-      <h2>
-        كل ما تبحث عنه في مكان واحد
-      </h2>
-
-      <div class="visitor-note">
-        👁️ التصفح متاح للجميع بدون تسجيل
-      </div>
-
-      <p>
-        انشر إعلانك مباشرة بالصور والفيديو، وسيظهر الإعلان داخل المنصة بعد النشر.
-      </p>
-
+      <h2>كل ما تبحث عنه في مكان واحد</h2>
+      <div class="visitor-note">👁️ التصفح متاح للجميع بدون تسجيل</div>
+      <p>انشر إعلانك مباشرة بالصور والفيديو، وسيظهر الإعلان داخل المنصة بعد النشر.</p>
       <div class="search-row">
-        <input
-          id="searchInput"
-          type="search"
-          placeholder="ابحث عن عربية، عقار، أدوات منزلية، مواد بناء، حرفي..."
-        >
+        <input id="searchInput" type="search" placeholder="ابحث عن سيارات، عقارات، خدمات ...">
       </div>
-
     </div>
+  </section>
+
+  <section class="app-hero-banner" aria-label="واجهة الدلالة">
+    <div class="app-hero-banner-inner">
+      <div class="app-banner-copy">
+        <strong>سيارات وعقارات وخدمات</strong>
+        <b>بأسهل وأسرع الطرق</b>
+      </div>
+      <button class="app-banner-free" id="heroAddAdBtn" type="button">أضف إعلانك<br>مجانًا</button>
+    </div>
+  </section>
+
+  <section class="quick-wrap" aria-label="أقسام سريعة">
+    <div class="quick-cats">
+      <button class="quick-cat qc-service" type="button" data-quick-cat="خدمات"><span class="qc-icon">🛠️</span><strong>خدمات</strong><small>صيانة وورش</small></button>
+      <button class="quick-cat qc-property" type="button" data-quick-cat="العقارات"><span class="qc-icon">🏠</span><strong>العقارات</strong><small>بيع • إيجار</small></button>
+      <button class="quick-cat qc-car" type="button" data-quick-cat="العربات"><span class="qc-icon">🚙</span><strong>العربات</strong><small>جديدة • مستعملة</small></button>
+      <button class="quick-cat qc-market" type="button" data-scroll-featured="1"><span class="qc-icon">🛒</span><strong>سوق المميز</strong><small>عروض مختارة</small></button>
+      <button class="quick-cat qc-home" type="button" data-quick-cat="أدوات منزلية"><span class="qc-icon">🛍️</span><strong>أدوات منزلية</strong><small>منتجات متنوعة</small></button>
+      <button class="quick-cat qc-other" type="button" data-quick-cat="أخرى"><span class="qc-icon">📣</span><strong>أخرى</strong><small>إعلانات متنوعة</small></button>
+    </div>
+  </section>
+
+  <section class="cta-grid" aria-label="إجراءات سريعة">
+    <div class="cta-card cta-ad"><h4>أعلن الآن</h4><p>وصل إعلانك لآلاف العملاء</p><button id="ctaAddAdBtn" type="button">أضف إعلانك مجانًا ›</button></div>
+    <div class="cta-card cta-property"><h4>هل لديك عقار؟</h4><p>اعرضه الآن بسهولة</p><button id="ctaPropertyBtn" type="button">أضف عقارك الآن ›</button></div>
   </section>
 
 
@@ -3598,5 +3713,41 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   .floating-phone::before { font-size: 23px; }
 }
-</style></body>
+</style>
+<nav class="bottom-nav" aria-label="التنقل الرئيسي">
+  <button class="active" id="navHome" type="button"><span class="nav-icon">🏠</span><span>الرئيسية</span></button>
+  <button id="navMessages" type="button"><span class="nav-icon">💬</span><span>تواصل</span></button>
+  <button class="nav-add" id="navAdd" type="button"><span class="nav-icon">＋</span><span>أضف إعلانك</span></button>
+  <button id="navFav" type="button"><span class="nav-icon">♥</span><span>المميزة</span></button>
+  <button id="navMore" type="button"><span class="nav-icon">•••</span><span>المزيد</span></button>
+</nav>
+<script id="dalala-appstyle-actions">
+(function(){
+  function openAdForm(category){
+    var btn=document.getElementById('openForm');
+    if(btn) btn.click();
+    if(category){ setTimeout(function(){ var s=document.getElementById('category'); if(s) s.value=category; },80); }
+  }
+  document.getElementById('heroAddAdBtn')?.addEventListener('click',function(){openAdForm();});
+  document.getElementById('ctaAddAdBtn')?.addEventListener('click',function(){openAdForm();});
+  document.getElementById('ctaPropertyBtn')?.addEventListener('click',function(){openAdForm('العقارات');});
+  document.getElementById('navAdd')?.addEventListener('click',function(){openAdForm();});
+  document.getElementById('navHome')?.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+  document.getElementById('navFav')?.addEventListener('click',function(){document.getElementById('adminFeaturedAds')?.scrollIntoView({behavior:'smooth',block:'start'});});
+  document.getElementById('navMessages')?.addEventListener('click',function(){document.querySelector('.contact-section')?.scrollIntoView({behavior:'smooth',block:'start'});});
+  document.getElementById('navMore')?.addEventListener('click',function(){document.getElementById('chips')?.scrollIntoView({behavior:'smooth',block:'center'});});
+  document.getElementById('appMenuBtn')?.addEventListener('click',function(){document.getElementById('chips')?.scrollIntoView({behavior:'smooth',block:'center'});});
+  document.getElementById('appLocationBtn')?.addEventListener('click',function(){var q=document.getElementById('searchInput');if(q){q.focus();q.placeholder='اكتب المنطقة أو الحي للبحث...';}});
+  document.querySelectorAll('[data-quick-cat]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var cat=btn.getAttribute('data-quick-cat');
+      var chip=[].slice.call(document.querySelectorAll('.chip')).find(function(x){return x.dataset.cat===cat;});
+      if(chip){chip.click();document.getElementById('ads')?.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+  document.querySelectorAll('[data-scroll-featured]').forEach(function(btn){btn.addEventListener('click',function(){document.getElementById('adminFeaturedAds')?.scrollIntoView({behavior:'smooth',block:'start'});});});
+})();
+</script>
+
+</body>
 </html>
