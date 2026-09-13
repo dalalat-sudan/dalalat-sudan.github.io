@@ -42,7 +42,12 @@ jobs:
         run: |
           test -n "$KEYSTORE_B64"
           echo "$KEYSTORE_B64" | base64 --decode > app/dalala-upload-key.jks
-
+      - name: Show keystore alias
+        working-directory: dalala-build/dalala_android_play
+        env:
+          STORE_PASSWORD: ${{ secrets.DALALA_KEYSTORE_PASSWORD }}
+        run: |
+          keytool -list -v -keystore app/dalala-upload-key.jks -storepass "$STORE_PASSWORD" | grep "Alias name:"
       - name: Configure release signing
         working-directory: dalala-build/dalala_android_play
         env:
