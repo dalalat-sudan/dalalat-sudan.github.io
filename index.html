@@ -306,6 +306,27 @@
       flex-wrap: wrap;
     }
 
+    /* أزرار الإدارة داخل الإعلان: صف مستقل حتى لا تختفي على الهاتف */
+    .admin-ad-actions {
+      flex-basis: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .admin-ad-actions button {
+      width: 100%;
+      min-height: 44px;
+      white-space: normal;
+    }
+
+    @media (max-width: 520px) {
+      .admin-ad-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .contact a {
       display: inline-block;
       text-decoration: none;
@@ -645,6 +666,66 @@
       transform: translateY(1px);
     }
 
+    .promo-card-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .promo-card-actions button,
+    .hidden-promo-actions button {
+      width: 100%;
+      border-radius: 11px;
+      padding: 9px 8px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .edit-featured-btn,
+    .hide-featured-btn,
+    .restore-featured-btn {
+      border: 1px solid #b9d6c8;
+      background: #edf8f2;
+      color: var(--green);
+    }
+
+    .delete-featured-btn {
+      border: 1px solid #efb8b3;
+      background: #fff2f1;
+      color: var(--danger);
+    }
+
+    .hidden-promos-list {
+      margin-top: 10px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .hidden-promos-list[hidden] {
+      display: none !important;
+    }
+
+    .hidden-promo-item {
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 10px;
+      background: #f9fbfa;
+    }
+
+    .hidden-promo-title {
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 7px;
+    }
+
+    .hidden-promo-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
     .promo-admin-status {
       line-height: 1.7;
       font-size: 13px;
@@ -791,6 +872,11 @@
     <input id="promoImageInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
     <input id="promoVideoInput" type="file" accept="video/mp4,video/webm,video/quicktime" hidden>
     <div class="promo-admin-status" id="promoAdminStatus"></div>
+    <div style="margin-top:10px;">
+      <button class="admin-secondary-btn" id="showHiddenPromosBtn" type="button" style="width:100%;">🙈 الدعايات المخفية</button>
+    </div>
+    <div id="hiddenPromosStatus" class="admin-small-status"></div>
+    <div id="hiddenPromosList" class="hidden-promos-list" hidden></div>
 
     <div class="admin-divider"></div>
     <div class="admin-tool-title">📋 إدارة الإعلانات العادية</div>
@@ -1231,6 +1317,8 @@ async function syncAdminState() {
   }
 
   if (typeof renderAds === 'function' && Array.isArray(allAds)) renderAds();
+  if (typeof window.loadPromoAds === 'function') await window.loadPromoAds();
+  if (adminActive && typeof window.refreshHiddenPromoAds === 'function') await window.refreshHiddenPromoAds(false);
   return adminActive;
 }
 
@@ -1725,9 +1813,11 @@ if (Array.isArray(ad.media_urls)) {
                     emailButton +
                     (adminActive
                       ? (
-                          '<button type="button" class="edit-ad-btn" data-ad-id="' + safeText(ad.id) + '">✏️ تعديل الإعلان</button>' +
-                          '<button type="button" class="hide-ad-btn" data-ad-id="' + safeText(ad.id) + '">🙈 إخفاء الإعلان</button>' +
-                          '<button type="button" class="delete-ad-btn" data-ad-id="' + safeText(ad.id) + '">🗑 حذف الإعلان</button>'
+                          '<div class="admin-ad-actions" data-admin-ad-id="' + safeText(ad.id) + '">' +
+                            '<button type="button" class="edit-ad-btn" data-ad-id="' + safeText(ad.id) + '">✏️ تعديل الإعلان</button>' +
+                            '<button type="button" class="hide-ad-btn" data-ad-id="' + safeText(ad.id) + '">🙈 إخفاء الإعلان</button>' +
+                            '<button type="button" class="delete-ad-btn" data-ad-id="' + safeText(ad.id) + '">🗑 حذف الإعلان</button>' +
+                          '</div>'
                         )
                       : '') +
                   '</div>' +
@@ -1742,6 +1832,29 @@ if (Array.isArray(ad.media_urls)) {
           .join('');
 
     }
+function requireAdminSecondTap(btn, confirmText, normalText) {
+  const now = Date.now();
+  const until = Number(btn.dataset.confirmUntil || 0);
+
+  if (!until || now > until) {
+    btn.dataset.confirmUntil = String(now + 5000);
+    btn.textContent = confirmText;
+
+    setTimeout(function () {
+      const currentUntil = Number(btn.dataset.confirmUntil || 0);
+      if (currentUntil && Date.now() >= currentUntil) {
+        btn.dataset.confirmUntil = '';
+        btn.textContent = normalText;
+      }
+    }, 5200);
+
+    return false;
+  }
+
+  btn.dataset.confirmUntil = '';
+  return true;
+}
+
 adsBox.addEventListener('click', async function (e) {
   const editBtn = e.target.closest('.edit-ad-btn');
   const hideBtn = e.target.closest('.hide-ad-btn');
@@ -1780,7 +1893,7 @@ adsBox.addEventListener('click', async function (e) {
 
   if (hideBtn) {
     const adId = hideBtn.dataset.adId;
-    if (!confirm('هل تريد إخفاء هذا الإعلان من الموقع؟ يمكنك إعادته لاحقًا من لوحة الإدارة.')) return;
+    if (!requireAdminSecondTap(hideBtn, '⚠️ اضغط مرة ثانية لإخفاء الإعلان', '🙈 إخفاء الإعلان')) return;
 
     hideBtn.disabled = true;
     hideBtn.textContent = 'جاري الإخفاء...';
@@ -1806,27 +1919,46 @@ adsBox.addEventListener('click', async function (e) {
   }
 
   const adId = deleteBtn.dataset.adId;
-  if (!confirm('هل تريد حذف هذا الإعلان نهائيًا؟ لا يمكن التراجع عن الحذف.')) return;
+  if (!requireAdminSecondTap(deleteBtn, '⚠️ اضغط مرة ثانية للحذف النهائي', '🗑 حذف الإعلان')) return;
 
   deleteBtn.disabled = true;
   deleteBtn.textContent = 'جاري الحذف...';
 
-  const { data, error } = await adminDb
+  const { error } = await adminDb
     .from('ads')
     .delete()
-    .eq('id', adId)
-    .select('id')
-    .maybeSingle();
+    .eq('id', adId);
 
-  if (error || !data) {
-    console.error('delete ad error', error, data);
-    alert('❌ فشل حذف الإعلان: ' + (error?.message || 'لم يتم حذف أي إعلان.'));
+  if (error) {
+    console.error('delete ad error', error);
+    alert('❌ فشل حذف الإعلان: ' + (error?.message || 'تعذر الحذف.'));
     deleteBtn.disabled = false;
     deleteBtn.textContent = '🗑 حذف الإعلان';
     return;
   }
 
-  alert('✅ تم حذف الإعلان');
+  // بعض سياسات RLS قد ترجع نجاحًا بدون حذف صف؛ نتحقق أن الإعلان اختفى فعلًا.
+  const { data: stillThere, error: verifyError } = await adminDb
+    .from('ads')
+    .select('id')
+    .eq('id', adId)
+    .maybeSingle();
+
+  if (verifyError) {
+    console.error('verify delete error', verifyError);
+    alert('⚠️ تم إرسال أمر الحذف، لكن تعذر التحقق. حدّث الصفحة للتأكد.');
+    await loadAds();
+    return;
+  }
+
+  if (stillThere) {
+    alert('❌ لم يتم حذف الإعلان. صلاحية الحذف غير مفعلة لهذه الجلسة. سجل الخروج من لوحة الإدارة ثم ادخل مرة أخرى.');
+    deleteBtn.disabled = false;
+    deleteBtn.textContent = '🗑 حذف الإعلان';
+    return;
+  }
+
+  alert('✅ تم حذف الإعلان نهائيًا');
   await loadAds();
 });
 
@@ -2636,6 +2768,10 @@ const dalalatSupabase = db;
 const promoAds = document.getElementById('promoAds') || document.querySelector('.featured-slider');
 const promoAdminStatus = document.getElementById('promoAdminStatus');
 const promoPlaceholderHTML = promoAds ? promoAds.innerHTML : '';
+const showHiddenPromosBtn = document.getElementById('showHiddenPromosBtn');
+const hiddenPromosStatus = document.getElementById('hiddenPromosStatus');
+const hiddenPromosList = document.getElementById('hiddenPromosList');
+let editingPromo = null;
 
 function promoStatus(text, ok = false) {
   if (!promoAdminStatus) return;
@@ -2650,25 +2786,37 @@ function safePromoText(value) {
   }[ch]));
 }
 
-function renderPromoCard(item, canDelete) {
+function renderPromoCard(item, canManage) {
   const url = safePromoText(item.media_url || '');
   const id = safePromoText(item.id || '');
   const path = safePromoText(item.storage_path || '');
-  const media = item.media_type === 'video'
+  const type = item.media_type === 'video' ? 'video' : 'image';
+  const media = type === 'video'
     ? `<video src="${url}" controls playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;border-radius:16px;"></video>`
     : `<img src="${url}" alt="إعلان مميز" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:16px;">`;
-  const del = canDelete
-    ? `<button type="button" class="delete-featured-btn" data-promo-id="${id}" data-storage-path="${path}" style="margin-top:8px;">🗑 حذف الدعاية</button>`
+
+  const actions = canManage
+    ? `<div class="promo-card-actions">
+         <button type="button" class="edit-featured-btn" data-promo-id="${id}" data-media-type="${type}" data-storage-path="${path}">✏️ تعديل الدعاية</button>
+         <button type="button" class="hide-featured-btn" data-promo-id="${id}">🙈 إخفاء الدعاية</button>
+         <button type="button" class="delete-featured-btn" data-promo-id="${id}" data-storage-path="${path}">🗑 حذف الدعاية</button>
+       </div>`
     : '';
-  return `<div class="featured-card" data-promo-card="${id}" style="padding:10px;">${media}${del}</div>`;
+
+  return `<div class="featured-card" data-promo-card="${id}" style="padding:10px;">${media}${actions}</div>`;
+}
+
+async function getApprovedPromoAdmin() {
+  const { data, error } = await adminDb.auth.getSession();
+  if (error) return null;
+  const user = data?.session?.user || null;
+  return isApprovedAdmin(user) ? user : null;
 }
 
 async function loadPromoAds() {
   if (!promoAds) return;
   try {
-    const { data: userData } = await dalalatSupabase.auth.getUser();
-    const user = userData?.user || null;
-    const canDelete = isApprovedAdmin(user);
+    const canManage = !!(await getApprovedPromoAdmin());
     const { data, error } = await dalalatSupabase
       .from('promo_ads')
       .select('id,media_type,media_url,storage_path,is_active,created_at')
@@ -2681,7 +2829,7 @@ async function loadPromoAds() {
     }
 
     if (Array.isArray(data) && data.length) {
-      promoAds.innerHTML = data.map(item => renderPromoCard(item, canDelete)).join('');
+      promoAds.innerHTML = data.map(item => renderPromoCard(item, canManage)).join('');
     } else {
       promoAds.innerHTML = promoPlaceholderHTML;
     }
@@ -2694,14 +2842,15 @@ window.loadPromoAds = loadPromoAds;
 async function savePromoFile(file, mediaType) {
   if (!file || !promoAds) return;
 
-  const { data: userData } = await dalalatSupabase.auth.getUser();
-  const user = userData?.user || null;
+  const user = await getApprovedPromoAdmin();
   if (!user) {
     alert('يجب تسجيل دخول الإدارة أولاً');
+    editingPromo = null;
     return;
   }
 
-  promoStatus(mediaType === 'video' ? 'جاري رفع الفيديو...' : 'جاري رفع الصورة...', true);
+  const editing = editingPromo;
+  promoStatus(editing ? 'جاري تعديل الدعاية...' : (mediaType === 'video' ? 'جاري رفع الفيديو...' : 'جاري رفع الصورة...'), true);
   const safeName = String(file.name || 'file').replace(/[^a-zA-Z0-9._-]/g, '_');
   const path = `promos/${Date.now()}-${Math.random().toString(36).slice(2,8)}-${safeName}`;
 
@@ -2713,6 +2862,7 @@ async function savePromoFile(file, mediaType) {
   if (uploadError) {
     promoStatus('فشل رفع الملف: ' + uploadError.message);
     alert('فشل رفع الملف: ' + uploadError.message);
+    editingPromo = null;
     return;
   }
 
@@ -2724,39 +2874,72 @@ async function savePromoFile(file, mediaType) {
 
   if (!url) {
     promoStatus('تعذر إنشاء رابط للملف.');
+    editingPromo = null;
     return;
   }
 
-  const { data: row, error: dbError } = await dalalatSupabase
-    .from('promo_ads')
-    .insert({
-      title: mediaType === 'video' ? 'فيديو مميز' : 'إعلان مميز',
-      media_type: mediaType,
-      media_url: url,
-      storage_path: path,
-      created_by: user.id,
-      is_active: true
-    })
-    .select('id,media_type,media_url,storage_path,is_active,created_at')
-    .single();
+  let row = null;
+  let dbError = null;
+
+  if (editing?.id) {
+    const result = await dalalatSupabase
+      .from('promo_ads')
+      .update({
+        media_type: mediaType,
+        media_url: url,
+        storage_path: path
+      })
+      .eq('id', editing.id)
+      .select('id,media_type,media_url,storage_path,is_active,created_at')
+      .single();
+    row = result.data;
+    dbError = result.error;
+  } else {
+    const result = await dalalatSupabase
+      .from('promo_ads')
+      .insert({
+        title: mediaType === 'video' ? 'فيديو مميز' : 'إعلان مميز',
+        media_type: mediaType,
+        media_url: url,
+        storage_path: path,
+        created_by: user.id,
+        is_active: true
+      })
+      .select('id,media_type,media_url,storage_path,is_active,created_at')
+      .single();
+    row = result.data;
+    dbError = result.error;
+  }
 
   if (dbError) {
-    promoStatus('فشل حفظ الدعاية: ' + dbError.message);
-    alert('فشل حفظ الدعاية: ' + dbError.message);
+    await dalalatSupabase.storage.from('ad-media').remove([path]);
+    promoStatus((editing ? 'فشل تعديل الدعاية: ' : 'فشل حفظ الدعاية: ') + dbError.message);
+    alert((editing ? 'فشل تعديل الدعاية: ' : 'فشل حفظ الدعاية: ') + dbError.message);
+    editingPromo = null;
     return;
   }
 
-  promoStatus('✅ تم نشر الدعاية وظهرت في القوالب والصفحة.', true);
-  await loadPromoAds();
-  if (row) {
-    promoAds.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  if (editing?.oldPath && editing.oldPath !== path) {
+    const { error: oldStorageError } = await dalalatSupabase
+      .storage
+      .from('ad-media')
+      .remove([editing.oldPath]);
+    if (oldStorageError) console.warn('old promo storage delete error', oldStorageError);
   }
+
+  promoStatus(editing ? '✅ تم تعديل الدعاية بنجاح.' : '✅ تم نشر الدعاية وظهرت في القوالب والصفحة.', true);
+  editingPromo = null;
+  await loadPromoAds();
+  if (row) promoAds.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 if (promoImageInput) {
   promoImageInput.addEventListener('change', async function () {
     const file = this.files?.[0];
-    if (!file) return;
+    if (!file) {
+      editingPromo = null;
+      return;
+    }
     await savePromoFile(file, 'image');
     this.value = '';
   });
@@ -2765,35 +2948,22 @@ if (promoImageInput) {
 if (promoVideoInput) {
   promoVideoInput.addEventListener('change', async function () {
     const file = this.files?.[0];
-    if (!file) return;
+    if (!file) {
+      editingPromo = null;
+      return;
+    }
     await savePromoFile(file, 'video');
     this.value = '';
   });
 }
 
-document.addEventListener('click', async function (e) {
-  const btn = e.target.closest('.delete-featured-btn');
-  if (!btn) return;
-  if (!confirm('هل تريد حذف هذه الدعاية؟')) return;
-
-  const promoId = btn.dataset.promoId;
-  const storagePath = btn.dataset.storagePath;
-  if (!promoId) return;
-
-  btn.disabled = true;
-  btn.textContent = 'جاري الحذف...';
-
+async function deletePromoById(promoId, storagePath) {
   const { error: dbError } = await dalalatSupabase
     .from('promo_ads')
     .delete()
     .eq('id', promoId);
 
-  if (dbError) {
-    alert('فشل حذف الدعاية: ' + dbError.message);
-    btn.disabled = false;
-    btn.textContent = '🗑 حذف الدعاية';
-    return;
-  }
+  if (dbError) return dbError;
 
   if (storagePath) {
     const { error: storageError } = await dalalatSupabase
@@ -2802,8 +2972,148 @@ document.addEventListener('click', async function (e) {
       .remove([storagePath]);
     if (storageError) console.warn('storage delete error', storageError);
   }
+  return null;
+}
 
-  await loadPromoAds();
+async function refreshHiddenPromoAds(showAfterLoad = true) {
+  if (!hiddenPromosList || !hiddenPromosStatus) return;
+  const user = await getApprovedPromoAdmin();
+  if (!user) {
+    hiddenPromosList.hidden = true;
+    hiddenPromosStatus.textContent = '';
+    return;
+  }
+
+  hiddenPromosStatus.textContent = 'جاري تحميل الدعايات المخفية...';
+  const { data, error } = await dalalatSupabase
+    .from('promo_ads')
+    .select('id,media_type,media_url,storage_path,is_active,created_at')
+    .eq('is_active', false)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    hiddenPromosStatus.textContent = '❌ تعذر تحميل الدعايات المخفية: ' + error.message;
+    return;
+  }
+
+  if (!Array.isArray(data) || !data.length) {
+    hiddenPromosStatus.textContent = 'لا توجد دعايات مخفية.';
+    hiddenPromosList.innerHTML = '';
+    if (showAfterLoad) hiddenPromosList.hidden = false;
+    return;
+  }
+
+  hiddenPromosStatus.textContent = `عدد الدعايات المخفية: ${data.length}`;
+  hiddenPromosList.innerHTML = data.map(item => {
+    const id = safePromoText(item.id || '');
+    const path = safePromoText(item.storage_path || '');
+    const kind = item.media_type === 'video' ? '🎥 فيديو' : '📷 صورة';
+    return `<div class="hidden-promo-item">
+      <div class="hidden-promo-title">${kind} مخفية</div>
+      <div class="hidden-promo-actions">
+        <button type="button" class="restore-featured-btn" data-promo-id="${id}">👁️ إعادة الإظهار</button>
+        <button type="button" class="delete-featured-btn hidden-delete-featured-btn" data-promo-id="${id}" data-storage-path="${path}">🗑 حذف نهائي</button>
+      </div>
+    </div>`;
+  }).join('');
+  if (showAfterLoad) hiddenPromosList.hidden = false;
+}
+window.refreshHiddenPromoAds = refreshHiddenPromoAds;
+
+if (showHiddenPromosBtn) {
+  showHiddenPromosBtn.addEventListener('click', async function () {
+    if (!hiddenPromosList) return;
+    if (!hiddenPromosList.hidden) {
+      hiddenPromosList.hidden = true;
+      hiddenPromosStatus.textContent = '';
+      return;
+    }
+    await refreshHiddenPromoAds(true);
+  });
+}
+
+document.addEventListener('click', async function (e) {
+  const editBtn = e.target.closest('.edit-featured-btn');
+  const hideBtn = e.target.closest('.hide-featured-btn');
+  const restoreBtn = e.target.closest('.restore-featured-btn');
+  const deleteBtn = e.target.closest('.delete-featured-btn');
+  if (!editBtn && !hideBtn && !restoreBtn && !deleteBtn) return;
+
+  const user = await getApprovedPromoAdmin();
+  if (!user) {
+    alert('❌ هذه الأدوات خاصة بالإدارة فقط.');
+    return;
+  }
+
+  if (editBtn) {
+    const promoId = editBtn.dataset.promoId;
+    const mediaType = editBtn.dataset.mediaType === 'video' ? 'video' : 'image';
+    const oldPath = editBtn.dataset.storagePath || '';
+    editingPromo = { id: promoId, mediaType, oldPath };
+    promoStatus('اختر الملف الجديد لاستبدال الدعاية الحالية.', true);
+    if (mediaType === 'video') promoVideoInput?.click();
+    else promoImageInput?.click();
+    return;
+  }
+
+  if (hideBtn) {
+    if (!requireAdminSecondTap(hideBtn, '⚠️ اضغط مرة ثانية لإخفاء الدعاية', '🙈 إخفاء الدعاية')) return;
+    const promoId = hideBtn.dataset.promoId;
+    hideBtn.disabled = true;
+    hideBtn.textContent = 'جاري الإخفاء...';
+    const { error } = await dalalatSupabase
+      .from('promo_ads')
+      .update({ is_active: false })
+      .eq('id', promoId);
+    if (error) {
+      alert('❌ فشل إخفاء الدعاية: ' + error.message);
+      hideBtn.disabled = false;
+      hideBtn.textContent = '🙈 إخفاء الدعاية';
+      return;
+    }
+    await loadPromoAds();
+    if (!hiddenPromosList?.hidden) await refreshHiddenPromoAds(true);
+    return;
+  }
+
+  if (restoreBtn) {
+    const promoId = restoreBtn.dataset.promoId;
+    restoreBtn.disabled = true;
+    restoreBtn.textContent = 'جاري الإظهار...';
+    const { error } = await dalalatSupabase
+      .from('promo_ads')
+      .update({ is_active: true })
+      .eq('id', promoId);
+    if (error) {
+      alert('❌ فشل إعادة إظهار الدعاية: ' + error.message);
+      restoreBtn.disabled = false;
+      restoreBtn.textContent = '👁️ إعادة الإظهار';
+      return;
+    }
+    await loadPromoAds();
+    await refreshHiddenPromoAds(true);
+    return;
+  }
+
+  if (deleteBtn) {
+    if (!requireAdminSecondTap(deleteBtn, '⚠️ اضغط مرة ثانية للحذف النهائي', deleteBtn.classList.contains('hidden-delete-featured-btn') ? '🗑 حذف نهائي' : '🗑 حذف الدعاية')) return;
+    const promoId = deleteBtn.dataset.promoId;
+    const storagePath = deleteBtn.dataset.storagePath || '';
+    if (!promoId) return;
+
+    deleteBtn.disabled = true;
+    deleteBtn.textContent = 'جاري الحذف...';
+    const error = await deletePromoById(promoId, storagePath);
+    if (error) {
+      alert('❌ فشل حذف الدعاية: ' + error.message);
+      deleteBtn.disabled = false;
+      deleteBtn.textContent = deleteBtn.classList.contains('hidden-delete-featured-btn') ? '🗑 حذف نهائي' : '🗑 حذف الدعاية';
+      return;
+    }
+
+    await loadPromoAds();
+    if (!hiddenPromosList?.hidden) await refreshHiddenPromoAds(true);
+  }
 });
 
 loadPromoAds();
@@ -3036,7 +3346,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      if (!confirm('هل تريد حذف هذا الإعلان المخفي نهائيًا؟')) return;
+      if (!requireAdminSecondTap(deleteBtn, '⚠️ اضغط مرة ثانية للحذف النهائي', '🗑 حذف نهائي')) return;
       deleteBtn.disabled = true;
       deleteBtn.textContent = 'جاري الحذف...';
       const { error } = await adminDb.from('ads').delete().eq('id', adId);
