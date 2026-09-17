@@ -1367,6 +1367,11 @@ body{background:linear-gradient(180deg,#f6fbf8 0,#fff 42%,#f7faf8 100%);padding-
               id="videoPreview"
             ></div>
 
+            <div id="videoFileActions" style="display:none; gap:8px; margin-top:10px; flex-wrap:wrap;">
+              <button type="button" id="changeVideoBtn" class="admin-secondary-btn">🔄 تغيير الفيديو</button>
+              <button type="button" id="removeVideoBtn" class="admin-danger-btn">🗑️ حذف الفيديو</button>
+            </div>
+
           </div>
 
         </div>
@@ -1525,6 +1530,7 @@ adminDb.auth.onAuthStateChange((event, session) => {
       el('video').value = '';
       el('imagePreview').innerHTML = '';
       el('videoPreview').innerHTML = '';
+      if (el('videoFileActions')) el('videoFileActions').style.display = 'none';
       clearFormMsg();
     }
 
@@ -1534,6 +1540,7 @@ adminDb.auth.onAuthStateChange((event, session) => {
         form.reset();
         el('imagePreview').innerHTML = '';
         el('videoPreview').innerHTML = '';
+        if (el('videoFileActions')) el('videoFileActions').style.display = 'none';
         clearFormMsg();
         setAdFormMode(null);
         modal.classList.add('open');
@@ -2799,65 +2806,85 @@ adsBox.addEventListener('click', async function (e) {
     );
 
 
+    function resetSelectedVideo(showMessage = false) {
+      const input = el('video');
+      const box = el('videoPreview');
+      const actions = el('videoFileActions');
+
+      if (input) input.value = '';
+      if (box) box.innerHTML = '';
+      if (actions) actions.style.display = 'none';
+
+      if (showMessage) {
+        showFormMsg('تم حذف الفيديو المحدد. يمكنك اختيار فيديو آخر.', 'ok');
+      }
+    }
+
     el('video').addEventListener(
       'change',
       function () {
 
-        const box =
-          el(
-            'videoPreview'
-          );
+        const box = el('videoPreview');
+        const actions = el('videoFileActions');
 
+        box.innerHTML = '';
 
-        box.innerHTML =
-          '';
-
-
-        const file =
-          this.files?.[0];
-
+        const file = this.files?.[0];
 
         if (!file) {
+          if (actions) actions.style.display = 'none';
           return;
         }
 
+        if (!file.type.startsWith('video/')) {
+          showFormMsg('ملف الفيديو غير صالح. اختر ملف فيديو صحيح.', 'bad');
+          resetSelectedVideo(false);
+          return;
+        }
 
-        const video =
-          document.createElement(
-            'video'
+        if (file.size > MAX_FILE_SIZE) {
+          const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+          showFormMsg(
+            'الفيديو حجمه ' + sizeMB + ' ميجابايت، والحد الأقصى 20 ميجابايت. اضغط «تغيير الفيديو» واختر فيديو أصغر.',
+            'bad'
           );
+          if (actions) actions.style.display = 'flex';
+          return;
+        }
 
+        clearFormMsg();
 
-        const objectUrl =
-          URL.createObjectURL(
-            file
-          );
+        const video = document.createElement('video');
+        const objectUrl = URL.createObjectURL(file);
 
+        video.src = objectUrl;
+        video.controls = true;
+        video.preload = 'metadata';
 
-        video.src =
-          objectUrl;
+        video.onloadeddata = () => {
+          URL.revokeObjectURL(objectUrl);
+        };
 
+        box.appendChild(video);
 
-        video.controls =
-          true;
-
-
-        video.onloadeddata =
-          () => {
-
-            URL.revokeObjectURL(
-              objectUrl
-            );
-
-          };
-
-
-        box.appendChild(
-          video
-        );
-
+        if (actions) actions.style.display = 'flex';
       }
     );
+
+    const changeVideoBtn = el('changeVideoBtn');
+    const removeVideoBtn = el('removeVideoBtn');
+
+    if (changeVideoBtn) {
+      changeVideoBtn.addEventListener('click', () => {
+        el('video').click();
+      });
+    }
+
+    if (removeVideoBtn) {
+      removeVideoBtn.addEventListener('click', () => {
+        resetSelectedVideo(true);
+      });
+    }
 
 
     loadAds();
