@@ -1359,7 +1359,7 @@ body{background:linear-gradient(180deg,#f6fbf8 0,#fff 42%,#f7faf8 100%);padding-
             >
 
             <div class="help">
-              فيديو واحد اختياري بحد أقصى 20 ميجابايت.
+              فيديو واحد اختياري بحد أقصى 50 ميجابايت.
             </div>
 
             <div
@@ -1456,8 +1456,11 @@ adminDb.auth.onAuthStateChange((event, session) => {
 
     const BUCKET = 'ad-media';
 
-    const MAX_FILE_SIZE =
+    const MAX_IMAGE_SIZE =
       20 * 1024 * 1024;
+
+    const MAX_VIDEO_SIZE =
+      50 * 1024 * 1024;
 
 
     let allAds = [];
@@ -2232,7 +2235,7 @@ adsBox.addEventListener('click', async function (e) {
 
         if (
           file.size >
-          MAX_FILE_SIZE
+          MAX_IMAGE_SIZE
         ) {
 
           throw new Error(
@@ -2261,11 +2264,11 @@ adsBox.addEventListener('click', async function (e) {
 
         if (
           video.size >
-          MAX_FILE_SIZE
+          MAX_VIDEO_SIZE
         ) {
 
           throw new Error(
-            'الفيديو أكبر من 20 ميجابايت.'
+            'الفيديو أكبر من 50 ميجابايت.'
           );
 
         }
@@ -2842,10 +2845,10 @@ adsBox.addEventListener('click', async function (e) {
           return;
         }
 
-        if (file.size > MAX_FILE_SIZE) {
+        if (file.size > MAX_VIDEO_SIZE) {
           const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
           showFormMsg(
-            'الفيديو حجمه ' + sizeMB + ' ميجابايت، والحد الأقصى 20 ميجابايت. اضغط «تغيير الفيديو» واختر فيديو أصغر.',
+            'الفيديو حجمه ' + sizeMB + ' ميجابايت، والحد الأقصى 50 ميجابايت. اضغط «تغيير الفيديو» واختر فيديو أصغر.',
             'bad'
           );
           if (actions) actions.style.display = 'flex';
