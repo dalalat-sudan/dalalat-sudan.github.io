@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="theme-color" content="#075c3b">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
@@ -951,9 +954,23 @@ body{background:linear-gradient(180deg,#f6fbf8 0,#fff 42%,#f7faf8 100%);padding-
 }
 </style>
 
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_AR">
+<meta property="og:image" content="https://dalalat-sudan.github.io/logo.png">
+<meta name="facebook-domain-verification" content="">
+
 </head>
 
 <body>
+
+<div style="text-align:center;margin:15px">
+<a href="https://www.facebook.com/" target="_blank"
+style="display:inline-block;background:#1877f2;color:white;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:bold">
+تابعنا على فيسبوك
+</a>
+</div>
+
 
   <header class="topbar">
     <div class="topbar-inner">
@@ -1399,7 +1416,12 @@ body{background:linear-gradient(180deg,#f6fbf8 0,#fff 42%,#f7faf8 100%);padding-
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
+  <script>
+    if (!window.supabase) {
+      document.write('<script src="https://unpkg.com/@supabase/supabase-js@2.117.2"><\/script>');
+    }
+  </script>
 
 
   <script>
@@ -1412,16 +1434,44 @@ body{background:linear-gradient(180deg,#f6fbf8 0,#fff 42%,#f7faf8 100%);padding-
     'sb_publishable_CDZQUIG4NgmOBcjutxQJKw_v0Ejsj6e';
 
 
-    const db =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
+    const SUPABASE_SDK_READY = !!(window.supabase && typeof window.supabase.createClient === 'function');
+
+    const db = SUPABASE_SDK_READY
+      ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+      : null;
+
+    // قراءة عامة مباشرة لا تعتمد على مكتبة Supabase JS.
+    // هذا يجعل الإعلانات تظهر للزائر حتى إذا تعذر تحميل مكتبة CDN في بعض المتصفحات أو الشبكات.
+    async function publicRestSelect(table, queryString) {
+      const cleanQuery = String(queryString || '').replace(/^\?/, '');
+      const url = SUPABASE_URL + '/rest/v1/' + table + (cleanQuery ? '?' + cleanQuery : '');
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Accept': 'application/json'
+        },
+        cache: 'no-store'
+      });
+
+      if (!response.ok) {
+        let details = '';
+        try { details = await response.text(); } catch (_) {}
+        throw new Error('HTTP ' + response.status + (details ? ' - ' + details.slice(0, 180) : ''));
+      }
+
+      const rows = await response.json();
+      return Array.isArray(rows) ? rows : [];
+    }
+
 const ADMIN_URL = SUPABASE_URL;
 const ADMIN_KEY = SUPABASE_KEY;
 const ADMIN_EMAIL = 'abadrhman9096@gmail.com';
 
-const adminDb = window.supabase.createClient(ADMIN_URL, ADMIN_KEY);
+const adminDb = SUPABASE_SDK_READY
+  ? window.supabase.createClient(ADMIN_URL, ADMIN_KEY)
+  : null;
 let adminActive = false;
 
 function isApprovedAdmin(user) {
@@ -1429,6 +1479,15 @@ function isApprovedAdmin(user) {
 }
 
 async function syncAdminState() {
+  if (!adminDb) {
+    adminActive = false;
+    const panel = document.getElementById('promoAdminPanel');
+    const openBtn = document.getElementById('adminLoginOpen');
+    if (panel) { panel.hidden = true; panel.style.display = 'none'; }
+    if (openBtn) openBtn.textContent = '🔐 دخول الإدارة';
+    return false;
+  }
+
   const { data } = await adminDb.auth.getSession();
   const user = data?.session?.user || null;
   adminActive = isApprovedAdmin(user);
@@ -1449,10 +1508,12 @@ async function syncAdminState() {
   return adminActive;
 }
 
-adminDb.auth.onAuthStateChange((event, session) => {
-  adminActive = isApprovedAdmin(session?.user || null);
-  setTimeout(syncAdminState, 0);
-});
+if (adminDb) {
+  adminDb.auth.onAuthStateChange((event, session) => {
+    adminActive = isApprovedAdmin(session?.user || null);
+    setTimeout(syncAdminState, 0);
+  });
+}
 
     const BUCKET = 'ad-media';
 
@@ -2096,60 +2157,51 @@ adsBox.addEventListener('click', async function (e) {
 
     async function loadAds() {
 
-      loadStatus.style.display =
-        'block';
+      loadStatus.style.display = 'block';
+      loadStatus.className = 'status';
+      loadStatus.textContent = 'جاري تحميل الإعلانات...';
 
-      loadStatus.className =
-        'status';
+      try {
+        // نستخدم REST مباشرة حتى ينجح التحميل للزائر بدون اعتماد على جلسة دخول أو مكتبة خارجية.
+        const query = 'select=*&published=eq.true&order=created_at.desc';
+        const data = await publicRestSelect('ads', query);
 
-      loadStatus.textContent =
-        'جاري تحميل الإعلانات...';
+        allAds = data || [];
+        loadStatus.style.display = 'none';
+        renderAds();
+      } catch (error) {
+        console.error('public ads load error', error);
 
+        // محاولة ثانية عبر مكتبة Supabase إن كانت متاحة.
+        if (db) {
+          try {
+            const result = await db
+              .from('ads')
+              .select('*')
+              .eq('published', true)
+              .order('created_at', { ascending: false });
 
-      const {
-        data,
-        error
-      } =
-        await db
-          .from('ads')
-          .select('*')
-          .eq(
-            'published',
-            true
-          )
-          .order(
-            'created_at',
-            {
-              ascending: false
+            if (!result.error) {
+              allAds = result.data || [];
+              loadStatus.style.display = 'none';
+              renderAds();
+              return;
             }
-          );
+            console.error('supabase fallback load error', result.error);
+          } catch (fallbackError) {
+            console.error('supabase fallback exception', fallbackError);
+          }
+        }
 
-
-      if (error) {
-
-        console.error(error);
-
-        loadStatus.className =
-          'status error';
-
-        loadStatus.textContent =
-          'تعذر تحميل الإعلانات الآن. حاول تحديث الصفحة.';
-
-        return;
-
+        loadStatus.className = 'status error';
+        loadStatus.textContent = 'تعذر تحميل الإعلانات. تحقق من الإنترنت ثم اضغط هنا لإعادة المحاولة.';
+        loadStatus.style.cursor = 'pointer';
+        loadStatus.onclick = function () {
+          loadStatus.onclick = null;
+          loadStatus.style.cursor = '';
+          loadAds();
+        };
       }
-
-
-      allAds =
-        data || [];
-
-
-      loadStatus.style.display =
-        'none';
-
-
-      renderAds();
-
     }
 
 
@@ -2373,6 +2425,10 @@ adsBox.addEventListener('click', async function (e) {
 
 
         try {
+
+          if (!db) {
+            throw new Error('تعذر تحميل خدمة النشر في هذا المتصفح. حدّث الصفحة أو افتحها في Chrome ثم حاول مرة أخرى.');
+          }
 
           const title =
             el('title')
@@ -2892,6 +2948,20 @@ adsBox.addEventListener('click', async function (e) {
 
     loadAds();
 
+    let lastPublicRefresh = Date.now();
+    async function refreshPublicContentIfNeeded(force = false) {
+      const now = Date.now();
+      if (!force && now - lastPublicRefresh < 20000) return;
+      lastPublicRefresh = now;
+      await loadAds();
+      if (typeof window.loadPromoAds === 'function') await window.loadPromoAds();
+    }
+
+    window.addEventListener('online', () => refreshPublicContentIfNeeded(true));
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) refreshPublicContentIfNeeded(false);
+    });
+
   </script>
 
 <script>
@@ -2914,7 +2984,6 @@ if (promoVideoBtn && promoVideoInput) {
   });
 }
  </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
  <script>
 const dalalatSupabase = db;
 const promoAds = document.getElementById('promoAds') || document.querySelector('.featured-slider');
@@ -2959,6 +3028,7 @@ function renderPromoCard(item, canManage) {
 }
 
 async function getApprovedPromoAdmin() {
+  if (!adminDb) return null;
   const { data, error } = await adminDb.auth.getSession();
   if (error) return null;
   const user = data?.session?.user || null;
@@ -2969,16 +3039,8 @@ async function loadPromoAds() {
   if (!promoAds) return;
   try {
     const canManage = !!(await getApprovedPromoAdmin());
-    const { data, error } = await dalalatSupabase
-      .from('promo_ads')
-      .select('id,media_type,media_url,storage_path,is_active,created_at')
-      .eq('is_active', true)
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('promo_ads load error', error);
-      return;
-    }
+    const query = 'select=id,media_type,media_url,storage_path,is_active,created_at&is_active=eq.true&order=created_at.desc';
+    const data = await publicRestSelect('promo_ads', query);
 
     if (Array.isArray(data) && data.length) {
       promoAds.innerHTML = data.map(item => renderPromoCard(item, canManage)).join('');
@@ -2987,12 +3049,19 @@ async function loadPromoAds() {
     }
   } catch (err) {
     console.error('promo load error', err);
+    // لا نمسح القوالب الافتراضية إذا انقطع الاتصال.
+    if (!promoAds.innerHTML.trim()) promoAds.innerHTML = promoPlaceholderHTML;
   }
 }
 window.loadPromoAds = loadPromoAds;
 
 async function savePromoFile(file, mediaType) {
   if (!file || !promoAds) return;
+  if (!dalalatSupabase) {
+    alert('تعذر تحميل خدمة الإدارة في هذا المتصفح. حدّث الصفحة وحاول مرة أخرى.');
+    editingPromo = null;
+    return;
+  }
 
   const user = await getApprovedPromoAdmin();
   if (!user) {
@@ -3404,6 +3473,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (adminLoginBtn && adminEmail && adminPassword) {
     adminLoginBtn.addEventListener("click", async function () {
+      if (!adminDb) {
+        if (adminLoginMsg) adminLoginMsg.textContent = "❌ تعذر تحميل خدمة الدخول. حدّث الصفحة ثم حاول مرة أخرى.";
+        return;
+      }
       const email = adminEmail.value.trim().toLowerCase();
       const password = adminPassword.value;
       if (adminLoginMsg) adminLoginMsg.textContent = "";
@@ -3748,6 +3821,13 @@ document.addEventListener("DOMContentLoaded", function () {
     height: 46px;
   }
   .floating-phone::before { font-size: 23px; }
+}
+
+/* ضمان ظهور منطقة الإعلانات للزائر */
+#ads.ads {
+  display: grid !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Mobile: show one advertisement per row at full page width */
