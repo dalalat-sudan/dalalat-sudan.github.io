@@ -362,6 +362,29 @@
       border: 1px solid #ead48e;
     }
 
+    .share-facebook-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-weight: 800;
+      background: #1877f2;
+      color: #fff;
+      font-family: inherit;
+      cursor: pointer;
+      flex-basis: 100%;
+    }
+
+    .share-facebook-btn:active {
+      transform: translateY(1px);
+    }
+
+    .shared-ad-focus {
+      outline: 3px solid #1877f2;
+      outline-offset: 3px;
+      box-shadow: 0 0 0 7px rgba(24,119,242,.12), 0 8px 24px #10261a0d;
+    }
+
     .empty {
       text-align: center;
       padding: 40px 16px;
@@ -1942,7 +1965,7 @@ if (Array.isArray(ad.media_urls)) {
 
             return (
 
-              '<article class="ad">' +
+              '<article class="ad" id="ad-' + safeText(ad.id) + '">' +
 
                 '<div class="media">' +
 
@@ -2004,6 +2027,7 @@ if (Array.isArray(ad.media_urls)) {
                     whatsappButton +
 
                     emailButton +
+                    '<button type="button" class="share-facebook-btn" data-ad-id="' + safeText(ad.id) + '">📘 شارك إعلانك على صفحة الدلالة</button>' +
                     (adminActive
                       ? (
                           '<div class="admin-ad-actions" data-admin-ad-id="' + safeText(ad.id) + '">' +
@@ -2024,7 +2048,109 @@ if (Array.isArray(ad.media_urls)) {
           })
           .join('');
 
+      focusSharedAdFromUrl();
+
     }
+
+const DALALA_SITE_URL = 'https://dalalat-sudan.github.io/';
+const DALALA_FACEBOOK_PAGE_URL = 'https://www.facebook.com/166462697387889';
+
+function getAdShareUrl(ad) {
+  const url = new URL(DALALA_SITE_URL);
+  url.searchParams.set('ad', String(ad.id || ''));
+  url.hash = 'ad-' + String(ad.id || '');
+  return url.toString();
+}
+
+function getAdShareText(ad) {
+  const parts = [];
+  if (ad.title) parts.push('📢 ' + String(ad.title));
+  const priceText = formatPrice(ad.price);
+  if (priceText) parts.push('💰 ' + priceText);
+  if (ad.location) parts.push('📍 ' + String(ad.location));
+  if (ad.description) {
+    const clean = String(ad.description).replace(/\s+/g, ' ').trim();
+    if (clean) parts.push(clean.length > 260 ? clean.slice(0, 257) + '...' : clean);
+  }
+  if (ad.contact_phone || ad.whatsapp) {
+    parts.push('📞 ' + String(ad.contact_phone || ad.whatsapp));
+  }
+  parts.push('🔗 ' + getAdShareUrl(ad));
+  return parts.join('\n');
+}
+
+async function copyTextForFacebook(text) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (_) {}
+
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    return !!ok;
+  } catch (_) {
+    return false;
+  }
+}
+
+async function shareAdToDalalaPage(ad) {
+  const shareUrl = getAdShareUrl(ad);
+  const shareText = getAdShareText(ad);
+  const copied = await copyTextForFacebook(shareText);
+
+  // Facebook's share dialog lets the logged-in user choose where to publish.
+  // We copy the ad text first so it can be pasted into the Page post if needed.
+  const sharer = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl);
+
+  if (copied) {
+    alert('✅ تم نسخ تفاصيل الإعلان.\n\nسيفتح فيسبوك الآن. اختر «مشاركة على صفحة تديرها» ثم اختر صفحة دلالة العربات والعقارات، والصق النص إذا لم يظهر تلقائيًا.');
+  } else {
+    alert('سيفتح فيسبوك الآن. اختر «مشاركة على صفحة تديرها» ثم اختر صفحة دلالة العربات والعقارات.');
+  }
+
+  const popup = window.open(sharer, '_blank', 'noopener,noreferrer');
+  if (!popup) {
+    window.location.href = sharer;
+  }
+}
+
+adsBox.addEventListener('click', function (e) {
+  const shareBtn = e.target.closest('.share-facebook-btn');
+  if (!shareBtn) return;
+
+  const adId = shareBtn.dataset.adId;
+  const ad = allAds.find(item => String(item.id) === String(adId));
+  if (!ad) {
+    alert('تعذر العثور على الإعلان. حدّث الصفحة وحاول مرة أخرى.');
+    return;
+  }
+
+  shareAdToDalalaPage(ad);
+});
+
+function focusSharedAdFromUrl() {
+  try {
+    const adId = new URLSearchParams(window.location.search).get('ad');
+    if (!adId) return;
+    const target = document.getElementById('ad-' + adId);
+    if (!target) return;
+    target.classList.add('shared-ad-focus');
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 180);
+  } catch (_) {}
+}
+
 function requireAdminSecondTap(btn, confirmText, normalText) {
   const now = Date.now();
   const until = Number(btn.dataset.confirmUntil || 0);
@@ -3653,20 +3779,19 @@ document.addEventListener("DOMContentLoaded", function () {
     line-height:1.8;
   }
   .facebook-embed-wrap{
-    width:94%;
+    width:100%;
     max-width:430px;
     margin:0 auto;
     overflow:hidden;
     border-radius:18px;
     background:#f5f7f6;
-    min-height:460px;
+    min-height:440px;
   }
   .facebook-embed-wrap iframe{
     display:block;
     width:100% !important;
     max-width:430px;
-    height:520px !important;
-    min-height:520px;
+    min-height:500px;
     margin:0 auto;
     border:0;
   }
@@ -3688,27 +3813,27 @@ document.addEventListener("DOMContentLoaded", function () {
   @media(max-width:520px){
     .facebook-feed-section{padding:12px 8px 20px}
     .facebook-feed-card{padding:12px;border-radius:20px}
-    .facebook-embed-wrap{width:92%;max-width:390px;min-height:440px}
-    .facebook-embed-wrap iframe{height:500px !important;min-height:500px}
+    .facebook-embed-wrap{min-height:420px}
+    .facebook-embed-wrap iframe{min-height:480px}
   }
 </style>
 
 
-<!-- ===== آخر منشورات صفحة الدلالة على فيسبوك ===== -->
-<section class="facebook-feed-section" id="facebookFeed" aria-label="آخر منشورات صفحة الدلالة على فيسبوك">
+<!-- ===== آخر أخبار الدلالة على فيسبوك على فيسبوك ===== -->
+<section class="facebook-feed-section" id="facebookFeed" aria-label="آخر أخبار الدلالة على فيسبوك على فيسبوك">
   <div class="facebook-feed-card">
     <div class="facebook-feed-head">
       <span class="fb-badge" aria-hidden="true">f</span>
-      <h2>آخر منشورات صفحة الدلالة</h2>
+      <h2>آخر أخبار الدلالة على فيسبوك</h2>
     </div>
-    <p>تابع أحدث ما يُنشر في صفحة دلالة العربات والعقارات مباشرة من داخل المنصة.</p>
+    <p>شاهد أحدث منشورات صفحة دلالة العربات والعقارات بحجم مريح داخل المنصة.</p>
 
     <div class="facebook-embed-wrap">
       <iframe
         title="آخر منشورات صفحة دلالة العربات والعقارات على فيسبوك"
-        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F166462697387889&tabs=timeline&width=430&height=520&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F166462697387889&tabs=timeline&width=430&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
         width="430"
-        height="520"
+        height="500"
         style="border:none;overflow:hidden"
         scrolling="no"
         frameborder="0"
