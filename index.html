@@ -3605,6 +3605,128 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
       
+
+
+<style id="facebook-feed-style">
+  .facebook-feed-section{
+    max-width:1100px;
+    margin:0 auto;
+    padding:18px 14px 28px;
+  }
+  .facebook-feed-card{
+    background:#fff;
+    border:1px solid #e3ece7;
+    border-radius:24px;
+    padding:18px;
+    box-shadow:0 10px 28px rgba(12,64,39,.10);
+    text-align:center;
+  }
+  .facebook-feed-head{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .facebook-feed-head .fb-badge{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#1877f2;
+    color:#fff;
+    font-size:26px;
+    font-weight:900;
+    font-family:Arial,sans-serif;
+  }
+  .facebook-feed-head h2{
+    margin:0;
+    color:#075c3b;
+    font-size:clamp(21px,5vw,30px);
+  }
+  .facebook-feed-card > p{
+    margin:0 0 14px;
+    color:#6d7771;
+    line-height:1.8;
+  }
+  .facebook-embed-wrap{
+    width:100%;
+    max-width:500px;
+    margin:0 auto;
+    overflow:hidden;
+    border-radius:18px;
+    background:#f5f7f6;
+    min-height:520px;
+  }
+  .facebook-embed-wrap iframe{
+    display:block;
+    width:100% !important;
+    max-width:500px;
+    min-height:650px;
+    margin:0 auto;
+    border:0;
+  }
+  .fb-open-page{
+    display:inline-block;
+    margin-top:14px;
+    background:#1877f2;
+    color:#fff;
+    text-decoration:none;
+    font-weight:900;
+    padding:12px 18px;
+    border-radius:14px;
+  }
+  .fb-feed-note{
+    margin-top:10px !important;
+    font-size:12px;
+    color:#78827d !important;
+  }
+  @media(max-width:520px){
+    .facebook-feed-section{padding:12px 8px 20px}
+    .facebook-feed-card{padding:12px;border-radius:20px}
+    .facebook-embed-wrap{min-height:500px}
+    .facebook-embed-wrap iframe{min-height:600px}
+  }
+</style>
+
+
+<!-- ===== آخر منشورات صفحة الدلالة على فيسبوك ===== -->
+<section class="facebook-feed-section" id="facebookFeed" aria-label="آخر منشورات صفحة الدلالة على فيسبوك">
+  <div class="facebook-feed-card">
+    <div class="facebook-feed-head">
+      <span class="fb-badge" aria-hidden="true">f</span>
+      <h2>آخر منشورات صفحة الدلالة</h2>
+    </div>
+    <p>تابع أحدث ما يُنشر في صفحة دلالة العربات والعقارات مباشرة من داخل المنصة.</p>
+
+    <div class="facebook-embed-wrap">
+      <iframe
+        title="آخر منشورات صفحة دلالة العربات والعقارات على فيسبوك"
+        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F166462697387889&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+        width="500"
+        height="650"
+        style="border:none;overflow:hidden"
+        scrolling="no"
+        frameborder="0"
+        allowfullscreen="true"
+        loading="lazy"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+      </iframe>
+    </div>
+
+    <a class="fb-open-page"
+       href="https://www.facebook.com/166462697387889"
+       target="_blank"
+       rel="noopener noreferrer">
+      🔵 فتح صفحة الدلالة على فيسبوك
+    </a>
+    <p class="fb-feed-note">إذا لم تظهر المنشورات داخل الإطار في بعض المتصفحات، استخدم زر فتح الصفحة أعلاه.</p>
+  </div>
+</section>
+
 <!-- ===== تواصل معنا ===== -->
 <section class="contact-section">
   <div class="contact-box">
