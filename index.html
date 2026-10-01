@@ -3792,18 +3792,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   .facebook-embed-wrap{
     width:100%;
-    max-width:430px;
+    max-width:380px;
+    height:360px;
     margin:0 auto;
     overflow:hidden;
     border-radius:18px;
     background:#f5f7f6;
-    min-height:440px;
+    border:1px solid #e7ece9;
   }
   .facebook-embed-wrap iframe{
     display:block;
     width:100% !important;
-    max-width:430px;
-    min-height:500px;
+    max-width:380px;
+    height:360px !important;
+    min-height:360px;
     margin:0 auto;
     border:0;
   }
@@ -3825,8 +3827,8 @@ document.addEventListener("DOMContentLoaded", function () {
   @media(max-width:520px){
     .facebook-feed-section{padding:12px 8px 20px}
     .facebook-feed-card{padding:12px;border-radius:20px}
-    .facebook-embed-wrap{min-height:420px}
-    .facebook-embed-wrap iframe{min-height:480px}
+    .facebook-embed-wrap{height:330px;max-width:360px}
+    .facebook-embed-wrap iframe{height:330px !important;min-height:330px;max-width:360px}
   }
 </style>
 
@@ -3838,14 +3840,14 @@ document.addEventListener("DOMContentLoaded", function () {
       <span class="fb-badge" aria-hidden="true">f</span>
       <h2>آخر أخبار الدلالة على فيسبوك</h2>
     </div>
-    <p>شاهد أحدث منشورات صفحة دلالة العربات والعقارات بحجم مريح داخل المنصة.</p>
+    <p>آخر منشورات صفحة الدلالة في عرض مختصر حتى لا تأخذ مساحة كبيرة من المنصة.</p>
 
     <div class="facebook-embed-wrap">
       <iframe
         title="آخر منشورات صفحة دلالة العربات والعقارات على فيسبوك"
-        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F166462697387889&tabs=timeline&width=430&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
-        width="430"
-        height="500"
+        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F166462697387889&tabs=timeline&width=380&height=360&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
+        width="380"
+        height="360"
         style="border:none;overflow:hidden"
         scrolling="no"
         frameborder="0"
