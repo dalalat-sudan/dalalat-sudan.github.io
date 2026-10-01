@@ -11,9 +11,8 @@
   <meta name="googlebot" content="index, follow">
   <link rel="canonical" href="https://dalalat-sudan.github.io/">
   <meta property="og:site_name" content="دلالة العربات والعقارات">
-  <meta property="og:title" content="دلالة العربات والعقارات | أم درمان والخرطوم">
-  <meta property="og:description" content="منصة دلالة سودانية لبيع وشراء العربات والعقارات والخدمات والأدوات المنزلية ومواد البناء في أم درمان والخرطوم.">
-  <meta property="og:url" content="https://dalalat-sudan.github.io/">
+  <meta property="og:title" content="إعلان جديد على منصة دلالة | شاهد التفاصيل والصور">
+  <meta property="og:description" content="افتح الإعلان الكامل على منصة دلالة: صور، سعر، موقع ووسائل تواصل مباشرة مع المعلن في أم درمان والخرطوم.">
 
   <title>دلالة العربات والعقارات أم درمان الخرطوم الشاملة</title>
 
@@ -978,9 +977,18 @@ body{background:linear-gradient(180deg,#f6fbf8 0,#fff 42%,#f7faf8 100%);padding-
 </style>
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="ar_AR">
-<meta property="og:image" content="https://dalalat-sudan.github.io/logo.png">
+<meta property="og:image" content="https://dalalat-sudan.github.io/facebook-share-card.png?v=20261001">
+<meta property="og:image:secure_url" content="https://dalalat-sudan.github.io/facebook-share-card.png?v=20261001">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="إعلان جديد على منصة دلالة العربات والعقارات">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="إعلان جديد على منصة دلالة">
+<meta name="twitter:description" content="شاهد الصور والتفاصيل والسعر ووسائل التواصل مباشرة مع المعلن.">
+<meta name="twitter:image" content="https://dalalat-sudan.github.io/facebook-share-card.png?v=20261001">
 <meta name="facebook-domain-verification" content="">
 
 </head>
@@ -2058,24 +2066,28 @@ const DALALA_FACEBOOK_PAGE_URL = 'https://www.facebook.com/166462697387889';
 function getAdShareUrl(ad) {
   const url = new URL(DALALA_SITE_URL);
   url.searchParams.set('ad', String(ad.id || ''));
+  url.searchParams.set('share', '2');
   url.hash = 'ad-' + String(ad.id || '');
   return url.toString();
 }
 
 function getAdShareText(ad) {
   const parts = [];
+  parts.push('🔥 إعلان جديد على منصة دلالة');
   if (ad.title) parts.push('📢 ' + String(ad.title));
   const priceText = formatPrice(ad.price);
-  if (priceText) parts.push('💰 ' + priceText);
-  if (ad.location) parts.push('📍 ' + String(ad.location));
+  if (priceText) parts.push('💰 السعر: ' + priceText);
+  if (ad.location) parts.push('📍 الموقع: ' + String(ad.location));
   if (ad.description) {
     const clean = String(ad.description).replace(/\s+/g, ' ').trim();
-    if (clean) parts.push(clean.length > 260 ? clean.slice(0, 257) + '...' : clean);
+    if (clean) parts.push('📝 ' + (clean.length > 220 ? clean.slice(0, 217) + '...' : clean));
   }
   if (ad.contact_phone || ad.whatsapp) {
-    parts.push('📞 ' + String(ad.contact_phone || ad.whatsapp));
+    parts.push('📞 للتواصل: ' + String(ad.contact_phone || ad.whatsapp));
   }
-  parts.push('🔗 ' + getAdShareUrl(ad));
+  parts.push('👇 شاهد الصور والتفاصيل الكاملة من هنا:');
+  parts.push(getAdShareUrl(ad));
+  parts.push('#دلالة_العربات_والعقارات');
   return parts.join('\n');
 }
 
@@ -2113,7 +2125,7 @@ async function shareAdToDalalaPage(ad) {
   const sharer = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl);
 
   if (copied) {
-    alert('✅ تم نسخ تفاصيل الإعلان.\n\nسيفتح فيسبوك الآن. اختر «مشاركة على صفحة تديرها» ثم اختر صفحة دلالة العربات والعقارات، والصق النص إذا لم يظهر تلقائيًا.');
+    alert('✅ تم تجهيز نص الإعلان ونسخه.\n\nسيفتح فيسبوك الآن. اختر «مشاركة على صفحة تديرها» ثم صفحة دلالة العربات والعقارات. إذا لم يظهر النص تلقائيًا، الصقه في أعلى المنشور.');
   } else {
     alert('سيفتح فيسبوك الآن. اختر «مشاركة على صفحة تديرها» ثم اختر صفحة دلالة العربات والعقارات.');
   }
