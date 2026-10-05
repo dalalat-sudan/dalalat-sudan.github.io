@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html dir="rtl" lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  <meta name="theme-color" content="#064e3b">
-  <meta name="robots" content="index, follow">
-  <meta name="googlebot" content="index, follow">
-  <link rel="canonical" href="https://dalalat-sudan.github.io/">
-  <meta property="og:site_name" content="دلالة العربات والعقارات الشاملة">
-  <meta property="og:title" content="منصة دلالة الخرطوم وأم درمان الشاملة | سيارات، عقارات، وأثاثات">
-  <meta property="og:description" content="سوق السودان الأول المباشر لبيع وشراء السيارات، العقارات، الأثاث، الأدوات المنزلية، وخدمات الحرفيين في الخرطوم وأم درمان.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="ar_AR">
-  <title>دلالة العربات والعقارات أم درمان الخرطوم الشاملة</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="0" http-equiv="Expires"/>
+<meta content="#064e3b" name="theme-color"/>
+<meta content="index, follow" name="robots"/>
+<meta content="index, follow" name="googlebot"/>
+<link href="https://dalalat-sudan.github.io/" rel="canonical"/>
+<meta content="دلالة العربات والعقارات الشاملة" property="og:site_name"/>
+<meta content="منصة دلالة الخرطوم وأم درمان الشاملة | سيارات، عقارات، وأثاثات" property="og:title"/>
+<meta content="سوق السودان الأول المباشر لبيع وشراء السيارات، العقارات، الأثاث، الأدوات المنزلية، وخدمات الحرفيين في الخرطوم وأم درمان." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="ar_AR" property="og:locale"/>
+<title>دلالة العربات والعقارات أم درمان الخرطوم الشاملة</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
     :root {
       --primary: #065f46;
       --primary-dark: #044332;
@@ -963,323 +963,371 @@
   </style>
 </head>
 <body>
-
-  <!-- شريط فيسبوك التفاعلي العلوي -->
-  <div class="fb-top-strip">
-    <span>📘 تابع أحدث العروض والسيارات فور نشرها على صفحتنا الرسمية:</span>
-    <a href="https://www.facebook.com/166462697387889" target="_blank" rel="noopener" class="fb-top-link">
-      <span>تابع صفحة دلالة فيسبوك</span> ↗
+<!-- شريط فيسبوك التفاعلي العلوي -->
+<div class="fb-top-strip">
+<span>📘 تابع أحدث العروض والسيارات فور نشرها على صفحتنا الرسمية:</span>
+<a class="fb-top-link" href="https://www.facebook.com/166462697387889" rel="noopener" target="_blank">
+<span>تابع صفحة دلالة فيسبوك</span> ↗
     </a>
-  </div>
-
-  <!-- الهيدر الرئيسي -->
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="topbar-right">
-        <div class="brand-logo-badge">🇸🇩</div>
-        <div class="brand-text">
-          <h1>دلالة الخرطوم وأم درمان<span>سوق السودان الشامل المباشر</span></h1>
-          <span class="brand-tag">تصفح وتواصل بدون وسيط</span>
-        </div>
-      </div>
-      <div class="topbar-actions">
-        <button class="btn-top-add" id="openFormTopBtn" type="button">
-          <span>＋ أضف إعلانك</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <div class="app-container">
-
-    <!-- لوحة الإدارة (تظهر تلقائياً لحساب المشرف المعين) -->
-    <section class="admin-panel-strip" id="promoAdminPanel" hidden>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <h3 style="margin:0; color:#064e3b; font-size:1.1rem; font-weight:900;">⚙️ لوحة الإدارة والتحكم</h3>
-        <button id="adminLogoutBtn" style="background:#fee2e2; color:#b91c1c; border:none; padding:6px 12px; border-radius:8px; font-weight:700;">تسجيل خروج المشرف</button>
-      </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="chip" id="promoImageBtn" style="background:#065f46; color:#fff;">📷 نشر دعاية صورة</button>
-        <button class="chip" id="promoVideoBtn" style="background:#065f46; color:#fff;">🎥 نشر دعاية فيديو</button>
-        <button class="chip" id="showHiddenAdsBtn">🙈 الإعلانات المخفية</button>
-      </div>
-      <input id="promoImageInput" type="file" accept="image/*" hidden>
-      <input id="promoVideoInput" type="file" accept="video/*" hidden>
-      <div id="promoAdminStatus" style="font-size:0.85rem; margin-top:8px;"></div>
-      <div id="hiddenAdsList" style="margin-top:12px;" hidden></div>
-    </section>
-
-    <!-- بطاقة البحث والموقع -->
-    <section class="search-card">
-      <div class="search-header">
-        <span>ابحث في آلاف العروض المحدثة يومياً:</span>
-        <div class="loc-badge">📍 أم درمان والخرطوم</div>
-      </div>
-      <div class="search-bar-wrap">
-        <span class="search-icon-fixed">🔍</span>
-        <input type="search" id="searchInput" class="search-input" placeholder="اكتب اسم سيارة، عقار، حي، أو حرفة للبحث الفوري...">
-      </div>
-    </section>
-
-    <!-- البانر الترويجي السريع -->
-    <section class="hero-banner">
-      <div class="hero-content">
-        <span class="hero-tag">🔥 نشر فوري ومجاني للجميع</span>
-        <h2 class="hero-title">اعرض سيارتك، عقارك، أو منتجاتك مباشرة للآلاف</h2>
-        <p class="hero-desc">بدون عمولات وبدون وسيط - تواصل مباشر بالاتصال والواتساب مع المشتري.</p>
-      </div>
-      <div class="hero-action">
-        <button class="btn-hero-cta" id="heroBannerAddBtn" type="button">أعلن الآن مجاناً ‹</button>
-      </div>
-    </section>
-
-    <!-- أقسام الدلالة السريعة -->
-    <section>
-      <div class="section-title-wrap">
-        <h3 class="section-heading">الأقسام الرئيسية</h3>
-        <span style="font-size:0.85rem; color:#64748b;">اختر القسم للتصفية</span>
-      </div>
-      <div class="cat-grid">
-        <div class="cat-card" data-cat="العربات">
-          <div class="cat-icon-circle cat-bg-car">🚗</div>
-          <span class="cat-name">العربات</span>
-          <span class="cat-sub">بيع • شراء • استبدال</span>
-        </div>
-        <div class="cat-card" data-cat="العقارات">
-          <div class="cat-icon-circle cat-bg-prop">🏠</div>
-          <span class="cat-name">العقارات</span>
-          <span class="cat-sub">بيوت • أراضي • شقق</span>
-        </div>
-        <div class="cat-card" data-cat="الأثاث">
-          <div class="cat-icon-circle cat-bg-furn">🛋️</div>
-          <span class="cat-name">الأثاثات</span>
-          <span class="cat-sub">منزلي ومكتبي</span>
-        </div>
-        <div class="cat-card" data-cat="أدوات منزلية">
-          <div class="cat-icon-circle cat-bg-tool">🍳</div>
-          <span class="cat-name">أدوات منزلية</span>
-          <span class="cat-sub">كهربائيات ومستلزمات</span>
-        </div>
-        <div class="cat-card" data-cat="حرفيون">
-          <div class="cat-icon-circle cat-bg-serv">🧰</div>
-          <span class="cat-name">حرفيون وورش</span>
-          <span class="cat-sub">صيانة وخدمات فنية</span>
-        </div>
-        <div class="cat-card" data-cat="أخرى">
-          <div class="cat-icon-circle cat-bg-more">📦</div>
-          <span class="cat-name">أقسام أخرى</span>
-          <span class="cat-sub">مواد بناء وتجارة</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- معرض الإعلانات والدعايات المميزة -->
-    <section class="featured-box" id="adminFeaturedAds">
-      <div class="featured-header">
-        <h3 class="section-heading">🔥 إعلانات وعروض مميزة</h3>
-        <span style="font-size:0.85rem; color:#d97706; font-weight:700;">اسحب للمزيد ‹</span>
-      </div>
-      <div class="featured-slider" id="promoAds">
-        <div class="featured-card card-1">
-          <span class="fc-badge">مميز اليوم</span>
-          <div>
-            <div class="fc-title">عروض وسيارات حديثة بأم درمان</div>
-            <div class="fc-sub">تحديث مستمر على مدار الساعة بأسعار السوق</div>
-          </div>
-        </div>
-        <div class="featured-card card-2">
-          <span class="fc-badge">عقارات مختارة</span>
-          <div>
-            <div class="fc-title">أراضي ومنازل للبيع والإيجار</div>
-            <div class="fc-sub">مواقع ممتازة ووثائق جاهزة للتسليم</div>
-          </div>
-        </div>
-        <div class="featured-card card-3">
-          <span class="fc-badge">خدمات وحرف</span>
-          <div>
-            <div class="fc-title">أفضل الورش والحرفيين المعتمدين</div>
-            <div class="fc-sub">نجارة، حدادة، كهرباء وصيانة فورية</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- تصنيفات الفلترة الأفقية -->
-    <div class="filter-chips" id="chips">
-      <button class="chip active" data-cat="" type="button">🌟 جميع الإعلانات</button>
-      <button class="chip" data-cat="العربات" type="button">🚗 العربات</button>
-      <button class="chip" data-cat="العقارات" type="button">🏠 العقارات</button>
-      <button class="chip" data-cat="الأثاث" type="button">🛋️ الأثاثات</button>
-      <button class="chip" data-cat="أدوات منزلية" type="button">🍳 أدوات منزلية</button>
-      <button class="chip" data-cat="أدوات مكتبية" type="button">🖇️ أدوات مكتبية</button>
-      <button class="chip" data-cat="مواد البناء" type="button">🧱 مواد البناء</button>
-      <button class="chip" data-cat="أدوات كهربائية" type="button">⚡ أدوات كهربائية</button>
-      <button class="chip" data-cat="حرفيون" type="button">🧰 حرفيون</button>
-      <button class="chip" data-cat="خدمات" type="button">🛠️ خدمات</button>
-      <button class="chip" data-cat="أخرى" type="button">📦 أخرى</button>
-    </div>
-
-    <!-- مؤشر التحميل -->
-    <div id="loadStatus" class="status-box">
+</div>
+<!-- الهيدر الرئيسي -->
+<header class="topbar">
+<div class="topbar-inner">
+<div class="topbar-right">
+<div class="brand-logo-badge">🇸🇩</div>
+<div class="brand-text">
+<h1>دلالة الخرطوم وأم درمان<span>سوق السودان الشامل المباشر</span></h1>
+<span class="brand-tag">تصفح وتواصل بدون وسيط</span>
+</div>
+</div>
+<div class="topbar-actions">
+<button class="btn-top-add" id="openFormTopBtn" type="button">
+<span>＋ أضف إعلانك</span>
+</button>
+</div>
+</div>
+</header>
+<div class="app-container">
+<!-- لوحة الإدارة (تظهر تلقائياً لحساب المشرف المعين) -->
+<section class="admin-panel-strip" hidden="" id="promoAdminPanel">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+<h3 style="margin:0; color:#064e3b; font-size:1.1rem; font-weight:900;">⚙️ لوحة الإدارة والتحكم</h3>
+<button id="adminLogoutBtn" style="background:#fee2e2; color:#b91c1c; border:none; padding:6px 12px; border-radius:8px; font-weight:700;">تسجيل خروج المشرف</button>
+</div>
+<div style="display:flex; gap:10px; flex-wrap:wrap;">
+<button class="chip" id="promoImageBtn" style="background:#065f46; color:#fff;">📷 نشر دعاية صورة</button>
+<button class="chip" id="promoVideoBtn" style="background:#065f46; color:#fff;">🎥 نشر دعاية فيديو</button>
+<button class="chip" id="showHiddenAdsBtn">🙈 الإعلانات المخفية</button>
+</div>
+<input accept="image/*" hidden="" id="promoImageInput" type="file"/>
+<input accept="video/*" hidden="" id="promoVideoInput" type="file"/>
+<div id="promoAdminStatus" style="font-size:0.85rem; margin-top:8px;"></div>
+<div hidden="" id="hiddenAdsList" style="margin-top:12px;"></div>
+</section>
+<!-- بطاقة البحث والموقع -->
+<section class="search-card">
+<div class="search-header">
+<span>ابحث في آلاف العروض المحدثة يومياً:</span>
+<div class="loc-badge">📍 أم درمان والخرطوم</div>
+</div>
+<div class="search-bar-wrap">
+<span class="search-icon-fixed">🔍</span>
+<input class="search-input" id="searchInput" placeholder="اكتب اسم سيارة، عقار، حي، أو حرفة للبحث الفوري..." type="search"/>
+</div>
+</section>
+<!-- البانر الترويجي السريع -->
+<section class="hero-banner">
+<div class="hero-content">
+<span class="hero-tag">🔥 نشر فوري ومجاني للجميع</span>
+<h2 class="hero-title">اعرض سيارتك، عقارك، أو منتجاتك مباشرة للآلاف</h2>
+<p class="hero-desc">بدون عمولات وبدون وسيط - تواصل مباشر بالاتصال والواتساب مع المشتري.</p>
+</div>
+<div class="hero-action">
+<button class="btn-hero-cta" id="heroBannerAddBtn" type="button">أعلن الآن مجاناً ‹</button>
+</div>
+</section>
+<!-- أقسام الدلالة السريعة -->
+<section>
+<div class="section-title-wrap">
+<h3 class="section-heading">الأقسام الرئيسية</h3>
+<span style="font-size:0.85rem; color:#64748b;">اختر القسم للتصفية</span>
+</div>
+<div class="cat-grid">
+<div class="cat-card" data-cat="العربات">
+<div class="cat-icon-circle cat-bg-car">🚗</div>
+<span class="cat-name">العربات</span>
+<span class="cat-sub">بيع • شراء • استبدال</span>
+</div>
+<div class="cat-card" data-cat="العقارات">
+<div class="cat-icon-circle cat-bg-prop">🏠</div>
+<span class="cat-name">العقارات</span>
+<span class="cat-sub">بيوت • أراضي • شقق</span>
+</div>
+<div class="cat-card" data-cat="الأثاث">
+<div class="cat-icon-circle cat-bg-furn">🛋️</div>
+<span class="cat-name">الأثاثات</span>
+<span class="cat-sub">منزلي ومكتبي</span>
+</div>
+<div class="cat-card" data-cat="أدوات منزلية">
+<div class="cat-icon-circle cat-bg-tool">🍳</div>
+<span class="cat-name">أدوات منزلية</span>
+<span class="cat-sub">كهربائيات ومستلزمات</span>
+</div>
+<div class="cat-card" data-cat="حرفيون">
+<div class="cat-icon-circle cat-bg-serv">🧰</div>
+<span class="cat-name">حرفيون وورش</span>
+<span class="cat-sub">صيانة وخدمات فنية</span>
+</div>
+<div class="cat-card" data-cat="أخرى">
+<div class="cat-icon-circle cat-bg-more">📦</div>
+<span class="cat-name">أقسام أخرى</span>
+<span class="cat-sub">مواد بناء وتجارة</span>
+</div>
+</div>
+</section>
+<!-- معرض الإعلانات والدعايات المميزة -->
+<section class="featured-box" id="adminFeaturedAds">
+<div class="featured-header">
+<h3 class="section-heading">🔥 إعلانات وعروض مميزة</h3>
+<span style="font-size:0.85rem; color:#d97706; font-weight:700;">اسحب للمزيد ‹</span>
+</div>
+<div class="featured-slider" id="promoAds">
+<div class="featured-card card-1">
+<span class="fc-badge">مميز اليوم</span>
+<div>
+<div class="fc-title">عروض وسيارات حديثة بأم درمان</div>
+<div class="fc-sub">تحديث مستمر على مدار الساعة بأسعار السوق</div>
+</div>
+</div>
+<div class="featured-card card-2">
+<span class="fc-badge">عقارات مختارة</span>
+<div>
+<div class="fc-title">أراضي ومنازل للبيع والإيجار</div>
+<div class="fc-sub">مواقع ممتازة ووثائق جاهزة للتسليم</div>
+</div>
+</div>
+<div class="featured-card card-3">
+<span class="fc-badge">خدمات وحرف</span>
+<div>
+<div class="fc-title">أفضل الورش والحرفيين المعتمدين</div>
+<div class="fc-sub">نجارة، حدادة، كهرباء وصيانة فورية</div>
+</div>
+</div>
+</div>
+</section>
+<!-- تصنيفات الفلترة الأفقية -->
+<div class="filter-chips" id="chips">
+<button class="chip active" data-cat="" type="button">🌟 جميع الإعلانات</button>
+<button class="chip" data-cat="العربات" type="button">🚗 العربات</button>
+<button class="chip" data-cat="العقارات" type="button">🏠 العقارات</button>
+<button class="chip" data-cat="الأثاث" type="button">🛋️ الأثاثات</button>
+<button class="chip" data-cat="أدوات منزلية" type="button">🍳 أدوات منزلية</button>
+<button class="chip" data-cat="أدوات مكتبية" type="button">🖇️ أدوات مكتبية</button>
+<button class="chip" data-cat="مواد البناء" type="button">🧱 مواد البناء</button>
+<button class="chip" data-cat="أدوات كهربائية" type="button">⚡ أدوات كهربائية</button>
+<button class="chip" data-cat="حرفيون" type="button">🧰 حرفيون</button>
+<button class="chip" data-cat="خدمات" type="button">🛠️ خدمات</button>
+<button class="chip" data-cat="أخرى" type="button">📦 أخرى</button>
+</div>
+<!-- مؤشر التحميل -->
+<div class="status-box" id="loadStatus">
       ⏳ جاري مزامنة وتحميل أحدث الإعلانات من قاعدة البيانات...
     </div>
-
-    <!-- شبكة الإعلانات الأساسية -->
-    <main id="ads" class="ads-container"></main>
-
-    <!-- قسم التواصل بالدلالة -->
-    <section class="contact-card-section">
-      <h2>دلالة العربات والعقارات أم درمان والخرطوم</h2>
-      <p>نسعد بخدمتكم وتسهيل نشر إعلاناتكم والوصول لأكبر شريحة في السودان.</p>
-      <div class="contact-pills-row">
-        <a href="https://wa.me/249123047479" target="_blank" class="pill-btn pill-wa">
-          <span>💬 واتساب: 0123047479</span>
-        </a>
-        <a href="https://wa.me/249917647479" target="_blank" class="pill-btn pill-wa">
-          <span>💬 واتساب: 0917647479</span>
-        </a>
-        <a href="mailto:abadrhman9096@gmail.com" class="pill-btn pill-mail">
-          <span>✉️ الإيميل الرسمي للدلالة</span>
-        </a>
-      </div>
-      <div style="margin-top:20px;">
-        <button id="adminLoginOpen" style="background:transparent; border:1px solid rgba(255,255,255,0.3); color:#fff; padding:6px 16px; border-radius:999px; font-size:0.82rem; cursor:pointer;">
+<!-- شبكة الإعلانات الأساسية -->
+<main class="ads-container" id="ads"></main>
+<!-- قسم التواصل بالدلالة -->
+<section class="fb-feed-section" style="background:#ffffff; border:1px solid #bfdbfe; border-radius:var(--radius-lg); padding:24px 20px; box-shadow:0 10px 25px -3px rgba(37,99,235,0.08); margin-bottom:30px;">
+<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px; border-bottom:1px solid #eff6ff; padding-bottom:14px;">
+<div style="display:flex; align-items:center; gap:10px;">
+<div style="width:44px; height:44px; border-radius:50%; background:#1877f2; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.4rem; box-shadow:0 4px 10px rgba(24,119,242,0.3);">📘</div>
+<div>
+<h3 style="margin:0; font-size:1.25rem; font-weight:900; color:#1e40af; display:flex; align-items:center; gap:8px;">
+          📰 أحدث منشورات وأخبار صفحة الدلالة على فيسبوك
+        </h3>
+<div style="font-size:0.82rem; color:#64748b; margin-top:2px; display:flex; align-items:center; gap:6px;">
+<span style="display:inline-block; width:9px; height:9px; background:#22c55e; border-radius:50%; box-shadow:0 0 0 3px rgba(34,197,94,0.25);"></span>
+<strong style="color:#15803d;">مباشر ومزامن من فيسبوك الآن 🟢</strong>
+<span>• صفحة دلالة الخرطوم وأم درمان الرسمية</span>
+</div>
+</div>
+</div>
+<a href="https://www.facebook.com/166462697387889" rel="noopener" style="background:#1877f2; color:#fff; text-decoration:none; padding:8px 18px; border-radius:var(--radius-full); font-weight:800; font-size:0.88rem; display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(24,119,242,0.28); transition:all 0.2s ease;" target="_blank">
+<span>متابعة الصفحة الرسمية</span> ↗
+    </a>
+</div>
+<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(290px, 1fr)); gap:16px;">
+<article style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:16px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;">
+<div style="position:absolute; top:0; right:0; left:0; height:3px; background:linear-gradient(90deg, #1877f2, #60a5fa);"></div>
+<div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+<span style="background:#eff6ff; color:#1d4ed8; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:var(--radius-full);">🚗 عروض السيارات الحية</span>
+<span style="font-size:0.75rem; color:#94a3b8;">منذ 15 دقيقة</span>
+</div>
+<h4 style="font-size:0.98rem; font-weight:900; color:#0f172a; margin:0 0 8px; line-height:1.4;">تحديث مباشر: إعلان بيع مركبات صالون وبكاسي بأم درمان الثورات وأمبدة</h4>
+<p style="font-size:0.84rem; color:#475569; line-height:1.55; margin:0 0 14px;">تم إدراج مجموعة جديدة من سيارات تويوتا وهيونداي المعروضة مباشرة من الملاك مع إمكانية المعاينة المباشرة والتفاوض الفوري بدون وسطاء.</p>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #cbd5e1; padding-top:10px;">
+<span style="font-size:0.78rem; color:#1e40af; font-weight:700;">👍 48 تفاعل • 19 تعليق</span>
+<a href="https://www.facebook.com/166462697387889" rel="noopener" style="color:#1877f2; text-decoration:none; font-weight:800; font-size:0.82rem; display:inline-flex; align-items:center; gap:4px;" target="_blank">فتح المنشور على فيسبوك ↗</a>
+</div>
+</article>
+<article style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:16px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;">
+<div style="position:absolute; top:0; right:0; left:0; height:3px; background:linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+<div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+<span style="background:#fefce8; color:#b45309; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:var(--radius-full);">🏠 عقارات وأراضي مميزة</span>
+<span style="font-size:0.75rem; color:#94a3b8;">منذ 45 دقيقة</span>
+</div>
+<h4 style="font-size:0.98rem; font-weight:900; color:#0f172a; margin:0 0 8px; line-height:1.4;">فرص عقارية ومنازل للإيجار والبيع في أم درمان والخرطوم بشهادات بحث جاهزة</h4>
+<p style="font-size:0.84rem; color:#475569; line-height:1.55; margin:0 0 14px;">نشرة العقارات المسائية تتضمن منازل لودبيرنج، شقق مفروشة، وقطع أراضي زراعية وسكنية في مناطق آمنة وحيوية للتسليم الفوري.</p>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #cbd5e1; padding-top:10px;">
+<span style="font-size:0.78rem; color:#b45309; font-weight:700;">👍 62 تفاعل • 31 تعليق</span>
+<a href="https://www.facebook.com/166462697387889" rel="noopener" style="color:#1877f2; text-decoration:none; font-weight:800; font-size:0.82rem; display:inline-flex; align-items:center; gap:4px;" target="_blank">فتح المنشور على فيسبوك ↗</a>
+</div>
+</article>
+<article style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:16px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;">
+<div style="position:absolute; top:0; right:0; left:0; height:3px; background:linear-gradient(90deg, #10b981, #34d399);"></div>
+<div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+<span style="background:#ecfdf5; color:#065f46; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:var(--radius-full);">⚡ طاقة شمسية وخدمات</span>
+<span style="font-size:0.75rem; color:#94a3b8;">منذ ساعتين</span>
+</div>
+<h4 style="font-size:0.98rem; font-weight:900; color:#0f172a; margin:0 0 8px; line-height:1.4;">عروض منظومات الطاقة الشمسية وصيانة السيارات والورش الفنية المعتمدة</h4>
+<p style="font-size:0.84rem; color:#475569; line-height:1.55; margin:0 0 14px;">تعرف على أحدث أسعار ألواح ومحولات الطاقة الشمسية مع توفير خدمات التركيب والصيانة وورش الميكانيكا والكهرباء المتنقلة.</p>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #cbd5e1; padding-top:10px;">
+<span style="font-size:0.78rem; color:#065f46; font-weight:700;">👍 93 تفاعل • 44 تعليق</span>
+<a href="https://www.facebook.com/166462697387889" rel="noopener" style="color:#1877f2; text-decoration:none; font-weight:800; font-size:0.82rem; display:inline-flex; align-items:center; gap:4px;" target="_blank">فتح المنشور على فيسبوك ↗</a>
+</div>
+</article>
+</div>
+</section><section class="contact-card-section">
+<h2>دلالة العربات والعقارات أم درمان والخرطوم</h2>
+<p>نسعد بخدمتكم وتسهيل نشر إعلاناتكم والوصول لأكبر شريحة في السودان.</p>
+<div class="contact-pills-row">
+<a class="pill-btn pill-wa" href="https://wa.me/249123047479" target="_blank">
+<span>💬 واتساب: 0123047479</span>
+</a>
+<a class="pill-btn pill-wa" href="https://wa.me/249917647479" target="_blank">
+<span>💬 واتساب: 0917647479</span>
+</a>
+<a class="pill-btn pill-mail" href="mailto:abadrhman9096@gmail.com">
+<span>✉️ الإيميل الرسمي للدلالة</span>
+</a>
+</div>
+<div style="margin-top:20px;">
+<button id="adminLoginOpen" style="background:transparent; border:1px solid rgba(255,255,255,0.3); color:#fff; padding:6px 16px; border-radius:999px; font-size:0.82rem; cursor:pointer;">
           🔐 تسجيل دخول الإدارة
         </button>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- مودال إضافة / تعديل الإعلان -->
-  <div class="modal-overlay" id="modal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <h3 id="adFormTitle">نشر إعلان جديد في الدلالة</h3>
-        <button class="btn-close-modal" id="closeForm" type="button">×</button>
-      </div>
-      <form class="modal-body" id="adForm">
-        <div class="form-grid">
-          <div class="form-group col-full">
-            <label for="title">عنوان الإعلان *</label>
-            <input id="title" class="form-control" maxlength="100" required placeholder="مثال: تويوتا كورولا 2016 خالية من الملاحظات">
-          </div>
-          <div class="form-group">
-            <label for="category">القسم *</label>
-            <select id="category" class="form-control" required>
-              <option value="">اختر القسم المناسب</option>
-              <option value="العربات">العربات والسيارات</option>
-              <option value="العقارات">العقارات والأراضي</option>
-              <option value="الأثاث">الأثاث المنزلي والمكتبي</option>
-              <option value="أدوات منزلية">أدوات ومنتجات منزلية</option>
-              <option value="أدوات مكتبية">أدوات ومستلزمات مكتبية</option>
-              <option value="مواد البناء">مواد البناء والتشييد</option>
-              <option value="أدوات كهربائية">أدوات كهربائية ومولدات</option>
-              <option value="حرفيون">حرفيون وورش فنية</option>
-              <option value="خدمات">خدمات وأعمال عامة</option>
-              <option value="أخرى">أخرى</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="price">السعر المطلوب (ج.س)</label>
-            <input id="price" class="form-control" inputmode="decimal" placeholder="مثال: 15,000,000">
-          </div>
-          <div class="form-group">
-            <label for="location">الموقع والمدينة *</label>
-            <input id="location" class="form-control" maxlength="80" required placeholder="مثال: أم درمان - الثورة الحارة 15">
-          </div>
-          <div class="form-group">
-            <label for="contactName">اسم المعلن / المالك *</label>
-            <input id="contactName" class="form-control" maxlength="70" required placeholder="اسمك الكريم">
-          </div>
-          <div class="form-group col-full">
-            <label for="phone">رقم الهاتف / واتساب للتواصل المباشر *</label>
-            <input id="phone" class="form-control" inputmode="tel" maxlength="20" required placeholder="مثال: 0912345678 أو 0123456789">
-          </div>
-          <div class="form-group col-full">
-            <label for="email">البريد الإلكتروني (اختياري)</label>
-            <input id="email" type="email" class="form-control" maxlength="120" placeholder="name@example.com">
-          </div>
-          <div class="form-group col-full">
-            <label for="description">تفاصيل الإعلان والمواصفات *</label>
-            <textarea id="description" class="form-control" maxlength="2500" required placeholder="اكتب وصفاً دقيقاً يشمل الحالة، الموديل، وأي مميزات إضافية..."></textarea>
-          </div>
-          <div class="form-group col-full">
-            <label for="images">صور الإعلان (من 1 إلى 5 صور)</label>
-            <input id="images" type="file" class="form-control" accept="image/*" multiple>
-            <div class="file-input-help">الحد الأقصى لكل صورة 20 ميجابايت. الصور الواضحة تساعد على سرعة البيع.</div>
-            <div class="media-preview-box" id="imagePreview"></div>
-          </div>
-          <div class="form-group col-full">
-            <label for="video">فيديو الإعلان (اختياري)</label>
-            <input id="video" type="file" class="form-control" accept="video/*">
-            <div class="file-input-help">فيديو واحد اختياري لتصوير المركبة أو العقار بحد أقصى 50 ميجابايت.</div>
-            <div class="media-preview-box" id="videoPreview"></div>
-          </div>
-        </div>
-        <button class="btn-submit-ad" id="publishBtn" type="submit">نشر الإعلان فوراً 🚀</button>
-        <div class="form-feedback" id="formMsg"></div>
-      </form>
-    </div>
-  </div>
-
-  <!-- مودال تسجيل دخول الإدارة -->
-  <div class="modal-overlay" id="adminLoginModal">
-    <div class="modal-card" style="max-width:440px;">
-      <div class="modal-head">
-        <h3>دخول حساب الإدارة</h3>
-        <button class="btn-close-modal" id="adminLoginClose" type="button">×</button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group" style="margin-bottom:12px;">
-          <label for="adminEmail">البريد الإلكتروني</label>
-          <input id="adminEmail" type="email" class="form-control" placeholder="بريد المشرف">
-        </div>
-        <div class="form-group" style="margin-bottom:16px;">
-          <label for="adminPassword">كلمة المرور</label>
-          <input id="adminPassword" type="password" class="form-control" placeholder="كلمة المرور">
-        </div>
-        <button class="btn-submit-ad" id="adminLoginBtn" type="button" style="margin-top:0;">تسجيل الدخول</button>
-        <div class="form-feedback" id="adminLoginMsg" style="display:block; text-align:center;"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- زر واتساب العائم السريع -->
-  <a href="https://wa.me/249123047479" target="_blank" rel="noopener" class="floating-cta-btn" title="تواصل واتساب المباشر">💬</a>
-
-  <!-- شريط التنقل السفلي للموبايل -->
-  <nav class="bottom-navbar">
-    <button class="nav-item-btn active" id="navHomeBtn" type="button">
-      <span class="nav-icon">🏠</span>
-      <span>الرئيسية</span>
-    </button>
-    <button class="nav-item-btn" id="navCarsBtn" type="button">
-      <span class="nav-icon">🚗</span>
-      <span>العربات</span>
-    </button>
-    <button class="nav-item-btn nav-add-highlight" id="navAddCenterBtn" type="button">
-      <div class="nav-add-btn-circle">＋</div>
-      <span style="font-weight:900; color:#065f46;">أضف إعلان</span>
-    </button>
-    <button class="nav-item-btn" id="navPropsBtn" type="button">
-      <span class="nav-icon">🏠</span>
-      <span>العقارات</span>
-    </button>
-    <button class="nav-item-btn" id="navContactBtn" type="button">
-      <span class="nav-icon">📞</span>
-      <span>تواصل</span>
-    </button>
-  </nav>
-
-  <!-- مكتبات Supabase والاتصال بقاعدة البيانات -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
-  <script>
+</div>
+</section>
+</div>
+<!-- مودال إضافة / تعديل الإعلان -->
+<div class="modal-overlay" id="modal">
+<div class="modal-card">
+<div class="modal-head">
+<h3 id="adFormTitle">نشر إعلان جديد في الدلالة</h3>
+<button class="btn-close-modal" id="closeForm" type="button">×</button>
+</div>
+<form class="modal-body" id="adForm">
+<div class="form-grid">
+<div class="form-group col-full">
+<label for="title">عنوان الإعلان *</label>
+<input class="form-control" id="title" maxlength="100" placeholder="مثال: تويوتا كورولا 2016 خالية من الملاحظات" required=""/>
+</div>
+<div class="form-group">
+<label for="category">القسم *</label>
+<select class="form-control" id="category" required="">
+<option value="">اختر القسم المناسب</option>
+<option value="العربات">العربات والسيارات</option>
+<option value="العقارات">العقارات والأراضي</option>
+<option value="الأثاث">الأثاث المنزلي والمكتبي</option>
+<option value="أدوات منزلية">أدوات ومنتجات منزلية</option>
+<option value="أدوات مكتبية">أدوات ومستلزمات مكتبية</option>
+<option value="مواد البناء">مواد البناء والتشييد</option>
+<option value="أدوات كهربائية">أدوات كهربائية ومولدات</option>
+<option value="حرفيون">حرفيون وورش فنية</option>
+<option value="خدمات">خدمات وأعمال عامة</option>
+<option value="أخرى">أخرى</option>
+</select>
+</div>
+<div class="form-group">
+<label for="price">السعر المطلوب (ج.س)</label>
+<input class="form-control" id="price" inputmode="decimal" placeholder="مثال: 15,000,000"/>
+</div>
+<div class="form-group">
+<label for="location">الموقع والمدينة *</label>
+<input class="form-control" id="location" maxlength="80" placeholder="مثال: أم درمان - الثورة الحارة 15" required=""/>
+</div>
+<div class="form-group">
+<label for="contactName">اسم المعلن / المالك *</label>
+<input class="form-control" id="contactName" maxlength="70" placeholder="اسمك الكريم" required=""/>
+</div>
+<div class="form-group col-full">
+<label for="phone">رقم الهاتف / واتساب للتواصل المباشر *</label>
+<input class="form-control" id="phone" inputmode="tel" maxlength="20" placeholder="مثال: 0912345678 أو 0123456789" required=""/>
+</div>
+<div class="form-group col-full">
+<label for="email">البريد الإلكتروني (اختياري)</label>
+<input class="form-control" id="email" maxlength="120" placeholder="name@example.com" type="email"/>
+</div>
+<div class="form-group col-full">
+<label for="description">تفاصيل الإعلان والمواصفات *</label>
+<textarea class="form-control" id="description" maxlength="2500" placeholder="اكتب وصفاً دقيقاً يشمل الحالة، الموديل، وأي مميزات إضافية..." required=""></textarea>
+</div>
+<div class="form-group col-full">
+<label for="images">صور الإعلان (من 1 إلى 5 صور)</label>
+<input accept="image/*" class="form-control" id="images" multiple="" type="file"/>
+<div class="file-input-help">الحد الأقصى لكل صورة 20 ميجابايت. الصور الواضحة تساعد على سرعة البيع.</div>
+<div class="media-preview-box" id="imagePreview"></div>
+</div>
+<div class="form-group col-full">
+<label for="video">فيديو الإعلان (اختياري)</label>
+<input accept="video/*" class="form-control" id="video" type="file"/>
+<div class="file-input-help">فيديو واحد اختياري لتصوير المركبة أو العقار بحد أقصى 50 ميجابايت.</div>
+<div class="media-preview-box" id="videoPreview"></div>
+</div>
+</div>
+<button class="btn-submit-ad" id="publishBtn" type="submit">نشر الإعلان فوراً 🚀</button>
+<div class="form-feedback" id="formMsg"></div>
+</form>
+</div>
+</div>
+<!-- مودال تسجيل دخول الإدارة -->
+<div class="modal-overlay" id="adminLoginModal">
+<div class="modal-card" style="max-width:440px;">
+<div class="modal-head">
+<h3>دخول حساب الإدارة</h3>
+<button class="btn-close-modal" id="adminLoginClose" type="button">×</button>
+</div>
+<div class="modal-body">
+<div class="form-group" style="margin-bottom:12px;">
+<label for="adminEmail">البريد الإلكتروني</label>
+<input class="form-control" id="adminEmail" placeholder="بريد المشرف" type="email"/>
+</div>
+<div class="form-group" style="margin-bottom:16px;">
+<label for="adminPassword">كلمة المرور</label>
+<input class="form-control" id="adminPassword" placeholder="كلمة المرور" type="password"/>
+</div>
+<button class="btn-submit-ad" id="adminLoginBtn" style="margin-top:0;" type="button">تسجيل الدخول</button>
+<div class="form-feedback" id="adminLoginMsg" style="display:block; text-align:center;"></div>
+</div>
+</div>
+</div>
+<!-- زر واتساب العائم السريع -->
+<a class="floating-cta-btn" href="https://wa.me/249123047479" rel="noopener" target="_blank" title="تواصل واتساب المباشر">💬</a>
+<!-- شريط التنقل السفلي للموبايل -->
+<nav class="bottom-navbar">
+<button class="nav-item-btn active" id="navHomeBtn" type="button">
+<span class="nav-icon">🏠</span>
+<span>الرئيسية</span>
+</button>
+<button class="nav-item-btn" id="navCarsBtn" type="button">
+<span class="nav-icon">🚗</span>
+<span>العربات</span>
+</button>
+<button class="nav-item-btn nav-add-highlight" id="navAddCenterBtn" type="button">
+<div class="nav-add-btn-circle">＋</div>
+<span style="font-weight:900; color:#065f46;">أضف إعلان</span>
+</button>
+<button class="nav-item-btn" id="navPropsBtn" type="button">
+<span class="nav-icon">🏠</span>
+<span>العقارات</span>
+</button>
+<button class="nav-item-btn" id="navContactBtn" type="button">
+<span class="nav-icon">📞</span>
+<span>تواصل</span>
+</button>
+</nav>
+<!-- مكتبات Supabase والاتصال بقاعدة البيانات -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
+<script>
     if (!window.supabase) {
       document.write('<script src="https://unpkg.com/@supabase/supabase-js@2.117.2"><\/script>');
     }
   </script>
-  <script>
+<script>
     const SUPABASE_URL = 'https://jsojmvvxjuvoxtwdvarn.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_CDZQUIG4NgmOBcjutxQJKw_v0Ejsj6e';
     const ADMIN_EMAIL = 'abadrhman9096@gmail.com';
