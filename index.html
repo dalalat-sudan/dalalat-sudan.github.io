@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<html dir="rtl" lang="ar">
-<head>
+<html dir="rtl" lang="ar"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
@@ -93,13 +92,20 @@
       background: linear-gradient(135deg, #f59e0b, #d97706); color: #042f2e; border: none;
       font-weight: 800; font-size: 0.95rem; padding: 10px 18px; border-radius: var(--radius-full);
       display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
-      transition: all 0.2s ease;
+      transition: all 0.2s ease; cursor: pointer;
     }
+    .btn-top-add:hover { transform: translateY(-2px); filter: brightness(1.05); }
     .btn-top-play {
       background: rgba(0, 0, 0, 0.45); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: var(--radius-full); padding: 7px 14px; font-size: 0.8rem; font-weight: 700;
       display: inline-flex; align-items: center; gap: 7px; text-decoration: none;
     }
+    .btn-top-admin {
+      background: rgba(255, 255, 255, 0.15); color: #fff; border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--radius-full); padding: 7px 12px; font-size: 0.8rem; font-weight: 800;
+      display: inline-flex; align-items: center; gap: 5px; transition: 0.2s; cursor: pointer;
+    }
+    .btn-top-admin:hover { background: rgba(255, 255, 255, 0.25); }
 
     .app-container { max-width: 1120px; margin: 0 auto; padding: 16px; }
 
@@ -134,7 +140,7 @@
     }
     .btn-vip-wa:hover { transform: translateY(-2px); background: #20ba5a; }
 
-    /* بطاقة متجر قوقل بلاي */
+    /* بطاقة متجر قوقل بلاي وتثبيت التطبيق */
     .app-promo-card {
       background: linear-gradient(135deg, #042f2e 0%, #064e3b 55%, #065f46 100%);
       border-radius: var(--radius-lg); padding: 24px 22px; color: #ffffff;
@@ -151,10 +157,6 @@
       border: 1px solid rgba(255, 255, 255, 0.12); padding: 8px 12px; border-radius: var(--radius-sm);
       font-size: 0.82rem; font-weight: 700; color: #e6fffa;
     }
-    .play-badge-btn {
-      display: inline-flex; align-items: center; gap: 10px; background: #000000; color: #ffffff;
-      padding: 9px 18px; border-radius: 12px; text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.2);
-    }
     .apk-badge-btn {
       display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.12);
       color: #ffffff; padding: 9px 16px; border-radius: 12px; text-decoration: none;
@@ -169,36 +171,48 @@
     .search-input {
       width: 100%; height: 52px; border: 2px solid #e2e8f0; border-radius: var(--radius-md);
       padding: 0 48px 0 16px; font-size: 1rem; outline: none; background: #f8fafc;
+      transition: border-color 0.2s;
     }
+    .search-input:focus { border-color: var(--primary); background: #ffffff; }
     .hero-banner {
       background: linear-gradient(135deg, #064e3b 0%, #0d9488 100%);
       border-radius: var(--radius-lg); padding: 24px 20px; color: #fff;
       margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; flex-wrap: wrap;
     }
     .cat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 26px; }
     .cat-card {
       background: var(--card-bg); border: 1px solid var(--border-line); border-radius: var(--radius-md);
       padding: 14px 8px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer;
+      transition: all 0.2s ease;
     }
-    .cat-card:hover { transform: translateY(-3px); border-color: var(--primary); }
+    .cat-card:hover, .cat-card.active { transform: translateY(-3px); border-color: var(--primary); background: #f0fdf4; }
     .featured-box {
       background: #ffffff; border: 1px solid var(--border-line);
       border-radius: var(--radius-lg); padding: 18px; margin-bottom: 26px;
     }
-    .featured-slider { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; }
+    .featured-slider { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 6px; }
     .featured-slider::-webkit-scrollbar { display: none; }
     .featured-card {
       min-width: 290px; border-radius: var(--radius-md); padding: 20px; color: #fff;
       display: flex; flex-direction: column; justify-content: space-between; min-height: 170px;
+      transition: transform 0.2s;
     }
-    .filter-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 16px; }
+    .featured-card:hover { transform: translateY(-3px); }
+    .filter-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 16px; scrollbar-width: none; }
+    .filter-chips::-webkit-scrollbar { display: none; }
     .chip {
       background: #ffffff; border: 1px solid var(--border-line); color: var(--ink);
       font-weight: 700; padding: 8px 16px; border-radius: var(--radius-full); white-space: nowrap; cursor: pointer;
+      transition: all 0.2s ease;
     }
     .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
     .ads-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; margin-bottom: 30px; }
-    .ad-card { background: var(--card-bg); border: 1px solid var(--border-line); border-radius: var(--radius-lg); overflow: hidden; display: flex; flex-direction: column; }
+    .ad-card {
+      background: var(--card-bg); border: 1px solid var(--border-line); border-radius: var(--radius-lg);
+      overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .ad-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
     .ad-info { padding: 16px; display: flex; flex-direction: column; flex: 1; }
     .ad-actions-grid { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .btn-contact {
@@ -206,8 +220,10 @@
       text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; text-align: center;
     }
     .btn-call { background: var(--primary); color: #fff; }
+    .btn-call:hover { background: var(--primary-dark); }
     .btn-wa { background: #25d366; color: #fff; }
-    .btn-fb-share { grid-column: 1 / -1; background: #1877f2; color: #fff; border: none; border-radius: var(--radius-md); padding: 9px; font-weight: 800; }
+    .btn-wa:hover { background: #20ba5a; }
+    .btn-fb-share { grid-column: 1 / -1; background: #1877f2; color: #fff; border: none; border-radius: var(--radius-md); padding: 9px; font-weight: 800; text-align: center; cursor: pointer; }
 
     /* قسم بث وتغذية فيسبوك المباشر */
     .fb-live-feed-card {
@@ -221,7 +237,11 @@
       background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; font-size: 0.8rem;
       font-weight: 800; padding: 4px 12px; border-radius: var(--radius-full); display: inline-flex; align-items: center; gap: 6px;
     }
-    .pulse-dot { width: 8px; height: 8px; background: #dc2626; border-radius: 50%; box-shadow: 0 0 0 3px rgba(220,38,38,0.25); }
+    .pulse-dot { width: 8px; height: 8px; background: #dc2626; border-radius: 50%; box-shadow: 0 0 0 3px rgba(220,38,38,0.25); animation: pulseAnim 1.6s infinite; }
+    @keyframes pulseAnim {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
 
     /* الفوتر والتنقل */
     .contact-card-section {
@@ -229,24 +249,72 @@
       border-radius: var(--radius-lg); padding: 36px 20px; color: #fff; text-align: center; margin-top: 30px;
     }
     .contact-pills-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
-    .pill-btn { padding: 12px 22px; border-radius: var(--radius-full); font-weight: 800; text-decoration: none; }
+    .pill-btn { padding: 12px 22px; border-radius: var(--radius-full); font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
     .pill-wa { background: #25d366; color: #fff; }
     .pill-mail { background: var(--accent-gold); color: #042f2e; }
 
     .bottom-navbar {
       position: fixed; bottom: 0; left: 0; right: 0; height: 74px;
-      background: rgba(255, 255, 255, 0.96); border-top: 1px solid #e2e8f0;
+      background: rgba(255, 255, 255, 0.98); border-top: 1px solid #e2e8f0;
       display: grid; grid-template-columns: repeat(5, 1fr); z-index: 60;
+      backdrop-filter: blur(8px);
     }
     .nav-item-btn {
       background: transparent; border: none; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 4px; color: #64748b; font-weight: 700; font-size: 0.72rem;
+      align-items: center; justify-content: center; gap: 4px; color: #64748b; font-weight: 700; font-size: 0.72rem; cursor: pointer;
     }
     .nav-item-btn.active { color: var(--primary); }
     .floating-cta-btn {
-      position: fixed; left: 16px; bottom: 86px; width: 50px; height: 50px;
+      position: fixed; left: 16px; bottom: 86px; width: 54px; height: 54px;
       background: #25d366; border-radius: 50%; display: flex; align-items: center;
-      justify-content: center; color: #fff; font-size: 26px; z-index: 70; border: 2px solid #fff; text-decoration: none;
+      justify-content: center; color: #fff; font-size: 28px; z-index: 70; border: 2px solid #fff; text-decoration: none;
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5); transition: transform 0.2s;
+    }
+    .floating-cta-btn:hover { transform: scale(1.08); }
+
+    /* Modal Styling */
+    .app-modal-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px); z-index: 100; display: none;
+      align-items: center; justify-content: center; padding: 16px;
+      overflow-y: auto;
+    }
+    .app-modal-overlay.active { display: flex; }
+    .modal-box {
+      background: #ffffff; width: 100%; max-width: 580px; border-radius: var(--radius-lg);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); border: 1px solid #cbd5e1;
+      max-height: 90vh; overflow-y: auto; position: relative; animation: modalPop 0.25s ease-out;
+    }
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-header {
+      background: linear-gradient(135deg, #064e3b, #047857); color: #fff;
+      padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .modal-header h3 { margin: 0; font-size: 1.25rem; font-weight: 900; }
+    .modal-close-btn {
+      background: rgba(255,255,255,0.2); border: none; color: #fff; font-size: 1.2rem;
+      width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .modal-close-btn:hover { background: rgba(255,255,255,0.35); }
+    .modal-body { padding: 20px; }
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-weight: 800; font-size: 0.88rem; color: #1e293b; margin-bottom: 6px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; border: 1.5px solid #cbd5e1; border-radius: var(--radius-sm);
+      padding: 10px 14px; font-size: 0.95rem; color: #0f172a; outline: none; background: #f8fafc;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); background: #ffffff; }
+    .toast-msg {
+      position: fixed; top: 20px; right: 20px; z-index: 120;
+      background: #065f46; color: #fff; padding: 14px 22px; border-radius: var(--radius-md);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25); font-weight: 800; font-size: 0.95rem;
+      display: none; align-items: center; gap: 8px; border-left: 5px solid var(--accent-gold);
     }
 
     @media (max-width: 768px) {
@@ -258,12 +326,17 @@
   </style>
 </head>
 <body>
+<!-- رسالة التنبيه السريعة (Toast) -->
+<div class="toast-msg" id="globalToast">
+<span id="toastIcon">✅</span>
+<span id="toastText">تمت العملية بنجاح!</span>
+</div>
 <!-- شريط فيسبوك التفاعلي العلوي بالرابط المحدث -->
 <div class="fb-top-strip">
 <span>📘 تابع أحدث العروض والسيارات فور نشرها على صفحتنا الرسمية:</span>
 <a class="fb-top-link" href="https://www.facebook.com/share/1F53vMeG4L/" rel="noopener" target="_blank">
 <span>تابع صفحة دلالة فيسبوك</span> ↗
-    </a>
+</a>
 </div>
 <!-- الهيدر الرئيسي -->
 <header class="topbar">
@@ -276,13 +349,14 @@
 </div>
 </div>
 <div class="topbar-actions">
+<button class="btn-top-admin" id="openAdminBtn" title="إدارة وإضافة الدعايات الترويجية" type="button"><span>⚙️ الإدارة</span></button>
 <a class="btn-top-play" href="#appDownloadSection"><span>📱 حمّل التطبيق مجاناً</span></a>
 <button class="btn-top-add" id="openFormTopBtn" type="button"><span>＋ أضف إعلانك</span></button>
 </div>
 </div>
 </header>
 <div class="app-container">
-<!-- خدمة النشر السريع عبر الواتساب لكبار السن والتجار (حل جذب الإعلانات الفوري) -->
+<!-- خدمة النشر السريع عبر الواتساب لكبار السن والتجار -->
 <section class="vip-whatsapp-banner">
 <div class="vip-inner">
 <div class="vip-texts">
@@ -302,13 +376,40 @@
 </div>
 </div>
 </section>
-<!-- قسم تحميل تطبيق Google Play المعتمد -->
-<section class="app-promo-card" id="appDownloadSection"><div class="app-promo-layout"><div><div style="background:rgba(52,211,153,0.2); border:1px solid rgba(52,211,153,0.4); color:#6ee7b7; font-size:0.78rem; font-weight:800; padding:4px 12px; border-radius:99px; display:inline-flex; align-items:center; gap:6px; margin-bottom:10px;"><span>📱 تطبيق ذكي مجاني 100% لجميع أجهزة أندرويد وآيفون</span></div><h2 style="font-size:1.55rem; font-weight:900; margin:0 0 8px; color:#fff;">حمّل تطبيق دلالة الخرطوم وأم درمان مجاناً على هاتفك</h2><p style="font-size:0.92rem; color:#ccfbf1; margin:0 0 14px;">تصفح آلاف عروض السيارات والعقارات والأثاثات في السودان مباشرة من هاتفك، مع تواصل مباشر وسريع وتثبيت فوري خفيف دون استهلاك للذاكرة أو قيود المتاجر.</p><div class="app-features-grid"><div class="app-feature-item"><span>⚡</span><span>تثبيت فوري بضغطة زر واحدة مجاناً</span></div><div class="app-feature-item"><span>🔔</span><span>تنبيهات فورية بالعروض والأسعار الجديدة</span></div><div class="app-feature-item"><span>📦</span><span>حجم خفيف جداً واستهلاك قليل للإنترنت</span></div><div class="app-feature-item"><span>🛡️</span><span>يعمل بكفاءة على جميع هواتف أندرويد وآيفون</span></div></div><div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px;"><button id="installPwaBtn" style="background:linear-gradient(135deg, #f59e0b, #d97706); color:#042f2e; border:none; font-weight:900; font-size:1rem; padding:12px 22px; border-radius:14px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 6px 18px rgba(245,158,11,0.4); cursor:pointer;" type="button"><span>📲</span><span>تثبيت التطبيق على الشاشة الرئيسية (تطبيق فوري مجاني PWA)</span></button><a class="apk-badge-btn" download="" href="dalalat-app.apk" style="background:rgba(255,255,255,0.18); font-size:0.92rem; padding:11px 18px;"><span>📥 تحميل ملف التطبيق المباشر (APK مجاني)</span></a><a class="btn-vip-wa" href="https://api.whatsapp.com/send?text=%D8%AD%D9%85%D9%91%D9%84%20%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%20%D8%AF%D9%84%D8%A7%D9%84%D8%A9%20%D8%A7%D9%84%D8%AE%D8%B1%D8%B7%D9%88%D9%85%20%D9%88%D8%A3%D9%85%20%D8%AF%D8%B1%D9%85%D8%A7%D9%86%20%D8%A7%D9%84%D9%85%D8%AC%D8%A7%D9%86%D9%8A%20%D8%A7%D9%84%D8%A2%D9%86%20%D9%84%D8%AA%D8%B5%D9%81%D8%AD%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%20%D9%88%D8%A7%D9%84%D8%B9%D9%82%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A8%D8%AF%D9%88%D9%86%20%D9%88%D8%B3%D9%8A%D8%B7%3A%20https%3A%2F%2Fdalalat-sudan.github.io%2F" rel="noopener" style="padding:11px 18px; font-size:0.92rem;" target="_blank"><span>💬 شارك التطبيق عبر واتساب مع معارفك</span></a></div></div></div></section>
+<!-- قسم تحميل تطبيق الهاتف المعتمد -->
+<section class="app-promo-card" id="appDownloadSection">
+<div class="app-promo-layout">
+<div>
+<div style="background:rgba(52,211,153,0.2); border:1px solid rgba(52,211,153,0.4); color:#6ee7b7; font-size:0.78rem; font-weight:800; padding:4px 12px; border-radius:99px; display:inline-flex; align-items:center; gap:6px; margin-bottom:10px;">
+<span>📱 تطبيق ذكي مجاني 100% لجميع أجهزة أندرويد وآيفون</span>
+</div>
+<h2 style="font-size:1.55rem; font-weight:900; margin:0 0 8px; color:#fff;">حمّل تطبيق دلالة الخرطوم وأم درمان مجاناً على هاتفك</h2>
+<p style="font-size:0.92rem; color:#ccfbf1; margin:0 0 14px;">تصفح آلاف عروض السيارات والعقارات والأثاثات في السودان مباشرة من هاتفك، مع تواصل مباشر وسريع وتثبيت فوري خفيف دون استهلاك للذاكرة أو قيود المتاجر.</p>
+<div class="app-features-grid">
+<div class="app-feature-item"><span>⚡</span><span>تثبيت فوري بضغطة زر واحدة مجاناً</span></div>
+<div class="app-feature-item"><span>🔔</span><span>تنبيهات فورية بالعروض والأسعار الجديدة</span></div>
+<div class="app-feature-item"><span>📦</span><span>حجم خفيف جداً واستهلاك قليل للإنترنت</span></div>
+<div class="app-feature-item"><span>🛡️</span><span>يعمل بكفاءة على جميع هواتف أندرويد وآيفون</span></div>
+</div>
+<div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:16px;">
+<button id="installPwaBtn" style="background:linear-gradient(135deg, #f59e0b, #d97706); color:#042f2e; border:none; font-weight:900; font-size:1rem; padding:12px 22px; border-radius:14px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 6px 18px rgba(245,158,11,0.4); cursor:pointer;" type="button">
+<span>📲</span><span>تثبيت التطبيق على الشاشة الرئيسية (تطبيق فوري مجاني PWA)</span>
+</button>
+<a class="apk-badge-btn" download="" href="dalalat-app.apk" style="background:rgba(255,255,255,0.18); font-size:0.92rem; padding:11px 18px;">
+<span>📥 تحميل ملف التطبيق المباشر (APK مجاني)</span>
+</a>
+<a class="btn-vip-wa" href="https://api.whatsapp.com/send?text=%D8%AD%D9%85%D9%91%D9%84%20%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%20%D8%AF%D9%84%D8%A7%D9%84%D8%A9%20%D8%A7%D9%84%D8%AE%D8%B1%D8%B7%D9%88%D9%85%20%D9%88%D8%A3%D9%85%20%D8%AF%D8%B1%D9%85%D8%A7%D9%86%20%D8%A7%D9%84%D9%85%D8%AC%D8%A7%D9%86%D9%8A%20%D8%A7%D9%84%D8%A2%D9%86%20%D9%84%D8%AA%D8%B5%D9%81%D8%AD%20%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%20%D9%88%D8%A7%D9%84%D8%B9%D9%82%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A8%D8%AF%D9%88%D9%86%20%D9%88%D8%B3%D9%8A%D8%B7%3A%20https%3A%2F%2Fdalalat-sudan.github.io%2F" rel="noopener" style="padding:11px 18px; font-size:0.92rem;" target="_blank">
+<span>💬 شارك التطبيق عبر واتساب مع معارفك</span>
+</a>
+</div>
+</div>
+</div>
+</section>
 <!-- بطاقة البحث السريع -->
 <section class="search-card">
 <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.9rem; color:var(--ink-muted);">
 <span>ابحث في آلاف العروض المحدثة يومياً:</span>
-<span style="background:#ecfdf5; color:var(--primary); padding:3px 10px; border-radius:99px; font-weight:700;">📍 أم درمان والخرطوم</span>
+<span style="background:#ecfdf5; color:var(--primary); padding:3px 10px; border-radius:99px; font-weight:700;">📍 أم درمان والخرطوم وكافة الولايات</span>
 </div>
 <div style="position:relative;">
 <input class="search-input" id="searchInput" placeholder="اكتب اسم سيارة، عقار، حي، أو حرفة للبحث الفوري..." type="search"/>
@@ -338,10 +439,13 @@
 <div class="cat-card" data-cat="أخرى"><span style="font-size:1.8rem;">📦</span><strong>أقسام أخرى</strong><span style="font-size:0.72rem; color:#64748b;">مواد بناء وتجارة</span></div>
 </div>
 </section>
-<!-- الإعلانات والعروض المميزة (تنشيط الحركة لكسر الفراغ) -->
+<!-- الإعلانات والعروض المميزة -->
 <section class="featured-box">
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+<div style="display:flex; align-items:center; gap:8px;">
 <h3 style="color:#064e3b; font-weight:900; margin:0; font-size:1.25rem;">🔥 إعلانات وعروض مميزة</h3>
+<button id="addPromoSlideBtn" style="background:#fef3c7; border:1px solid #f59e0b; color:#92400e; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:99px;" type="button">＋ إضافة دعاية مميزة</button>
+</div>
 <span style="font-size:0.85rem; color:#d97706; font-weight:700;">اسحب للمزيد ‹</span>
 </div>
 <div class="featured-slider" id="promoAds">
@@ -370,31 +474,11 @@
 <button class="chip" data-cat="الأثاث" type="button">🛋️ الأثاثات</button>
 <button class="chip" data-cat="أدوات منزلية" type="button">🍳 أدوات منزلية</button>
 <button class="chip" data-cat="حرفيون" type="button">🧰 حرفيون</button>
+<button class="chip" data-cat="أخرى" type="button">📦 أقسام أخرى</button>
 </div>
 <!-- شبكة الإعلانات الأساسية -->
 <main class="ads-container" id="ads">
-<article class="ad-card" id="ad-hilux-2021" style="border:2px solid #10b981; box-shadow:0 10px 25px -4px rgba(16,185,129,0.25);">
-<div style="height:240px; background:#f1f5f9; position:relative; overflow:hidden;">
-<img alt="بكاسي هاي لوكس شهادة 2021" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5d3M2hGmJ3oj_SJe4DuMEH0JnE3BG83AFpHoZd9_ZhjCh0sJs1PGYMXO3bXz7DfdRz1hyL4DmnC8dYsYFhIPIkGEeT2X0HqOlwAmSW1eLWT5gB2nPAGRgndVN3nLfqvUVCPGJTbYvh78YMBS8tx1yt6k7oK0M4fLXI4yzmWSoZYE5LSkS1fagnl_ynNXKqctJkazh3IRXlkxZVKD7BBaKl1ueCIjZ5Qc81iepyVY-FQrE3x1aTSAv" style="width:100%; height:100%; object-fit:cover; object-position:bottom center;"/>
-<span style="position:absolute; bottom:10px; left:10px; background:rgba(6,78,59,0.85); color:#fff; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:99px; border:1px solid #34d399;">📷 موثق من فيسبوك • وارد جديد</span>
-<div style="position:absolute; top:12px; right:12px; background:#f59e0b; color:#042f2e; padding:4px 12px; border-radius:99px; font-weight:900; font-size:0.8rem;">⭐ إعلان مميز وحصري</div>
-</div>
-<div class="ad-info">
-<div style="display:flex; gap:6px; margin-bottom:8px; flex-wrap:wrap;">
-<span style="background:#dcfce7; color:#15803d; font-weight:800; padding:3px 10px; border-radius:99px; font-size:0.78rem;">🚗 العربات والسيارات</span>
-<span style="background:#f1f5f9; color:#64748b; padding:3px 10px; border-radius:99px; font-size:0.78rem;">📍 الخرطوم</span>
-<span style="background:#eff6ff; color:#1d4ed8; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:99px;">👤 الناشر: سلمي الخير</span>
-</div>
-<h4 style="margin:0 0 6px; font-size:1.3rem; font-weight:900; color:#064e3b;">بكاسي هاي لوكس شهادة 2021</h4>
-<div style="font-size:1.35rem; font-weight:900; color:#d97706; margin-bottom:10px;">السعر عند التواصل والتفاوض الجاد</div>
-<p style="font-size:0.92rem; color:#334155; line-height:1.6; margin:0 0 14px;">للبيع في الخرطوم هيلوكس 2021 دبل كابينة بحالة الوكالة شهادة وارد، فحص كامل خالية من الملاحظات، تكييف فل، جير ومحرك بحالة ممتازة، ترخيص وتأمين ساري وجاهزة للفحص المباشر فوراً.</p>
-<div class="ad-actions-grid">
-<a class="btn-contact btn-call" href="tel:0912304747">📞 اتصال بالمعلن</a>
-<a class="btn-contact btn-wa" href="https://wa.me/249917647479?text=%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A8%D9%83%D8%A7%D8%B3%D9%8A%20%D9%87%D8%A7%D9%8A%20%D9%84%D9%88%D9%83%D8%B3%202021" rel="noopener" target="_blank">💬 واتساب المعلن</a>
-<a class="btn-fb-share" href="https://www.facebook.com/share/p/18nhVH2z22/" rel="noopener" style="text-decoration:none;" target="_blank">📘 فتح المنشور الأصلي في فيسبوك ↗</a>
-</div>
-</div>
-</article>
+<!-- سيتم تعبئتها فوراً بالإعلانات الافتراضية الشاملة والمحفوظة عبر الجافاسكربت لمنع أي فراغ -->
 </main>
 <!-- قسم بث وتغذية صفحة فيسبوك الرسمية الحية بالرابط الجديد المعتمد -->
 <section class="fb-live-feed-card">
@@ -410,7 +494,7 @@
 </div>
 <a href="https://www.facebook.com/share/1F53vMeG4L/" rel="noopener" style="background:#1877f2; color:#fff; text-decoration:none; padding:8px 18px; border-radius:99px; font-weight:800; font-size:0.88rem;" target="_blank">
 <span>متابعة الصفحة الرسمية</span> ↗
-        </a>
+</a>
 </div>
 <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:var(--radius-md); padding:14px 16px; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
 <div>
@@ -419,7 +503,7 @@
 </div>
 <a href="https://www.facebook.com/share/1F53vMeG4L/" rel="noopener" style="background:#1d4ed8; color:#ffffff; padding:7px 16px; border-radius:99px; font-size:0.82rem; font-weight:800; text-decoration:none;" target="_blank">
 <span>تصفح الصفحة في فيسبوك</span> ↗
-        </a>
+</a>
 </div>
 </section>
 <!-- قسم الفوتر ومعلومات الاتصال الرسمية للدلالة -->
@@ -441,8 +525,22 @@
 </div>
 <!-- زر واتساب العائم السريع -->
 <a class="floating-cta-btn" href="https://wa.me/249123047479" rel="noopener" target="_blank" title="تواصل واتساب المباشر">💬</a>
+<!-- بانر PWA السفلي للتثبيت -->
+<div id="pwaInstallBanner" style="position:fixed; bottom:78px; left:12px; right:12px; max-width:540px; margin:0 auto; background:#064e3b; color:#ffffff; padding:12px 16px; border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,0.35); border:1px solid #34d399; display:flex; align-items:center; justify-content:space-between; gap:10px; z-index:65;">
+<div style="display:flex; align-items:center; gap:8px;">
+<span style="font-size:1.6rem;">📱</span>
+<div>
+<strong style="display:block; font-size:0.88rem; color:#fff;">هل تود تثبيت تطبيق الدلالة على هاتفك مجاناً؟</strong>
+<span style="font-size:0.75rem; color:#a7f3d0;">سريع وخفيف ويعمل بدون متجر</span>
+</div>
+</div>
+<div style="display:flex; align-items:center; gap:6px;">
+<button id="pwaBannerInstallBtn" style="background:#f59e0b; color:#042f2e; border:none; padding:7px 14px; border-radius:99px; font-weight:900; font-size:0.8rem; cursor:pointer;" type="button">تثبيت الآن</button>
+<button id="pwaBannerDismissBtn" style="background:rgba(255,255,255,0.15); color:#fff; border:none; padding:7px 12px; border-radius:99px; font-weight:700; font-size:0.8rem; cursor:pointer;" type="button">لاحقاً</button>
+</div>
+</div>
 <!-- شريط التنقل السفلي للموبايل -->
-<div id="pwaInstallBanner" style="position:fixed; bottom:78px; left:12px; right:12px; max-width:540px; margin:0 auto; background:#064e3b; color:#ffffff; padding:12px 16px; border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,0.35); border:1px solid #34d399; display:flex; align-items:center; justify-content:space-between; gap:10px; z-index:65;"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:1.6rem;">📱</span><div><strong style="display:block; font-size:0.88rem; color:#fff;">هل تود تثبيت تطبيق الدلالة على هاتفك مجاناً؟</strong><span style="font-size:0.75rem; color:#a7f3d0;">سريع وخفيف ويعمل بدون متجر</span></div></div><div style="display:flex; align-items:center; gap:6px;"><button id="pwaBannerInstallBtn" style="background:#f59e0b; color:#042f2e; border:none; padding:7px 14px; border-radius:99px; font-weight:900; font-size:0.8rem; cursor:pointer;" type="button">تثبيت الآن</button><button id="pwaBannerDismissBtn" style="background:rgba(255,255,255,0.15); color:#fff; border:none; padding:7px 12px; border-radius:99px; font-weight:700; font-size:0.8rem; cursor:pointer;" type="button">لاحقاً</button></div></div><nav class="bottom-navbar">
+<nav class="bottom-navbar">
 <button class="nav-item-btn active" id="navHomeBtn" type="button"><span>🏠</span><span>الرئيسية</span></button>
 <button class="nav-item-btn" id="navCarsBtn" type="button"><span>🚗</span><span>العربات</span></button>
 <button class="nav-item-btn" id="navAddCenterBtn" type="button">
@@ -452,18 +550,577 @@
 <button class="nav-item-btn" id="navPropsBtn" type="button"><span>🏠</span><span>العقارات</span></button>
 <button class="nav-item-btn" id="navContactBtn" type="button"><span>📞</span><span>تواصل</span></button>
 </nav>
-<!-- اتصال قاعدة البيانات Supabase وبرمجيات الصفحة -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
+<!-- نافذة مودال: نشر إعلان جديد (تعمل 100%) -->
+<div class="app-modal-overlay" id="addAdModal">
+<div class="modal-box">
+<div class="modal-header">
+<h3>✨ أضف إعلانك الجديد في ثوانٍ</h3>
+<button class="modal-close-btn" id="closeAdModalBtn" type="button">✕</button>
+</div>
+<div class="modal-body">
+<form id="newAdForm">
+<div class="form-group">
+<label class="form-label" for="adTitle">عنوان الإعلان *</label>
+<input class="form-input" id="adTitle" placeholder="مثال: تويوتا كورولا 2018 نظيفة أو بيت للبيع..." required="" type="text"/>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+<div class="form-group">
+<label class="form-label" for="adCategory">القسم *</label>
+<select class="form-select" id="adCategory" required="">
+<option value="العربات">🚗 العربات</option>
+<option value="العقارات">🏠 العقارات</option>
+<option value="الأثاث">🛋️ الأثاثات</option>
+<option value="أدوات منزلية">🍳 أدوات منزلية</option>
+<option value="حرفيون">🧰 حرفيون وورش</option>
+<option value="أخرى">📦 أقسام أخرى</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label" for="adCity">المدينة / المنطقة *</label>
+<input class="form-input" id="adCity" placeholder="أم درمان، الخرطوم، بحري..." required="" type="text"/>
+</div>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+<div class="form-group">
+<label class="form-label" for="adPrice">السعر المطلوب (ج.س أو $)</label>
+<input class="form-input" id="adPrice" placeholder="مثال: 12,500,000 ج.س أو قابل للتفاوض" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="adAuthor">اسم صاحب الإعلان *</label>
+<input class="form-input" id="adAuthor" placeholder="اسمك أو اسم المعرض" required="" type="text"/>
+</div>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+<div class="form-group">
+<label class="form-label" for="adPhone">رقم الاتصال المباشر *</label>
+<input class="form-input" dir="ltr" id="adPhone" placeholder="09xxxxxxxx" required="" style="text-align:right;" type="tel"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="adWhatsapp">رقم الواتساب (اختياري)</label>
+<input class="form-input" dir="ltr" id="adWhatsapp" placeholder="09xxxxxxxx أو 249..." style="text-align:right;" type="tel"/>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label" for="adDetails">تفاصيل الإعلان والمواصفات *</label>
+<textarea class="form-textarea" id="adDetails" placeholder="اكتب حالة السلعة، الموديل، الفحص، وأي تفاصيل أخرى تفيد المشتري..." required="" rows="3"></textarea>
+</div>
+<div class="form-group">
+<label class="form-label" for="adImageFile">صورة الإعلان (اختياري)</label>
+<input accept="image/*" class="form-input" id="adImageFile" style="padding:6px 10px;" type="file"/>
+<span style="font-size:0.75rem; color:#64748b; display:block; margin-top:3px;">يمكنك اختيار صورة من الهاتف أو الجهاز، وسيتم عرضها فوراً في الإعلان.</span>
+</div>
+<button id="submitAdBtn" style="width:100%; background:linear-gradient(135deg, #065f46, #047857); color:#fff; border:none; padding:13px; font-size:1.05rem; font-weight:900; border-radius:var(--radius-md); box-shadow:0 6px 18px rgba(6,95,70,0.3); margin-top:8px; cursor:pointer;" type="submit">
+🚀 نشر الإعلان فوراً وبشكل مجاني
+</button>
+</form>
+</div>
+</div>
+</div>
+<!-- نافذة مودال: لوحة الإدارة ونشر الدعايات المميزة -->
+<div class="app-modal-overlay" id="adminModal">
+<div class="modal-box">
+<div class="modal-header" style="background:linear-gradient(135deg, #1e293b, #0f172a);">
+<h3>⚙️ لوحة إدارة الدلالة والدعايات المميزة</h3>
+<button class="modal-close-btn" id="closeAdminModalBtn" type="button">✕</button>
+</div>
+<div class="modal-body">
+<div style="background:#f1f5f9; padding:12px 14px; border-radius:10px; margin-bottom:16px; font-size:0.85rem; color:#334155;">
+🛡️ أهلاً بك في لوحة تحكم دلالة السودان. يمكنك هنا نشر سلايد دعائي وترويجي يظهر فوراً في شريط العروض المميزة، أو إدارة العروض المنشورة.
+</div>
+<form id="promoAdForm">
+<h4 style="margin:0 0 10px; color:#065f46; font-size:1rem; font-weight:800;">إضافة كرت دعاية مميزة (سلايدر العروض أعلى الصفحة)</h4>
+<div class="form-group">
+<label class="form-label" for="promoTitle">عنوان العرض أو الدعاية *</label>
+<input class="form-input" id="promoTitle" placeholder="مثال: تخفيض خاص على عقارات أم درمان..." required="" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="promoBadge">شارة التمييز</label>
+<input class="form-input" id="promoBadge" placeholder="مثال: 🔥 عرض حصري أو ⭐ فرصة استثمارية" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="promoDesc">وصف مختصر للعرض *</label>
+<textarea class="form-textarea" id="promoDesc" placeholder="نص مختصر جذاب يظهر في الكرت الترويجي..." required="" rows="2"></textarea>
+</div>
+<div class="form-group">
+<label class="form-label" for="promoLink">رابط التوجيه (رابط فيسبوك أو واتساب أو موقع)</label>
+<input class="form-input" dir="ltr" id="promoLink" placeholder="https://wa.me/249... أو https://facebook.com/..." style="text-align:right;" type="url"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="promoColor">لون وتدرج البطاقة</label>
+<select class="form-select" id="promoColor">
+<option value="linear-gradient(135deg, #064e3b, #047857)">أخضر زمردي فاخر</option>
+<option value="linear-gradient(135deg, #d97706, #b45309)">ذهبي كهرماني</option>
+<option value="linear-gradient(135deg, #dc2626, #991b1b)">أحمر ملفت وساخن</option>
+<option value="linear-gradient(135deg, #1d4ed8, #1e40af)">أزرق ملكي</option>
+<option value="linear-gradient(135deg, #4c1d95, #6b21a8)">بنفسجي داكن</option>
+</select>
+</div>
+<button style="width:100%; background:linear-gradient(135deg, #f59e0b, #d97706); color:#042f2e; border:none; padding:12px; font-size:1rem; font-weight:900; border-radius:var(--radius-md); box-shadow:0 6px 18px rgba(245,158,11,0.3); margin-top:6px; cursor:pointer;" type="submit">
+✨ إضافة ونشر الدعاية في الشريط فوراً
+</button>
+</form>
+<div style="border-top:1px solid #e2e8f0; margin-top:20px; padding-top:14px; display:flex; justify-content:space-between; align-items:center;">
+<span style="font-size:0.8rem; color:#64748b;">قاعدة البيانات متصلة وجاهزة للتخزين الفوري</span>
+<button id="clearCustomAdsBtn" style="background:#fee2e2; color:#b91c1c; border:none; padding:6px 12px; border-radius:8px; font-size:0.75rem; font-weight:700; cursor:pointer;" type="button">إفراغ الإعلانات المحلية</button>
+</div>
+</div>
+</div>
+</div>
 <script>
-    const el = id => document.getElementById(id);
-    document.querySelectorAll('[data-cat]').forEach(b => {
-      b.addEventListener('click', function() {
-        const cat = this.getAttribute('data-cat') || '';
-        document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', (c.getAttribute('data-cat') || '') === cat));
-      });
+  // دوال المساعدة العامة
+  const $ = id => document.getElementById(id);
+  
+  function showToast(text, icon = '✅') {
+    const toast = $('globalToast');
+    if (!toast) return;
+    $('toastText').textContent = text;
+    $('toastIcon').textContent = icon;
+    toast.style.display = 'flex';
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 4000);
+  }
+
+  // التحكم في المودالات
+  const addAdModal = $('addAdModal');
+  const adminModal = $('adminModal');
+
+  function openModal(modal) {
+    if (modal) modal.classList.add('active');
+  }
+
+  function closeModal(modal) {
+    if (modal) modal.classList.remove('active');
+  }
+
+  // ربط أزرار إضافة الإعلان
+  $('openFormTopBtn')?.addEventListener('click', () => openModal(addAdModal));
+  $('heroBannerAddBtn')?.addEventListener('click', () => openModal(addAdModal));
+  $('navAddCenterBtn')?.addEventListener('click', () => openModal(addAdModal));
+
+  // إغلاق المودالات
+  $('closeAdModalBtn')?.addEventListener('click', () => closeModal(addAdModal));
+  $('openAdminBtn')?.addEventListener('click', () => openModal(adminModal));
+  $('addPromoSlideBtn')?.addEventListener('click', () => openModal(adminModal));
+  $('closeAdminModalBtn')?.addEventListener('click', () => closeModal(adminModal));
+
+  // إغلاق بالنقر على الخلفية
+  window.addEventListener('click', (e) => {
+    if (e.target === addAdModal) closeModal(addAdModal);
+    if (e.target === adminModal) closeModal(adminModal);
+  });
+
+  // باقة الإعلانات المحفوظة مسبقاً (Default Built-in Ads) لمنع السحابة الفارغة
+  const DEFAULT_ADS = [
+    {
+      id: 'default_hilux_2021',
+      title: 'بكاسي هاي لوكس شهادة 2021',
+      category: 'العربات',
+      city: 'الخرطوم',
+      price: 'السعر عند التواصل والتفاوض الجاد',
+      author: 'سلمي الخير',
+      phone: '0912304747',
+      whatsapp: '249917647479',
+      details: 'للبيع في الخرطوم هيلوكس 2021 دبل كابينة بحالة الوكالة شهادة وارد، فحص كامل خالية من الملاحظات، تكييف فل، جير ومحرك بحالة ممتازة، ترخيص وتأمين ساري وجاهزة للفحص المباشر فوراً.',
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA5d3M2hGmJ3oj_SJe4DuMEH0JnE3BG83AFpHoZd9_ZhjCh0sJs1PGYMXO3bXz7DfdRz1hyL4DmnC8dYsYFhIPIkGEeT2X0HqOlwAmSW1eLWT5gB2nPAGRgndVN3nLfqvUVCPGJTbYvh78YMBS8tx1yt6k7oK0M4fLXI4yzmWSoZYE5LSkS1fagnl_ynNXKqctJkazh3IRXlkxZVKD7BBaKl1ueCIjZ5Qc81iepyVY-FQrE3x1aTSAv',
+      badge: '⭐ إعلان مميز وحصري',
+      fbLink: 'https://www.facebook.com/share/p/18nhVH2z22/'
+    },
+    {
+      id: 'default_corolla_2017',
+      title: 'تويوتا كورولا 2017 بحالة الوكالة',
+      category: 'العربات',
+      city: 'أم درمان الثورة',
+      price: '18,500,000 ج.س',
+      author: 'معرض الأمانة للسيارات',
+      phone: '0917647479',
+      whatsapp: '249917647479',
+      details: 'تويوتا كورولا موديل 2017، ممشى حقيقي قليل، ماكينة وجيربوكس وتكييف شرط الفحص، لا توجد صدمات أو رش، ترخيص ساري أم درمان، معاينة فورية بالثورة الحارة السادسة.',
+      image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=700&q=80',
+      badge: '🔥 وارد خليجي نظيف',
+      fbLink: 'https://www.facebook.com/share/1F53vMeG4L/'
+    },
+    {
+      id: 'default_house_omdurman_14',
+      title: 'منزل لودبيرنج للبيع بأم درمان الحارة 14',
+      category: 'العقارات',
+      city: 'أم درمان الحارة 14',
+      price: '48,000,000 ج.س تفاوض معقول',
+      author: 'مكتب الرضا للخدمات العقارية',
+      phone: '0123047479',
+      whatsapp: '249123047479',
+      details: 'منزل لودبيرنج مساحة 300 متر مربع مؤسس لثلاثة طوابق، مشطب أرضي كامل 3 غرف وهول كبير وصالون ومطبخ مركب و3 حمامات، واجهة شرقية وموقع استراتيجي قريب من المواصلات والخدمات، أوراق حيازة موثقة جاهزة للتسجيل.',
+      image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=700&q=80',
+      badge: '🏠 موقع استثماري جاهز',
+      fbLink: 'https://www.facebook.com/share/1F53vMeG4L/'
+    },
+    {
+      id: 'default_turkish_sofa',
+      title: 'طقم جلوس تركي فاخر جديد للأثاثات',
+      category: 'الأثاث',
+      city: 'أم درمان والخرطوم',
+      price: '2,900,000 ج.س',
+      author: 'مفروشات دارك الأنيقة',
+      phone: '0912304747',
+      whatsapp: '249917647479',
+      details: 'طقم جلوس تركي 8 مقاعد راقي جداً قماش مستورد ضد البقع مع إسفنج ضغط عالي مريح يدوم طويلاً، يتضمن طاولة وسطية واثنين طاولات خدمة، متوفر بعدة ألوان مع إمكانية التوصيل المنزلي لجميع مناطق الخرطوم وأم درمان.',
+      image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=700&q=80',
+      badge: '✨ جديد بالكرتونة',
+      fbLink: 'https://www.facebook.com/share/1F53vMeG4L/'
+    },
+    {
+      id: 'default_mobile_mechanic',
+      title: 'ورشة صيانة سيارات وميكانيكا متنقلة',
+      category: 'حرفيون',
+      city: 'الخرطوم وبحري وأم درمان',
+      price: 'أسعار مناسبة وفحص كمبيوتر فوري',
+      author: 'المهندس أبو بكر الميكانيكي',
+      phone: '0917647479',
+      whatsapp: '249917647479',
+      details: 'خدمة صيانة السيارات في موقعك على مدار الساعة في الخرطوم وبحري وأم درمان. فحص كمبيوتر دقيق، كشف الأعطال الكهربائية والميكانيكية، تغيير زيوت، سيور، فحمات فرامل، وبطاريات مع توفير قطع الغيار الأصلية وضمان الشغل.',
+      image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=700&q=80',
+      badge: '🧰 خدمة طوارئ متنقلة 24/7',
+      fbLink: 'https://www.facebook.com/share/1F53vMeG4L/'
+    }
+  ];
+
+  // إدارة التخزين المزدوج الذكي (Local Storage + Cloud Fallback)
+  const LOCAL_STORAGE_KEY = 'dalalat_user_ads_v2';
+  const PROMO_STORAGE_KEY = 'dalalat_promo_ads_v2';
+
+  function getSavedAds() {
+    try {
+      const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch(e) {
+      return [];
+    }
+  }
+
+  function saveLocalAd(ad) {
+    const list = getSavedAds();
+    list.unshift(ad);
+    try {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
+    } catch(e) {
+      console.warn('LocalStorage limit exceeded', e);
+    }
+  }
+
+  function renderAdCard(ad, prepend = false) {
+    const container = $('ads');
+    if (!container) return;
+
+    // منع تكرار الإعلان إن كان موجوداً
+    const existing = document.getElementById('ad-' + ad.id);
+    if (existing) return;
+
+    const article = document.createElement('article');
+    article.className = 'ad-card';
+    article.setAttribute('data-ad-cat', ad.category || 'أخرى');
+    article.setAttribute('data-ad-title', ad.title || '');
+    article.id = 'ad-' + ad.id;
+
+    // أرقام الهواتف والواتساب
+    const cleanPhone = (ad.phone || '').replace(/[^0-9]/g, '');
+    let cleanWa = (ad.whatsapp || ad.phone || '').replace(/[^0-9]/g, '');
+    if (cleanWa.startsWith('0')) {
+      cleanWa = '249' + cleanWa.substring(1);
+    } else if (!cleanWa.startsWith('249') && cleanWa.length >= 9) {
+      cleanWa = '249' + cleanWa;
+    }
+    const waLink = `https://wa.me/${cleanWa}?text=${encodeURIComponent('مرحباً، أستفسر عن إعلانك في الدلالة: ' + ad.title)}`;
+    const imgSrc = ad.image || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=700&q=80';
+    const badgeText = ad.badge || '✨ منشور حديثاً';
+
+    article.innerHTML = `
+      <div style="height:230px; background:#f1f5f9; position:relative; overflow:hidden;">
+        <img alt="${ad.title}" loading="lazy" src="${imgSrc}" style="width:100%; height:100%; object-fit:cover; object-position:center;"/>
+        <span style="position:absolute; bottom:10px; left:10px; background:rgba(6,78,59,0.85); color:#fff; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:99px; border:1px solid #34d399;">📷 موثق • تواصل مباشر</span>
+        <div style="position:absolute; top:12px; right:12px; background:#f59e0b; color:#042f2e; padding:4px 12px; border-radius:99px; font-weight:900; font-size:0.8rem;">${badgeText}</div>
+      </div>
+      <div class="ad-info">
+        <div style="display:flex; gap:6px; margin-bottom:8px; flex-wrap:wrap;">
+          <span style="background:#dcfce7; color:#15803d; font-weight:800; padding:3px 10px; border-radius:99px; font-size:0.78rem;">📂 ${ad.category}</span>
+          <span style="background:#f1f5f9; color:#64748b; padding:3px 10px; border-radius:99px; font-size:0.78rem;">📍 ${ad.city}</span>
+          <span style="background:#eff6ff; color:#1d4ed8; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:99px;">👤 ${ad.author}</span>
+        </div>
+        <h4 style="margin:0 0 6px; font-size:1.25rem; font-weight:900; color:#064e3b;">${ad.title}</h4>
+        <div style="font-size:1.25rem; font-weight:900; color:#d97706; margin-bottom:10px;">${ad.price || 'السعر عند التواصل'}</div>
+        <p style="font-size:0.9rem; color:#334155; line-height:1.6; margin:0 0 14px;">${ad.details}</p>
+        <div class="ad-actions-grid">
+          <a class="btn-contact btn-call" href="tel:${cleanPhone}">📞 اتصال بالمعلن</a>
+          <a class="btn-contact btn-wa" href="${waLink}" rel="noopener" target="_blank">💬 واتساب المعلن</a>
+          <button class="btn-fb-share" onclick="shareAdToSocial('${encodeURIComponent(ad.title)}')" type="button">📢 مشاركة هذا الإعلان</button>
+        </div>
+      </div>
+    `;
+
+    if (prepend && container.firstChild) {
+      container.insertBefore(article, container.firstChild);
+    } else {
+      container.appendChild(article);
+    }
+  }
+
+  window.shareAdToSocial = function(title) {
+    const text = decodeURIComponent(title);
+    if (navigator.share) {
+      navigator.share({
+        title: 'دلالة الخرطوم وأم درمان',
+        text: `شاهد هذا العرض عبر الدلالة: ${text}`,
+        url: window.location.href
+      }).catch(() => {});
+    } else {
+      navigator.clipboard?.writeText(window.location.href);
+      showToast('تم نسخ رابط الإعلان بنجاح، يمكنك مشاركته الآن!', '🔗');
+    }
+  };
+
+  // معالجة ونشر الإعلان الجديد فوراً
+  $('newAdForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const title = $('adTitle').value.trim();
+    const category = $('adCategory').value;
+    const city = $('adCity').value.trim();
+    const price = $('adPrice').value.trim();
+    const author = $('adAuthor').value.trim();
+    const phone = $('adPhone').value.trim();
+    const whatsapp = $('adWhatsapp').value.trim() || phone;
+    const details = $('adDetails').value.trim();
+    const imageInput = $('adImageFile');
+
+    if (!title || !category || !city || !author || !phone || !details) {
+      showToast('يرجى تعبئة كافة الحقول الإلزامية المطلوبة', '⚠️');
+      return;
+    }
+
+    const finalizeAd = (imageUrl) => {
+      const newAd = {
+        id: 'ad_' + Date.now(),
+        title,
+        category,
+        city,
+        price: price ? price : 'السعر عند التواصل',
+        author,
+        phone,
+        whatsapp,
+        details,
+        image: imageUrl || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=700&q=80',
+        badge: '✨ منشور حديثاً',
+        created_at: new Date().toISOString()
+      };
+
+      // 1. حفظ في التخزين المحلي
+      saveLocalAd(newAd);
+
+      // 2. عرضه فوراً في أعلى القائمة
+      renderAdCard(newAd, true);
+
+      // 3. إعادة تعيين الحقول وإغلاق النافذة
+      $('newAdForm').reset();
+      closeModal(addAdModal);
+
+      // 4. إظهار رسالة النجاح الخضراء
+      showToast('🚀 تم نشر إعلانك بنجاح وهو معروض للجميع الآن!', '🎉');
+
+      // 5. التمرير للإعلان الجديد
+      setTimeout(() => {
+        const newEl = $('ad-' + newAd.id);
+        if (newEl) {
+          newEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 300);
+    };
+
+    if (imageInput && imageInput.files && imageInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        finalizeAd(evt.target.result);
+      };
+      reader.onerror = function() {
+        finalizeAd('');
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    } else {
+      finalizeAd('');
+    }
+  });
+
+  // إضافة كرت دعاية في السلايدر
+  $('promoAdForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const title = $('promoTitle').value.trim();
+    const badge = $('promoBadge').value.trim() || '🔥 عرض جديد';
+    const desc = $('promoDesc').value.trim();
+    const link = $('promoLink').value.trim() || 'https://www.facebook.com/share/1F53vMeG4L/';
+    const bg = $('promoColor').value;
+
+    const promoCard = document.createElement('div');
+    promoCard.className = 'featured-card';
+    promoCard.style.background = bg;
+    promoCard.style.cursor = 'pointer';
+    promoCard.style.minWidth = '300px';
+    promoCard.onclick = () => window.open(link, '_blank');
+
+    promoCard.innerHTML = `
+      <span style="background:rgba(255,255,255,0.25); padding:3px 10px; border-radius:99px; font-size:0.8rem; font-weight:800;">${badge}</span>
+      <h4 style="font-size:1.15rem; margin:8px 0 4px;">${title}</h4>
+      <p style="font-size:0.82rem; margin:0; opacity:0.95;">${desc} ↗</p>
+    `;
+
+    const slider = $('promoAds');
+    if (slider) {
+      slider.insertBefore(promoCard, slider.firstChild);
+    }
+
+    try {
+      const stored = JSON.parse(localStorage.getItem(PROMO_STORAGE_KEY) || '[]');
+      stored.unshift({ title, badge, desc, link, bg });
+      localStorage.setItem(PROMO_STORAGE_KEY, JSON.stringify(stored));
+    } catch(err) {}
+
+    $('promoAdForm').reset();
+    closeModal(adminModal);
+    showToast('✨ تم إضافة الدعاية الترويجية إلى الشريط بنجاح!', '🌟');
+  });
+
+  // مسح الإعلانات المضافة محلياً
+  $('clearCustomAdsBtn')?.addEventListener('click', () => {
+    if (confirm('هل تود بالتأكيد مسح الإعلانات المضافة محلياً واستعادة الوضع الأصلي؟')) {
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      localStorage.removeItem(PROMO_STORAGE_KEY);
+      location.reload();
+    }
+  });
+
+  // تصفية الإعلانات حسب القسم
+  function filterAdsByCategory(cat) {
+    const cards = document.querySelectorAll('.ad-card');
+    cards.forEach(card => {
+      const cardCat = card.getAttribute('data-ad-cat') || '';
+      if (!cat || cardCat === cat) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
     });
-    el('navHomeBtn').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    el('navContactBtn').addEventListener('click', () => document.querySelector('.contact-card-section').scrollIntoView({ behavior: 'smooth' }));
-  </script>
-</body>
-</html>
+
+    document.querySelectorAll('.chip').forEach(c => {
+      c.classList.toggle('active', (c.getAttribute('data-cat') || '') === cat);
+    });
+
+    document.querySelectorAll('.cat-card').forEach(cc => {
+      cc.classList.toggle('active', (cc.getAttribute('data-cat') || '') === cat);
+    });
+  }
+
+  // أحداث الفلترة
+  document.querySelectorAll('[data-cat]').forEach(b => {
+    b.addEventListener('click', function() {
+      const cat = this.getAttribute('data-cat') || '';
+      filterAdsByCategory(cat);
+    });
+  });
+
+  // البحث المباشر
+  $('searchInput')?.addEventListener('input', function(e) {
+    const query = e.target.value.toLowerCase().trim();
+    const cards = document.querySelectorAll('.ad-card');
+    cards.forEach(card => {
+      const text = card.innerText.toLowerCase();
+      if (!query || text.includes(query)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+
+  // أزرار الشريط السفلي
+  $('navHomeBtn')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    filterAdsByCategory('');
+  });
+  $('navCarsBtn')?.addEventListener('click', () => {
+    filterAdsByCategory('العربات');
+    $('ads')?.scrollIntoView({ behavior: 'smooth' });
+  });
+  $('navPropsBtn')?.addEventListener('click', () => {
+    filterAdsByCategory('العقارات');
+    $('ads')?.scrollIntoView({ behavior: 'smooth' });
+  });
+  $('navContactBtn')?.addEventListener('click', () => {
+    document.querySelector('.contact-card-section')?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // تثبيت تطبيق PWA
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const banner = $('pwaInstallBanner');
+    if (banner) banner.style.display = 'flex';
+  });
+
+  function triggerPwaInstall() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          showToast('شكراً لتثبيت تطبيق دلالة السودان!', '🎉');
+        }
+        deferredPrompt = null;
+      });
+    } else {
+      showToast('لتثبيت التطبيق: اضغط خيارات المتصفح (⋮) واختر "إضافة إلى الشاشة الرئيسية"', '📲');
+    }
+  }
+
+  $('installPwaBtn')?.addEventListener('click', triggerPwaInstall);
+  $('pwaBannerInstallBtn')?.addEventListener('click', triggerPwaInstall);
+  $('pwaBannerDismissBtn')?.addEventListener('click', () => {
+    const banner = $('pwaInstallBanner');
+    if (banner) banner.style.display = 'none';
+  });
+
+  // تهيئة وعرض الإعلانات عند الإقلاع الفوري
+  function initAdsSystem() {
+    // 1. عرض الإعلانات المضافة محلياً من قبل المستخدم أولاً في الأعلى
+    const userAds = getSavedAds();
+    userAds.forEach(ad => renderAdCard(ad, false));
+
+    // 2. عرض باقة الإعلانات الافتراضية الجاهزة حتى لا تفرغ الصفحة أبداً
+    DEFAULT_ADS.forEach(ad => renderAdCard(ad, false));
+
+    // 3. تحميل الدعايات المخصصة للسلايدر
+    try {
+      const storedPromos = JSON.parse(localStorage.getItem(PROMO_STORAGE_KEY) || '[]');
+      const slider = $('promoAds');
+      if (slider && storedPromos.length > 0) {
+        storedPromos.forEach(p => {
+          const promoCard = document.createElement('div');
+          promoCard.className = 'featured-card';
+          promoCard.style.background = p.bg || 'linear-gradient(135deg, #064e3b, #047857)';
+          promoCard.style.cursor = 'pointer';
+          promoCard.style.minWidth = '300px';
+          promoCard.onclick = () => window.open(p.link, '_blank');
+          promoCard.innerHTML = `
+            <span style="background:rgba(255,255,255,0.25); padding:3px 10px; border-radius:99px; font-size:0.8rem; font-weight:800;">${p.badge}</span>
+            <h4 style="font-size:1.15rem; margin:8px 0 4px;">${p.title}</h4>
+            <p style="font-size:0.82rem; margin:0; opacity:0.95;">${p.desc} ↗</p>
+          `;
+          slider.insertBefore(promoCard, slider.firstChild);
+        });
+      }
+    } catch(e) {}
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAdsSystem);
+  } else {
+    initAdsSystem();
+  }
+</script>
+</body></html>
