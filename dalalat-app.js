@@ -5,11 +5,13 @@
   const ADMIN_EMAIL = 'abadrhman9096@gmail.com';
   // ضع إعدادات تطبيق Firebase Web من Firebase Console. هذه قيم تعريف عامة وليست كلمات مرور.
   const FIREBASE_CONFIG = {
-    apiKey: 'YOUR_FIREBASE_API_KEY',
-    authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_PROJECT_ID.appspot.com',
-    appId: 'YOUR_FIREBASE_APP_ID'
+    apiKey: 'AIzaSyBZLNTmNWu_Q5ZuClgOjZTQw7hF2P7EC54',
+    authDomain: 'dalalatsudangithub-o.firebaseapp.com',
+    projectId: 'dalalatsudangithub-o',
+    storageBucket: 'dalalatsudangithub-o.firebasestorage.app',
+    messagingSenderId: '52962279300',
+    appId: '1:52962279300:web:712c0c3876e8a64a8d27d1',
+    measurementId: 'G-67YM860DEQ'
   };
 
   let auth = null;
