@@ -2,6 +2,64 @@
 
 <html dir="rtl" lang="ar"><head>
 <meta charset="utf-8"/>
+
+<style>
+#promoAds {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 0;
+}
+#promoAds > .featured-card {
+  flex: 0 0 100%;
+  min-width: 100%;
+  scroll-snap-align: start;
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const slider = document.getElementById('promoAds');
+  if (!slider) return;
+
+  if (!slider.querySelector('.featured-card')) {
+    const slides = [
+      ['🚗', 'عربات للبيع والشراء', 'العربات'],
+      ['🏠', 'عقارات أم درمان والخرطوم', 'العقارات'],
+      ['🛋️', 'الأثاثات والعروض المميزة', 'الأثاث']
+    ];
+
+    slider.innerHTML = '';
+    document.getElementById('promoEmpty')?.setAttribute('hidden', '');
+
+    slides.forEach(([icon, title, category]) => {
+      const card = document.createElement('article');
+      card.className = 'featured-card';
+      card.style.cssText =
+        'background:linear-gradient(135deg,#064e3b,#059669);cursor:pointer;min-height:220px;justify-content:center;text-align:center;';
+      card.innerHTML = `<div style="font-size:3rem">${icon}</div><h3>${title}</h3><p>تصفح العروض في دلالة السودان</p>`;
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.chip').forEach(chip => {
+          if (chip.dataset.cat === category) chip.click();
+        });
+        document.getElementById('ads')?.scrollIntoView({behavior:'smooth'});
+      });
+      slider.appendChild(card);
+    });
+  }
+
+  let current = 0;
+  setInterval(() => {
+    const slides = slider.querySelectorAll('.featured-card');
+    if (slides.length < 2 || document.hidden) return;
+    current = (current + 1) % slides.length;
+    slider.scrollBy({
+      left: slides[current].getBoundingClientRect().right -
+        slider.getBoundingClientRect().right,
+      behavior: 'smooth'
+    });
+  }, 5000);
+});
+</script>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="#064e3b" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="دلالة السودان" name="apple-mobile-web-app-title"/><meta content="yes" name="mobile-web-app-capable"/><link href="https://lh3.googleusercontent.com/aida-public/AB6AXuA5d3M2hGmJ3oj_SJe4DuMEH0JnE3BG83AFpHoZd9_ZhjCh0sJs1PGYMXO3bXz7DfdRz1hyL4DmnC8dYsYFhIPIkGEeT2X0HqOlwAmSW1eLWT5gB2nPAGRgndVN3nLfqvUVCPGJTbYvh78YMBS8tx1yt6k7oK0M4fLXI4yzmWSoZYE5LSkS1fagnl_ynNXKqctJkazh3IRXlkxZVKD7BBaKl1ueCIjZ5Qc81iepyVY-FQrE3x1aTSAv" rel="apple-touch-icon"/>
 <meta content="index, follow" name="robots"/>
