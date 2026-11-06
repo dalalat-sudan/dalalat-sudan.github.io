@@ -1054,7 +1054,7 @@
 
   $('newAdForm')?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (!db) return toast('النشر العام غير مفعّل بعد؛ أرسل الإعلان مع الصور عبر واتساب الإدارة.', '⚠️');
+    
     const data = {
       title: $('adTitle').value.trim(),
       category: $('adCategory').value,
@@ -1067,6 +1067,27 @@
     };
     if (Object.values(data).some((v) => !v)) return toast('أكمل الحقول المطلوبة أولاً.', '⚠️');
     if (data.title.length > 120 || data.details.length > 1500 || data.city.length > 80) return toast('بعض الحقول أطول من الحد المسموح.', '⚠️');
+      
+if (!db) {
+  const message = [
+    'مرحباً، أريد نشر إعلان في دلالة السودان',
+    'العنوان: ' + data.title,
+    'القسم: ' + data.category,
+    'المنطقة: ' + data.city,
+    'السعر: ' + data.price,
+    'الاسم: ' + data.author,
+    'الهاتف: ' + data.phone,
+    'الواتساب: ' + data.whatsapp,
+    'التفاصيل: ' + data.details,
+    'سأرفق الصور في المحادثة.'
+  ].join('\n');
+
+  window.location.href =
+    'https://wa.me/249917647479?text=' +
+    encodeURIComponent(message);
+  return;
+}
+
     try {
       await db.collection('ads').add({
         ...data, status: 'pending', mediaType: '', mediaUrl: '',
