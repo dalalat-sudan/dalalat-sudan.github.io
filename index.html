@@ -1182,6 +1182,68 @@ if (!db) {
   $('installPwaBtn')?.addEventListener('click', triggerPwaInstall);
   $('pwaBannerInstallBtn')?.addEventListener('click', triggerPwaInstall);
   $('pwaBannerDismissBtn')?.addEventListener('click', () => { if ($('pwaInstallBanner')) $('pwaInstallBanner').style.display = 'none'; });
+// إرفاق صور الإعلان ومشاركتها عبر واتساب من الجوال
+const mediaHelp = document.querySelector('#newAdForm .media-help');
+if (mediaHelp) {
+  mediaHelp.textContent = 'اختر صور إعلانك، ثم اضغط إرسال الإعلان. إذا تعذّرت مشاركة الصور، أرفقها يدوياً داخل واتساب.';
+  const photoInput = document.createElement('input');
+  photoInput.type = 'file';
+  photoInput.id = 'adPhotos';
+  photoInput.accept = 'image/*';
+  photoInput.multiple = true;
+  photoInput.className = 'form-input';
+  photoInput.setAttribute('aria-label', 'اختيار صور الإعلان');
+  const preview = document.createElement('div');
+  preview.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap;margin-top:8px';
+  mediaHelp.after(photoInput, preview);
+  let previews = [];
+  photoInput.addEventListener('change', () => {
+    previews.forEach(url => URL.revokeObjectURL(url));
+    previews = [];
+    preview.replaceChildren();
+    Array.from(photoInput.files || []).slice(0, 5).forEach(file => {
+      const url = URL.createObjectURL(file);
+      previews.push(url);
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = file.name;
+      img.style.cssText = 'width:72px;height:72px;object-fit:cover;border-radius:10px;border:1px solid #ddd';
+      preview.appendChild(img);
+    });
+  });
+  $('newAdForm').addEventListener('submit', async event => {
+    if (db || !photoInput.files?.length) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const files = Array.from(photoInput.files);
+    if (files.length > 5 || files.some(file => !file.type.startsWith('image/') || file.size > 8 * 1024 * 1024)) {
+      return toast('اختر حتى 5 صور، بحجم أقل من 8 ميغابايت للصورة.', '⚠️');
+    }
+    const value = id => $(id).value.trim();
+    const message = [
+      'مرحباً، أريد نشر إعلان في دلالة السودان',
+      'العنوان: ' + value('adTitle'),
+      'القسم: ' + value('adCategory'),
+      'المنطقة: ' + value('adCity'),
+      'السعر: ' + (value('adPrice') || 'السعر عند التواصل'),
+      'الاسم: ' + value('adAuthor'),
+      'الهاتف: ' + value('adPhone'),
+      'الواتساب: ' + (value('adWhatsapp') || value('adPhone')),
+      'التفاصيل: ' + value('adDetails')
+    ].join('\n');
+    if (navigator.share && navigator.canShare?.({ files })) {
+      try {
+        await navigator.share({ files, text: message, title: 'إعلان دلالة السودان' });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+        console.error(error);
+      }
+    }
+    toast('أرفق الصور يدوياً من علامة المشبك داخل واتساب.', '📎');
+    window.location.href = 'https://wa.me/249917647479?text=' + encodeURIComponent(message);
+  }, true);
+}
 
   subscribePublicData();
 })();
