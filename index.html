@@ -365,7 +365,22 @@
     [hidden] { display:none !important; }
     @media(max-width:600px) { .manage-row { align-items:flex-start; flex-direction:column; } .manage-actions { justify-content:flex-start; } }
 
-  </style>
+  
+    /* Facebook integration: responsive, compact and mobile-first */
+    .fb-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .fb-actions a,.fb-group-panel>a{display:inline-flex;align-items:center;justify-content:center;background:#1877f2;color:#fff;text-decoration:none;padding:9px 14px;border-radius:12px;font-weight:800;font-size:.86rem}
+    .fb-actions a:last-child{background:#075c3b}
+    .fb-feed-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(240px,.8fr);gap:14px;margin-top:14px}
+    .fb-feed-panel,.fb-group-panel{background:#fff;border:1px solid #dbeafe;border-radius:18px;padding:14px;min-width:0}
+    .fb-feed-panel h4,.fb-group-panel h4{margin:0 0 7px;color:#164e8a;font-size:1rem}
+    .fb-feed-panel p,.fb-group-panel p{margin:0 0 12px;color:#64748b;font-size:.86rem;line-height:1.8}
+    .fb-page-embed{width:100%;max-width:500px;margin:0 auto;overflow:hidden;border-radius:14px;background:#f1f5f9;min-height:360px}
+    .fb-page-embed iframe{display:block;width:100%;max-width:500px;height:390px;border:0;margin:0 auto}
+    .fb-group-panel{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;background:linear-gradient(145deg,#f0fdf4,#eff6ff)}
+    .fb-group-icon{width:54px;height:54px;border-radius:16px;background:#dbeafe;display:grid;place-items:center;font-size:28px;margin-bottom:12px}
+    .fb-group-panel small{display:block;color:#64748b;font-size:.74rem;line-height:1.7;margin-top:12px}
+    @media(max-width:700px){.fb-feed-grid{grid-template-columns:1fr}.fb-live-head{align-items:flex-start;flex-direction:column}.fb-actions{width:100%}.fb-actions a{flex:1}.fb-page-embed{min-height:330px}.fb-page-embed iframe{height:360px}}
+</style>
 </head>
 <body>
 <!-- رسالة التنبيه السريعة (Toast) -->
@@ -376,7 +391,7 @@
 <!-- شريط فيسبوك التفاعلي العلوي بالرابط المحدث -->
 <div class="fb-top-strip">
 <span>📘 تابع الإعلانات والعروض على صفحتنا الرسمية:</span>
-<a class="fb-top-link" href="https://www.facebook.com/share/1F53vMeG4L/" rel="noopener" target="_blank">
+<a class="fb-top-link" href="https://www.facebook.com/166462697387889/" rel="noopener" target="_blank">
 <span>تابع صفحة دلالة فيسبوك</span> ↗
 </a>
 </div>
@@ -386,7 +401,7 @@
 <div class="topbar-right">
 <div class="brand-logo-badge">🇸🇩</div>
 <div class="brand-text">
-<h1>دلالة الخرطوم وأم درمان<span>منصة الإعلانات المبوبة في السودان</span></h1>
+<h1>دلالة الخرطوم وأم درمان<span>منصة الإعلانات المبوبة في أم درمان والخرطوم والسودان</span></h1>
 <span class="brand-tag">تصفح وتواصل بدون وسيط</span>
 </div>
 </div>
@@ -490,31 +505,41 @@
 <main class="ads-container" id="ads">
 <!-- سيتم تعبئتها فوراً بالإعلانات الافتراضية الشاملة والمحفوظة عبر الجافاسكربت لمنع أي فراغ -->
 </main>
-<!-- قسم بث وتغذية صفحة فيسبوك الرسمية الحية بالرابط الجديد المعتمد -->
-<section class="fb-live-feed-card">
-<div class="fb-live-head">
-<div style="display:flex; align-items:center; gap:10px;">
-<div style="width:44px; height:44px; border-radius:50%; background:#1877f2; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.4rem;">📘</div>
-<div>
-<h3 style="margin:0; font-size:1.25rem; font-weight:900; color:#1e40af;">تابع جديد الإعلانات على صفحة الدلالة في فيسبوك</h3>
-<div style="font-size:0.82rem; color:#64748b; margin-top:2px;">
-<span class="fb-pulse-tag">إعلانات وتحديثات الصفحة الرسمية</span>
-</div>
-</div>
-</div>
-<a href="https://www.facebook.com/share/1F53vMeG4L/" rel="noopener" style="background:#1877f2; color:#fff; text-decoration:none; padding:8px 18px; border-radius:99px; font-weight:800; font-size:0.88rem;" target="_blank">
-<span>متابعة الصفحة الرسمية</span> ↗
-</a>
-</div>
-<div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:var(--radius-md); padding:14px 16px; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
-<div>
-<strong style="color:#1e40af; font-size:0.92rem; display:block;">📘 صفحة الدلالة الرسمية على فيسبوك</strong>
-<span style="color:#475569; font-size:0.8rem;">تابع الصفحة لمشاهدة أحدث الإعلانات والعروض المنشورة.</span>
-</div>
-<a href="https://www.facebook.com/share/1F53vMeG4L/" rel="noopener" style="background:#1d4ed8; color:#ffffff; padding:7px 16px; border-radius:99px; font-size:0.82rem; font-weight:800; text-decoration:none;" target="_blank">
-<span>تصفح الصفحة في فيسبوك</span> ↗
-</a>
-</div>
+<!-- تكامل فيسبوك: موجز الصفحة الرسمية + رابط المجموعة -->
+<section class="fb-live-feed-card" id="facebookIntegration" aria-label="تكامل منصة دلالة مع فيسبوك">
+  <div class="fb-live-head">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:44px;height:44px;border-radius:50%;background:#1877f2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;">f</div>
+      <div>
+        <h3 style="margin:0;font-size:1.25rem;font-weight:900;color:#1e40af;">دلالة على فيسبوك</h3>
+        <div style="font-size:.82rem;color:#64748b;margin-top:2px;">تابع الصفحة وانضم لمجتمع الإعلانات</div>
+      </div>
+    </div>
+    <div class="fb-actions">
+      <a href="https://www.facebook.com/166462697387889/" rel="noopener noreferrer" target="_blank">متابعة الصفحة ↗</a>
+      <a href="https://www.facebook.com/groups/441375426275119/" rel="noopener noreferrer" target="_blank">دخول مجموعة الدلالة ↗</a>
+    </div>
+  </div>
+  <div class="fb-feed-grid">
+    <div class="fb-feed-panel">
+      <h4>آخر منشورات الصفحة الرسمية</h4>
+      <p>تظهر منشورات الصفحة العامة هنا عند سماح إعدادات الخصوصية والتضمين من فيسبوك.</p>
+      <div class="fb-page-embed">
+        <iframe
+          title="آخر منشورات صفحة دلالة العربات والعقارات"
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F166462697387889%2F&tabs=timeline&width=500&height=520&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
+          width="500" height="520" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" loading="lazy"></iframe>
+      </div>
+    </div>
+    <div class="fb-group-panel">
+      <div class="fb-group-icon">👥</div>
+      <h4>مجموعة دلالة العربات والعقارات</h4>
+      <p>شاهد إعلانات الأعضاء وشارك إعلانك داخل المجموعة. افتح المجموعة على فيسبوك لمشاهدة المنشورات والتفاعل معها.</p>
+      <a href="https://www.facebook.com/groups/441375426275119/" rel="noopener noreferrer" target="_blank">افتح مجموعة فيسبوك</a>
+      <small>ملاحظة: فيسبوك لا يوفّر تضميناً عاماً ثابتاً يعرض كل منشورات المجموعات مثل موجز الصفحات؛ لذلك وضعنا رابطاً مباشراً للمجموعة بدلاً من عرض وهمي.</small>
+    </div>
+  </div>
 </section>
 <!-- قسم الفوتر ومعلومات الاتصال الرسمية للدلالة -->
 <section class="contact-card-section">
@@ -704,11 +729,13 @@
   const ADMIN_EMAIL = 'abadrhman9096@gmail.com';
   // ضع إعدادات تطبيق Firebase Web من Firebase Console. هذه قيم تعريف عامة وليست كلمات مرور.
   const FIREBASE_CONFIG = {
-    apiKey: 'YOUR_FIREBASE_API_KEY',
-    authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_PROJECT_ID.appspot.com',
-    appId: 'YOUR_FIREBASE_APP_ID'
+    apiKey: 'AIzaSyBZLNTmNWu_Q5ZuClgOjZTQw7hF2P7EC54',
+    authDomain: 'dalalatsudangithub-o.firebaseapp.com',
+    projectId: 'dalalatsudangithub-o',
+    storageBucket: 'dalalatsudangithub-o.firebasestorage.app',
+    messagingSenderId: '52962279300',
+    appId: '1:52962279300:web:712c0c3876e8a64a8d27d1',
+    measurementId: 'G-67YM860DEQ'
   };
 
   let auth = null;
@@ -779,7 +806,8 @@
     if (event.target === adminModal) closeModal(adminModal);
   });
 
-  const configured = Object.values(FIREBASE_CONFIG).every((v) => v && !v.startsWith('YOUR_'));
+  const configured = Boolean(FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.projectId && FIREBASE_CONFIG.appId);
+  // Firebase client config is public by design; access is controlled by Firestore/Storage Security Rules.
   if (configured && window.firebase) {
     try {
       if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
@@ -1054,7 +1082,7 @@
 
   $('newAdForm')?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    
+    if (!db) return toast('النشر العام غير مفعّل بعد؛ أرسل الإعلان مع الصور عبر واتساب الإدارة.', '⚠️');
     const data = {
       title: $('adTitle').value.trim(),
       category: $('adCategory').value,
@@ -1067,27 +1095,6 @@
     };
     if (Object.values(data).some((v) => !v)) return toast('أكمل الحقول المطلوبة أولاً.', '⚠️');
     if (data.title.length > 120 || data.details.length > 1500 || data.city.length > 80) return toast('بعض الحقول أطول من الحد المسموح.', '⚠️');
-      
-if (!db) {
-  const message = [
-    'مرحباً، أريد نشر إعلان في دلالة السودان',
-    'العنوان: ' + data.title,
-    'القسم: ' + data.category,
-    'المنطقة: ' + data.city,
-    'السعر: ' + data.price,
-    'الاسم: ' + data.author,
-    'الهاتف: ' + data.phone,
-    'الواتساب: ' + data.whatsapp,
-    'التفاصيل: ' + data.details,
-    'سأرفق الصور في المحادثة.'
-  ].join('\n');
-
-  window.location.href =
-    'https://wa.me/249917647479?text=' +
-    encodeURIComponent(message);
-  return;
-}
-
     try {
       await db.collection('ads').add({
         ...data, status: 'pending', mediaType: '', mediaUrl: '',
@@ -1182,68 +1189,6 @@ if (!db) {
   $('installPwaBtn')?.addEventListener('click', triggerPwaInstall);
   $('pwaBannerInstallBtn')?.addEventListener('click', triggerPwaInstall);
   $('pwaBannerDismissBtn')?.addEventListener('click', () => { if ($('pwaInstallBanner')) $('pwaInstallBanner').style.display = 'none'; });
-// إرفاق صور الإعلان ومشاركتها عبر واتساب من الجوال
-const mediaHelp = document.querySelector('#newAdForm .media-help');
-if (mediaHelp) {
-  mediaHelp.textContent = 'اختر صور إعلانك، ثم اضغط إرسال الإعلان. إذا تعذّرت مشاركة الصور، أرفقها يدوياً داخل واتساب.';
-  const photoInput = document.createElement('input');
-  photoInput.type = 'file';
-  photoInput.id = 'adPhotos';
-  photoInput.accept = 'image/*';
-  photoInput.multiple = true;
-  photoInput.className = 'form-input';
-  photoInput.setAttribute('aria-label', 'اختيار صور الإعلان');
-  const preview = document.createElement('div');
-  preview.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap;margin-top:8px';
-  mediaHelp.after(photoInput, preview);
-  let previews = [];
-  photoInput.addEventListener('change', () => {
-    previews.forEach(url => URL.revokeObjectURL(url));
-    previews = [];
-    preview.replaceChildren();
-    Array.from(photoInput.files || []).slice(0, 5).forEach(file => {
-      const url = URL.createObjectURL(file);
-      previews.push(url);
-      const img = document.createElement('img');
-      img.src = url;
-      img.alt = file.name;
-      img.style.cssText = 'width:72px;height:72px;object-fit:cover;border-radius:10px;border:1px solid #ddd';
-      preview.appendChild(img);
-    });
-  });
-  $('newAdForm').addEventListener('submit', async event => {
-    if (db || !photoInput.files?.length) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    const files = Array.from(photoInput.files);
-    if (files.length > 5 || files.some(file => !file.type.startsWith('image/') || file.size > 8 * 1024 * 1024)) {
-      return toast('اختر حتى 5 صور، بحجم أقل من 8 ميغابايت للصورة.', '⚠️');
-    }
-    const value = id => $(id).value.trim();
-    const message = [
-      'مرحباً، أريد نشر إعلان في دلالة السودان',
-      'العنوان: ' + value('adTitle'),
-      'القسم: ' + value('adCategory'),
-      'المنطقة: ' + value('adCity'),
-      'السعر: ' + (value('adPrice') || 'السعر عند التواصل'),
-      'الاسم: ' + value('adAuthor'),
-      'الهاتف: ' + value('adPhone'),
-      'الواتساب: ' + (value('adWhatsapp') || value('adPhone')),
-      'التفاصيل: ' + value('adDetails')
-    ].join('\n');
-    if (navigator.share && navigator.canShare?.({ files })) {
-      try {
-        await navigator.share({ files, text: message, title: 'إعلان دلالة السودان' });
-        return;
-      } catch (error) {
-        if (error.name === 'AbortError') return;
-        console.error(error);
-      }
-    }
-    toast('أرفق الصور يدوياً من علامة المشبك داخل واتساب.', '📎');
-    window.location.href = 'https://wa.me/249917647479?text=' + encodeURIComponent(message);
-  }, true);
-}
 
   subscribePublicData();
 })();
