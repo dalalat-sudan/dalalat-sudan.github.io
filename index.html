@@ -731,11 +731,36 @@
             <label class="form-label" for="promoDesc">وصف مختصر *</label>
             <textarea class="form-textarea" id="promoDesc" maxlength="500" required rows="2"></textarea>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="promoMediaFile">صورة أو فيديو *</label>
-            <input class="form-input" id="promoMediaFile" type="file" accept="image/*,video/*" required/>
-            <small>الصور حتى 8 ميغابايت، والفيديو حتى 30 ميغابايت.</small>
-          </div>
+
+<div class="form-group">
+  <label class="form-label" for="promoMediaUrl">
+    رابط صورة أو فيديو مباشر *
+  </label>
+  <input
+    class="form-input"
+    id="promoMediaUrl"
+    type="url"
+    dir="ltr"
+    placeholder="https://..."
+    required
+  />
+  <small>ارفع الملف إلى GitHub Pages ثم ضع رابطه هنا.</small>
+</div>
+
+<div class="form-group">
+  <label class="form-label" for="promoMediaType">
+    نوع الوسائط
+  </label>
+  <select class="form-select" id="promoMediaType">
+    <option value="image">صورة</option>
+    <option value="video">فيديو</option>
+  </select>
+</div>
+          
+        
+            
+            
+          
           <div class="form-group">
             <label class="form-label" for="promoLink">رابط التفاصيل (اختياري)</label>
             <input class="form-input" id="promoLink" type="url" dir="ltr" placeholder="https://..."/>
@@ -1148,7 +1173,7 @@
     }
   });
 
-  $('promoAdForm')?.addEventListener('submit', async (event) => {
+  ('promoAdForm')?.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (!currentUser || !db || !storage) return toast('سجّل الدخول بحساب الإدارة أولاً.', '⚠️');
     const file = $('promoMediaFile').files?.[0];
