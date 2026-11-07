@@ -380,8 +380,47 @@
     .fb-group-icon{width:54px;height:54px;border-radius:16px;background:#dbeafe;display:grid;place-items:center;font-size:28px;margin-bottom:12px}
     .fb-group-panel small{display:block;color:#64748b;font-size:.74rem;line-height:1.7;margin-top:12px}
     @media(max-width:700px){.fb-feed-grid{grid-template-columns:1fr}.fb-live-head{align-items:flex-start;flex-direction:column}.fb-actions{width:100%}.fb-actions a{flex:1}.fb-page-embed{min-height:330px}.fb-page-embed iframe{height:360px}}
-</style>
-</head>
+    @media (max-width: 600px) {
+  .topbar {
+    position: relative;
+    padding: 8px 12px;
+  }
+
+  .topbar-inner { gap: 8px; }
+  .topbar-right { gap: 8px; }
+
+  .brand-logo-badge {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    font-size: 20px;
+  }
+
+  .brand-text h1 {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .brand-text h1 span,
+  .brand-tag {
+    display: none;
+  }
+
+  .topbar-actions {
+    width: 100%;
+    gap: 6px;
+  }
+
+  .topbar-actions > * {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 6px;
+    font-size: 12px;
+    min-height: 44px;
+  }
+}
+    </style>
+    </head>
 <body>
 <!-- رسالة التنبيه السريعة (Toast) -->
 <div class="toast-msg" id="globalToast">
