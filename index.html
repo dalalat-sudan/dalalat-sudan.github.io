@@ -680,6 +680,16 @@
 </div>
 <div class="form-group">
 <label class="form-label">الصور والفيديو</label>
+    
+<input
+  type="file"
+  id="adMediaFiles"
+  accept="image/*,video/*"
+  multiple
+  style="display:block;width:100%;margin:12px 0;padding:12px;border:2px dashed #087f5b;border-radius:10px;"
+>
+<div id="adMediaPreview" style="display:flex;flex-wrap:wrap;gap:10px;"></div>
+
 <p class="media-help">لإرفاق الصور أو الفيديو، أرسلها مع تفاصيل الإعلان عبر زر واتساب أعلى الصفحة. يمكن للإدارة إرفاقها عند اعتماد الإعلان.</p>
 </div>
 <button id="submitAdBtn" style="width:100%; background:linear-gradient(135deg, #065f46, #047857); color:#fff; border:none; padding:13px; font-size:1.05rem; font-weight:900; border-radius:var(--radius-md); box-shadow:0 6px 18px rgba(6,95,70,0.3); margin-top:8px; cursor:pointer;" type="submit">
