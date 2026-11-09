@@ -801,20 +801,20 @@
             <textarea class="form-textarea" id="promoDesc" maxlength="500" required rows="2"></textarea>
           </div>
 
-<div class="form-group">
-  <label class="form-label" for="promoMediaUrl">
-    رابط صورة أو فيديو مباشر *
-  </label>
-  <input
-    class="form-input"
-    id="promoMediaUrl"
-    type="url"
-    dir="ltr"
-    placeholder="https://..."
-    required
-  />
-  <small>ارفع الملف إلى GitHub Pages ثم ضع رابطه هنا.</small>
-</div>
+
+  
+
+
+
+  
+    
+    
+    
+    
+  
+  
+  
+
 
 <div class="form-group">
   <label class="form-label">اختيار الصور والفيديو من الاستديو</label>
@@ -1256,7 +1256,11 @@
     }
   });
 
-  ('promoAdForm')?.addEventListener('submit', async (event) => {
+  
+
+$('promoAdForm')?.addEventListener('submit', async (event) => {
+
+
     event.preventDefault();
     if (!currentUser || !db ) return toast('سجّل الدخول بحساب الإدارة أولاً.', '⚠️');
     const file = $('promoMediaFiles').files?.[0];
