@@ -660,25 +660,50 @@
 </div>
 <!-- زر واتساب العائم السريع -->
 <a class="floating-cta-btn" href="https://wa.me/249123047479" rel="noopener" target="_blank" title="تواصل واتساب المباشر">💬</a>
-<!-- بانر PWA السفلي للتثبيت -->
-<div id="pwaInstallBanner" style="position:fixed; bottom:78px; left:12px; right:12px; max-width:540px; margin:0 auto; background:#064e3b; color:#ffffff; padding:12px 16px; border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,0.35); border:1px solid #34d399; display:flex; align-items:center; justify-content:space-between; gap:10px; z-index:65;">
-<div style="display:flex; align-items:center; gap:8px;">
-<span style="font-size:1.6rem;">📱</span>
-<div>
-<strong style="display:block; font-size:0.88rem; color:#fff;">هل تريد إضافة موقع الدلالة إلى الشاشة الرئيسية؟</strong>
-<span style="font-size:0.75rem; color:#a7f3d0;">يفتح بسرعة من الشاشة الرئيسية</span>
+
+<!-- شريط إعلانات التطبيقات المدفوعة -->
+<div id="paidAppBanner" hidden
+ style="position:fixed;bottom:78px;left:12px;right:12px;
+ max-width:540px;margin:auto;background:linear-gradient(110deg,#602ca0,#e87928);
+ color:white;padding:12px;border-radius:16px;z-index:65;
+ align-items:center;gap:10px;box-shadow:0 6px 20px #0004;">
+
+ <img id="paidAppIcon" alt="شعار التطبيق" hidden
+ style="width:45px;height:45px;border-radius:10px;object-fit:cover;">
+
+ <div style="flex:1;min-width:0">
+  <strong id="paidAppTitle"></strong>
+  <small id="paidAppDescription" style="display:block"></small>
+  <small>إعلان مدفوع</small>
+ </div>
+
+ <a id="paidAppDownload" target="_blank"
+ rel="noopener noreferrer sponsored"
+ style="background:#ffbf47;color:#251339;padding:9px;
+ border-radius:10px;text-decoration:none;font-weight:bold">
+ تحميل
+ </a>
+
+ <button id="paidAppDismiss" type="button"
+ aria-label="إغلاق الإعلان"
+ style="background:transparent;color:white;border:0;font-size:24px">
+ ×
+ </button>
 </div>
-</div>
-<div style="display:flex; align-items:center; gap:6px;">
-<button id="pwaBannerInstallBtn" style="background:#f59e0b; color:#042f2e; border:none; padding:7px 14px; border-radius:99px; font-weight:900; font-size:0.8rem; cursor:pointer;" type="button">تثبيت الآن</button>
-<button id="pwaBannerDismissBtn" style="background:rgba(255,255,255,0.15); color:#fff; border:none; padding:7px 12px; border-radius:99px; font-weight:700; font-size:0.8rem; cursor:pointer;" type="button">لاحقاً</button>
-</div>
-</div>
-<!-- شريط التنقل السفلي للموبايل -->
-<nav class="bottom-navbar">
-<button class="nav-item-btn active" id="navHomeBtn" type="button"><span>🏠</span><span>الرئيسية</span></button>
-<button class="nav-item-btn" id="navCarsBtn" type="button"><span>🚗</span><span>العربات</span></button>
-<button class="nav-item-btn" id="navAddCenterBtn" type="button">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div style="width:50px; height:50px; border-radius:50%; background:#10b981; color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.8rem; margin-top:-14px; border:3px solid #fff; box-shadow:0 6px 14px rgba(16,185,129,0.35);">＋</div>
 <span style="font-weight:900; color:#065f46;">أضف إعلان</span>
 </button>
@@ -753,8 +778,8 @@
 
 <p class="media-help">لإرفاق الصور أو الفيديو، أرسلها مع تفاصيل الإعلان عبر زر واتساب أعلى الصفحة. يمكن للإدارة إرفاقها عند اعتماد الإعلان.</p>
 </div>
+  📢 نشر الإعلان مجاناً الآن
 <button id="submitAdBtn" style="width:100%; background:linear-gradient(135deg, #065f46, #047857); color:#fff; border:none; padding:13px; font-size:1.05rem; font-weight:900; border-radius:var(--radius-md); box-shadow:0 6px 18px rgba(6,95,70,0.3); margin-top:8px; cursor:pointer;" type="submit">
-📨 إرسال الإعلان إلى الإدارة للمراجعة
 </button>
 </form>
 </div>
@@ -1246,12 +1271,12 @@
     if (data.title.length > 120 || data.details.length > 1500 || data.city.length > 80) return toast('بعض الحقول أطول من الحد المسموح.', '⚠️');
     try {
       await db.collection('ads').add({
-        ...data, status: 'pending', mediaType: '', mediaUrl: '',
+        ...data, status: 'published', mediaType: '', mediaUrl: '',
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
       $('newAdForm').reset();
       closeModal(addAdModal);
-      toast('وصل إعلانك للإدارة للمراجعة، وسيظهر للزوار بعد اعتماده.', '✅');
+      toast('تم نشر إعلانك مجاناً بنجاح!', '✅');
     } catch (error) {
       console.error(error);
       toast('تعذر إرسال الإعلان. تحقق من قواعد Firestore أو أرسل التفاصيل عبر واتساب.', '⚠️');
