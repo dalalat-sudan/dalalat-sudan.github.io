@@ -3,7 +3,7 @@
 <html dir="rtl" lang="ar"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="#064e3b" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="دلالة السودان" name="apple-mobile-web-app-title"/><meta content="yes" name="mobile-web-app-capable"/><link href="https://lh3.googleusercontent.com/aida-public/AB6AXuA5d3M2hGmJ3oj_SJe4DuMEH0JnE3BG83AFpHoZd9_ZhjCh0sJs1PGYMXO3bXz7DfdRz1hyL4DmnC8dYsYFhIPIkGEeT2X0HqOlwAmSW1eLWT5gB2nPAGRgndVN3nLfqvUVCPGJTbYvh78YMBS8tx1yt6k7oK0M4fLXI4yzmWSoZYE5LSkS1fagnl_ynNXKqctJkazh3IRXlkxZVKD7BBaKl1ueCIjZ5Qc81iepyVY-FQrE3x1aTSAv" rel="apple-touch-icon"/>
+<meta content="#673AB7" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="دلالة السودان" name="apple-mobile-web-app-title"/><meta content="yes" name="mobile-web-app-capable"/><link href="https://lh3.googleusercontent.com/aida-public/AB6AXuA5d3M2hGmJ3oj_SJe4DuMEH0JnE3BG83AFpHoZd9_ZhjCh0sJs1PGYMXO3bXz7DfdRz1hyL4DmnC8dYsYFhIPIkGEeT2X0HqOlwAmSW1eLWT5gB2nPAGRgndVN3nLfqvUVCPGJTbYvh78YMBS8tx1yt6k7oK0M4fLXI4yzmWSoZYE5LSkS1fagnl_ynNXKqctJkazh3IRXlkxZVKD7BBaKl1ueCIjZ5Qc81iepyVY-FQrE3x1aTSAv" rel="apple-touch-icon"/>
 <meta content="index, follow" name="robots"/>
 <meta content="index, follow, max-image-preview:large" name="googlebot"/>
 <meta name="description" content="دلالة السودان للإعلانات المبوبة: سيارات وعقارات وأثاث وخدمات في أم درمان والخرطوم. أرسل إعلانك للإدارة، وتصفح الإعلانات المعتمدة وتواصل مباشرة مع المعلن."/>
@@ -546,7 +546,14 @@
   
 
 
-    </style>
+    /* توسيع موجز فيسبوك وتحسين العرض على الهاتف */
+.fb-live-feed-card { padding:16px 12px; }
+.fb-feed-grid { grid-template-columns:minmax(0,1fr); }
+.fb-page-embed { max-width:100%; width:100%; min-height:540px; }
+.fb-page-embed iframe { width:100%; max-width:100%; height:540px; }
+@media(max-width:700px){.app-container{padding:10px}.fb-live-feed-card{padding:12px 8px}.fb-page-embed{min-height:510px}.fb-page-embed iframe{height:510px}}
+#submitAdBtn { background:linear-gradient(135deg,#673AB7,#FF8533) !important; }
+</style>
     </head>
 <body>
   <a href="https://www.facebook.com/166462697387889" target="_blank" rel="noopener noreferrer">
@@ -698,8 +705,8 @@
       <div class="fb-page-embed">
         <iframe
           title="آخر منشورات صفحة دلالة العربات والعقارات"
-          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F166462697387889%2F&tabs=timeline&width=500&height=520&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
-          width="500" height="520" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F166462697387889%2F&tabs=timeline&width=500&height=540&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
+          width="500" height="540" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" loading="lazy"></iframe>
       </div>
     </div>
@@ -835,10 +842,11 @@ text-decoration:none;font-weight:bold;">
 
 
 
-<div style="width:50px; height:50px; border-radius:50%; background:#10b981; color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.8rem; margin-top:-14px; border:3px solid #fff; box-shadow:0 6px 14px rgba(16,185,129,0.35);">＋</div>
-<span style="font-weight:900; color:#065f46;">أضف إعلان</span>
-</button>
-<button class="nav-item-btn" id="navPropsBtn" type="button"><span>🏠</span><span>العقارات</span></button>
+<nav class="bottom-navbar" aria-label="التنقل الرئيسي">
+<button class="nav-item-btn active" id="navHomeBtn" type="button"><span>🏠</span><span>الرئيسية</span></button>
+<button class="nav-item-btn" id="navCarsBtn" type="button"><span>🚗</span><span>العربات</span></button>
+<button class="nav-item-btn" id="navAddCenterBtn" type="button"><span style="font-size:1.7rem;color:#673AB7">⊕</span><span>أضف إعلان</span></button>
+<button class="nav-item-btn" id="navPropsBtn" type="button"><span>🏘️</span><span>العقارات</span></button>
 <button class="nav-item-btn" id="navContactBtn" type="button"><span>📞</span><span>تواصل</span></button>
 </nav>
 <!-- نافذة مودال: إرسال إعلان جديد للمراجعة -->
@@ -907,11 +915,11 @@ text-decoration:none;font-weight:bold;">
 >
 <div id="adMediaPreview" style="display:flex;flex-wrap:wrap;gap:10px;"></div>
 
-<p class="media-help">لإرفاق الصور أو الفيديو، أرسلها مع تفاصيل الإعلان عبر زر واتساب أعلى الصفحة. يمكن للإدارة إرفاقها عند اعتماد الإعلان.</p>
+<p class="media-help">يمكن معاينة الصور والفيديو المختارة على جهازك. لا تُرفع المرفقات إلى Firestore؛ أرسلها للإدارة عبر واتساب عند الحاجة.</p>
 </div>
-  📢 نشر الإعلان مجاناً الآن
-<button id="submitAdBtn" style="width:100%; background:linear-gradient(135deg, #065f46, #047857); color:#fff; border:none; padding:13px; font-size:1.05rem; font-weight:900; border-radius:var(--radius-md); box-shadow:0 6px 18px rgba(6,95,70,0.3); margin-top:8px; cursor:pointer;" type="submit">
-</button>
+<button id="submitAdBtn" style="width:100%; background:linear-gradient(135deg, #065f46, #047857); color:#fff; border:none; padding:13px; font-size:1.05rem; font-weight:900; border-radius:var(--radius-md); box-shadow:0 6px 18px rgba(6,95,70,0.3); margin-top:8px; cursor:pointer;" type="submit">📢 إرسال الإعلان للمراجعة</button>
+<div id="adSaveStatus" role="status" aria-live="polite" style="margin-top:10px;font-size:.88rem"></div>
+<button id="retrySavedAdBtn" type="button" hidden class="admin-secondary-btn">🔄 إعادة إرسال الإعلان المحفوظ</button>
 </form>
 </div>
 </div>
@@ -1025,7 +1033,7 @@ text-decoration:none;font-weight:bold;">
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
+
 <script>
 (() => {
   'use strict';
@@ -1118,7 +1126,7 @@ text-decoration:none;font-weight:bold;">
       if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
       auth = firebase.auth();
       db = firebase.firestore();
-      storage = firebase.storage();
+      // لا نعتمد على Firebase Storage للنشر المجاني.
     } catch (error) {
       console.error(error);
     }
@@ -1134,13 +1142,13 @@ text-decoration:none;font-weight:bold;">
   function updateAdminPanel() {
     const loginPanel = $('adminLoginPanel');
     const toolsPanel = $('adminTools');
-    if (!configured || !auth || !db || !storage) {
+    if (!configured || !auth || !db) {
       if (loginPanel) loginPanel.hidden = false;
       if (toolsPanel) toolsPanel.hidden = true;
       setMessage('adminAuthMessage', 'لوحة الإدارة تحتاج ربط Firebase أولاً. بعد الإعداد، سجّل الدخول ببريد الإدارة وكلمة مروره.', true);
       return;
     }
-    if (currentUser && currentUser.email === ADMIN_EMAIL && currentUser.emailVerified) {
+    if (currentUser && currentUser.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
       if (loginPanel) loginPanel.hidden = true;
       if (toolsPanel) toolsPanel.hidden = false;
       setMessage('adminAuthMessage', 'تم تسجيل الدخول الآمن إلى لوحة الإدارة.');
@@ -1148,13 +1156,13 @@ text-decoration:none;font-weight:bold;">
     } else {
       if (loginPanel) loginPanel.hidden = false;
       if (toolsPanel) toolsPanel.hidden = true;
-      setMessage('adminAuthMessage', currentUser ? 'هذا الحساب غير مخوّل للإدارة أو لم يتم توثيق بريده.' : 'سجّل الدخول ببريد الإدارة وكلمة المرور.');
+      setMessage('adminAuthMessage', currentUser ? 'هذا الحساب غير مخوّل للإدارة.' : 'سجّل الدخول ببريد الإدارة وكلمة المرور.');
     }
   }
 
   if (auth) {
     auth.onAuthStateChanged(async (user) => {
-      if (user && (user.email !== ADMIN_EMAIL || !user.emailVerified)) {
+      if (user && user.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
         await auth.signOut();
         currentUser = null;
       } else {
@@ -1207,7 +1215,9 @@ text-decoration:none;font-weight:bold;">
 
   function subscribePublicData() {
     if (!db) {
-      $('ads').innerHTML = '<div class="empty-state"><strong>الإعلانات السحابية غير مفعّلة بعد</strong><span>يمكنك إرسال إعلانك عبر واتساب، أو تواصل مع الإدارة لإكمال إعداد الموقع.</span></div>';
+      const cached = readLocal(CACHE_KEY);
+      if (Array.isArray(cached)) { publishedAds = cached; renderAds(); setMessage('siteDataStatus', 'عرض نسخة محلية قديمة؛ Firebase غير متصل.', true); }
+      else $('ads').innerHTML = '<div class="empty-state"><strong>الإعلانات السحابية غير مفعّلة بعد</strong><span>يمكنك إرسال إعلانك عبر واتساب، أو تواصل مع الإدارة لإكمال إعداد الموقع.</span></div>';
       $('promoAds').innerHTML = '<div class="promo-empty">سيظهر هنا المحتوى الترويجي الجديد بعد ربط قاعدة البيانات.</div>';
       return;
     }
@@ -1215,12 +1225,16 @@ text-decoration:none;font-weight:bold;">
     if (promosUnsubscribe) promosUnsubscribe();
 
     adsUnsubscribe = db.collection('ads').where('status', '==', 'published').onSnapshot((snapshot) => {
+      setMessage('siteDataStatus', '');
       publishedAds = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
         .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify(publishedAds.map(ad => ({...ad, createdAt: ad.createdAt?.toDate?.()?.toISOString() || ad.createdAt || null})))); } catch (_) {}
       renderAds();
     }, (error) => {
       console.error(error);
-      setMessage('siteDataStatus', 'تعذر تحميل الإعلانات. راجع صلاحيات Firestore وقواعد الأمان.', true);
+      const cached = readLocal(CACHE_KEY);
+      if (Array.isArray(cached) && cached.length) { publishedAds = cached; renderAds(); }
+      setMessage('siteDataStatus', 'تعذر تحديث الإعلانات من Firebase. ' + (Array.isArray(cached) && cached.length ? 'نعرض آخر نسخة محفوظة على هذا الجهاز، وقد تكون قديمة.' : 'راجع صلاحيات Firestore وقواعد الأمان.'), true);
     });
 
     promosUnsubscribe = db.collection('promos').where('visible', '==', true).onSnapshot((snapshot) => {
@@ -1301,10 +1315,10 @@ text-decoration:none;font-weight:bold;">
   }
 
   function shareAd(ad) {
-    const url = new URL(window.location.href);
+    const url = new URL(window.location.origin + window.location.pathname);
     url.searchParams.set('q', ad.title || '');
     if (navigator.share) navigator.share({ title: ad.title, text: 'شاهد هذا الإعلان في دلالة السودان', url: url.href }).catch(() => {});
-    else navigator.clipboard?.writeText(url.href).then(() => toast('تم نسخ رابط الموقع للمشاركة.', '🔗'));
+    else window.open('https://wa.me/?text=' + encodeURIComponent((ad.title || 'إعلان دلالة السودان') + '\n' + url.href), '_blank', 'noopener');
   }
 
   function subscribeAdminData() {
@@ -1359,7 +1373,7 @@ text-decoration:none;font-weight:bold;">
       if (action === 'delete') {
         if (!window.confirm('هل تريد حذف هذا المحتوى نهائياً؟')) return;
         await doc.delete();
-        if (kind === 'promo' && item.storagePath) storage.ref(item.storagePath).delete().catch(() => {});
+        // وسائط Cloudinary لا تُحذف من هنا؛ يلزم إجراء خادمي مخوّل لحذفها.
         toast('تم حذف المحتوى.');
       } else if (action === 'toggle') {
         const patch = kind === 'promo'
@@ -1385,36 +1399,73 @@ text-decoration:none;font-weight:bold;">
     }
   }
 
+  const DRAFT_KEY = 'dalalat_ad_draft_v2';
+  const CACHE_KEY = 'dalalat_public_ads_cache_v2';
+  const adFieldIds = ['adTitle','adCategory','adCity','adPrice','adAuthor','adPhone','adWhatsapp','adDetails'];
+  function readLocal(key) { try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch (_) { return null; } }
+  function saveDraft(data) {
+    try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...data, savedAt: Date.now() })); return true; }
+    catch (error) { console.warn('localStorage unavailable', error); return false; }
+  }
+  function clearSavedDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch (_) {} $('retrySavedAdBtn').hidden = true; }
+  function collectAd() {
+    return { title: $('adTitle').value.trim(), category: $('adCategory').value,
+      city: $('adCity').value.trim(), price: $('adPrice').value.trim() || 'السعر عند التواصل',
+      author: $('adAuthor').value.trim(), phone: $('adPhone').value.trim(),
+      whatsapp: $('adWhatsapp').value.trim() || $('adPhone').value.trim(), details: $('adDetails').value.trim() };
+  }
+  function restoreDraft() {
+    const saved = readLocal(DRAFT_KEY);
+    if (!saved || !saved.title) return;
+    adFieldIds.forEach(id => { if (saved[id] != null && $(id)) $(id).value = saved[id]; });
+    $('retrySavedAdBtn').hidden = false;
+    setMessage('adSaveStatus', '📝 توجد مسودة محفوظة على هذا الجهاز. يمكنك مراجعتها وإعادة إرسالها.');
+  }
+  restoreDraft();
+  adFieldIds.forEach(id => $(id)?.addEventListener('input', () => saveDraft(collectAd())));
+  $('retrySavedAdBtn')?.addEventListener('click', () => $('newAdForm')?.requestSubmit());
+  $('adMediaFiles')?.addEventListener('change', (event) => {
+    const preview = $('adMediaPreview');
+    preview.replaceChildren();
+    Array.from(event.target.files || []).slice(0, 8).forEach(file => {
+      if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) return;
+      const url = URL.createObjectURL(file);
+      const element = document.createElement(file.type.startsWith('video/') ? 'video' : 'img');
+      element.src = url;
+      element.style.cssText = 'width:100px;height:95px;object-fit:cover;border-radius:10px;border:1px solid #ddd';
+      if (element.tagName === 'VIDEO') element.controls = true;
+      element.addEventListener('load', () => URL.revokeObjectURL(url), {once:true});
+      preview.appendChild(element);
+    });
+  });
   $('newAdForm')?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (!db) return toast('النشر العام غير مفعّل بعد؛ أرسل الإعلان مع الصور عبر واتساب الإدارة.', '⚠️');
-    const data = {
-      title: $('adTitle').value.trim(),
-      category: $('adCategory').value,
-      city: $('adCity').value.trim(),
-      price: $('adPrice').value.trim() || 'السعر عند التواصل',
-      author: $('adAuthor').value.trim(),
-      phone: $('adPhone').value.trim(),
-      whatsapp: $('adWhatsapp').value.trim() || $('adPhone').value.trim(),
-      details: $('adDetails').value.trim()
-    };
-    if (Object.values(data).some((v) => !v)) return toast('أكمل الحقول المطلوبة أولاً.', '⚠️');
+    const data = collectAd();
+    if (!data.title || !data.city || !data.author || !data.phone || !data.details) return toast('أكمل الحقول المطلوبة أولاً.', '⚠️');
     if (data.title.length > 120 || data.details.length > 1500 || data.city.length > 80) return toast('بعض الحقول أطول من الحد المسموح.', '⚠️');
+    const saved = saveDraft(data);
+    const submit = $('submitAdBtn');
+    submit.disabled = true;
+    submit.textContent = '⏳ جارٍ حفظ الإعلان...';
     try {
-      await db.collection('ads').add({
-        ...data, status: 'published', mediaType: '', mediaUrl: '',
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      if (!db) throw new Error('Firebase غير متصل');
+      await db.collection('ads').add({ ...data, status: 'pending', mediaType: '', mediaUrl: '', createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+      clearSavedDraft();
       $('newAdForm').reset();
+      $('adMediaPreview').replaceChildren();
       closeModal(addAdModal);
-      toast('تم نشر إعلانك مجاناً بنجاح!', '✅');
+      toast('تم حفظ الإعلان في Firebase وهو بانتظار اعتماد الإدارة.', '✅');
+      setMessage('adSaveStatus', 'تم إرسال الإعلان للمراجعة بنجاح.');
     } catch (error) {
       console.error(error);
-      toast('تعذر إرسال الإعلان. تحقق من قواعد Firestore أو أرسل التفاصيل عبر واتساب.', '⚠️');
+      $('retrySavedAdBtn').hidden = !saved;
+      setMessage('adSaveStatus', saved ? '⚠️ تعذر الحفظ في Firebase. احتفظنا بمسودة على هذا الجهاز؛ اضغط إعادة الإرسال بعد عودة الاتصال.' : '⚠️ تعذر الحفظ في Firebase والمتصفح يمنع التخزين المحلي.', true);
+      toast('لم يُنشر الإعلان. ' + (saved ? 'حُفظت مسودة محلية لإعادة المحاولة.' : 'انسخ بياناتك قبل الخروج.'), '⚠️');
+    } finally {
+      submit.disabled = false;
+      submit.textContent = '📢 إرسال الإعلان للمراجعة';
     }
   });
-
-  
 
 $('promoAdForm')?.addEventListener('submit', async (event) => {
 
@@ -1432,7 +1483,7 @@ $('promoAdForm')?.addEventListener('submit', async (event) => {
     const badge = $('promoBadge').value.trim() || '🔥 إعلان مميز';
     const link = safeUrl($('promoLink').value.trim());
     const bg = $('promoColor').value;
-    const storagePath = 'promos/' + Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+
     const submit = $('promoSubmitBtn');
     submit.disabled = true;
     submit.textContent = 'جارٍ رفع الوسائط...';
@@ -1459,7 +1510,7 @@ const mediaUrl = result.secure_url;
       
       
       await db.collection('promos').add({
-        title, desc, badge, link, bg, mediaUrl, storagePath,
+        title, desc, badge, link, bg, mediaUrl,
         type: isVideo ? 'video' : 'image', visible: true,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
