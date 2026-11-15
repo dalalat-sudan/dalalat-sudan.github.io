@@ -1,0 +1,34 @@
+
+name: Facebook Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "Facebook post text"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish to Facebook Page
+        env:
+          PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          PAGE_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          POST_MESSAGE: ${{ inputs.message }}
+        run: |
+          if [ -z "$PAGE_ID" ] || [ -z "$PAGE_TOKEN" ]; then
+            echo "Missing Facebook secrets"
+            exit 1
+          fi
+
+          curl --fail-with-body --show-error \
+            --request POST \
+            "https://graph.facebook.com/v27.0/${PAGE_ID}/feed" \
+            --data-urlencode "message=${POST_MESSAGE}" \
+            --data-urlencode "access_token=${PAGE_TOKEN}"
