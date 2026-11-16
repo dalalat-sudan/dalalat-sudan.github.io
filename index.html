@@ -1446,16 +1446,20 @@ text-decoration:none;font-weight:bold;">
     submit.disabled = true; submit.textContent = 'جارٍ إرسال الإعلان...';
     try {
       if (!db) throw new Error('قاعدة البيانات غير متاحة');
-      const uploaded = [];
-      for (const file of files) uploaded.push(await uploadMedia(file));
+      // Firestore public-create rules allow text-only pending ads.
+      // Visitor media is sent separately to the administrator for review.
       await db.collection('ads').add({
-        ...data, status:'pending', mediaUrl:uploaded[0]?.url || '',
-        mediaType:uploaded[0]?.type || '', mediaUrls:uploaded.map(x => x.url),
+        ...data, status:'pending', mediaUrl:'', mediaType:'',
         createdAt:firebase.firestore.FieldValue.serverTimestamp()
       });
       $('newAdForm').reset(); $('adMediaPreview')?.replaceChildren();
       closeModal(addAdModal);
-      toast('تم استلام إعلانك للمراجعة. سيظهر بعد اعتماد الإدارة.', '✅');
+      toast('تم حفظ الإعلان للمراجعة ولن يظهر قبل موافقة الإدارة.', '✅');
+      if (files.length) {
+        if (window.confirm('تم حفظ الإعلان للمراجعة. هل تريد إرسال الصور أو الفيديوهات للإدارة عبر واتساب لإرفاقها قبل النشر؟')) {
+          await shareWithAdmin(data, files);
+        }
+      }
     } catch (error) {
       console.error('Ad submission:', error);
       toast('تعذر الحفظ السحابي. يمكنك إرسال الإعلان للإدارة عبر واتساب.', '⚠️');
