@@ -390,6 +390,12 @@
     @media(max-width:600px) { .manage-row { align-items:flex-start; flex-direction:column; } .manage-actions { justify-content:flex-start; } }
 
   
+    .fb-posts-list{display:grid;gap:12px;margin-top:14px;max-height:650px;overflow-y:auto}
+    .fb-post-card{border:1px solid #dbeafe;border-radius:14px;padding:14px;background:#f8fbff;overflow-wrap:anywhere}
+    .fb-post-card p{white-space:pre-wrap;line-height:1.7;color:#26344b}
+    .fb-post-card img{max-width:100%;max-height:350px;object-fit:contain;border-radius:10px}
+    .fb-post-card a{color:#1456b8;font-weight:800}
+    .fb-feed-note{font-size:.88rem;color:#475569}
     /* Facebook integration: responsive, compact and mobile-first */
     .fb-actions{display:flex;gap:8px;flex-wrap:wrap}
     .fb-actions a,.fb-group-panel>a{display:inline-flex;align-items:center;justify-content:center;background:#1877f2;color:#fff;text-decoration:none;padding:9px 14px;border-radius:12px;font-weight:800;font-size:.86rem}
@@ -702,6 +708,7 @@
           width="500" height="520" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" loading="lazy"></iframe>
       </div>
+      <div id="facebookPosts" class="fb-posts-list" aria-live="polite"><p class="fb-feed-note">لعرض أحدث المنشورات مباشرةً داخل الموقع يلزم ربط واجهة آمنة على الخادم بواجهة Facebook Graph API. يمكنك حالياً فتح المنشورات من الصفحة الرسمية.</p></div>
     </div>
     <div class="fb-group-panel">
       <div class="fb-group-icon">👥</div>
@@ -908,7 +915,7 @@ text-decoration:none;font-weight:bold;">
 >
 <div id="adMediaPreview" style="display:flex;flex-wrap:wrap;gap:10px;"></div>
 
-<p class="media-help">لإرفاق الصور أو الفيديو، أرسلها مع تفاصيل الإعلان عبر زر واتساب أعلى الصفحة. يمكن للإدارة إرفاقها عند اعتماد الإعلان.</p>
+<p class="media-help">تظهر معاينة الصور والفيديو هنا. تُحفظ بيانات الإعلان للمراجعة، وتُرسل الملفات للإدارة عبر واتساب لإرفاقها قبل النشر.</p>
 </div>
   📢 نشر الإعلان مجاناً الآن
 <button id="submitAdBtn" style="width:100%; background:linear-gradient(135deg, #065f46, #047857); color:#fff; border:none; padding:13px; font-size:1.05rem; font-weight:900; border-radius:var(--radius-md); box-shadow:0 6px 18px rgba(6,95,70,0.3); margin-top:8px; cursor:pointer;" type="submit">
@@ -1048,6 +1055,10 @@ text-decoration:none;font-weight:bold;">
   let storage = null;
   const CLOUDINARY_CLOUD = "ailgafwz";
   const CLOUDINARY_PRESET = "dalalat_promos";
+  // ضع هنا عنوان واجهة خادم آمنة تُرجع منشورات الصفحة بصيغة JSON.
+  // لا تضع Facebook Page Access Token في هذا الملف المنشور للعامة.
+  const FACEBOOK_FEED_ENDPOINT = '';
+
   let currentUser = null;
   let publishedAds = [];
   let managedAds = [];
@@ -1235,6 +1246,37 @@ text-decoration:none;font-weight:bold;">
       console.error(error);
       $('promoAds').innerHTML = '<div class="promo-empty">تعذر تحميل الدعايات المميزة. تحقق من صلاحيات قراءة promos في Firestore.</div>';
     });
+  }
+
+  async function loadFacebookPosts() {
+    const holder = $('facebookPosts');
+    if (!holder || !FACEBOOK_FEED_ENDPOINT) return;
+    try {
+      const response = await fetch(FACEBOOK_FEED_ENDPOINT, {headers:{Accept:'application/json'}});
+      if (!response.ok) throw new Error('Facebook feed HTTP ' + response.status);
+      const payload = await response.json();
+      const posts = Array.isArray(payload) ? payload : payload.data;
+      if (!Array.isArray(posts)) throw new Error('Invalid Facebook feed');
+      holder.replaceChildren();
+      if (!posts.length) { holder.textContent = 'لا توجد منشورات عامة متاحة حالياً.'; return; }
+      posts.slice(0,10).forEach(post => {
+        const card = document.createElement('article');
+        card.className = 'fb-post-card';
+        const paragraph = document.createElement('p');
+        paragraph.textContent = post.message || 'منشور من صفحة دلالة السودان';
+        card.appendChild(paragraph);
+        const imageUrl = safeUrl(post.full_picture);
+        if (imageUrl) { const img = document.createElement('img'); img.src=imageUrl; img.loading='lazy'; img.alt='صورة منشور فيسبوك'; card.appendChild(img); }
+        const link = safeUrl(post.permalink_url);
+        if (link && new URL(link).hostname.match(/(^|\.)facebook\.com$/)) {
+          const anchor = document.createElement('a'); anchor.href=link; anchor.target='_blank'; anchor.rel='noopener noreferrer'; anchor.textContent='عرض المنشور على فيسبوك'; card.appendChild(anchor);
+        }
+        holder.appendChild(card);
+      });
+    } catch(error) {
+      console.error('Facebook feed:',error);
+      holder.textContent='تعذر تحميل المنشورات تلقائياً. استخدم رابط الصفحة الرسمية أعلاه.';
+    }
   }
 
   function mediaMarkup(item, compact = false) {
@@ -1552,6 +1594,7 @@ text-decoration:none;font-weight:bold;">
   $('pwaBannerDismissBtn')?.addEventListener('click', () => { if ($('pwaInstallBanner')) $('pwaInstallBanner').style.display = 'none'; });
 
   subscribePublicData();
+  loadFacebookPosts();
 })();
 
 </script>
