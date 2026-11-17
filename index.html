@@ -719,6 +719,13 @@
     </div>
   </div>
 </section>
+
+<section class="featured-box" id="groupAdsSection" aria-label="إعلانات أعضاء مجموعة دلالة">
+  <h3 style="color:#4527a0;margin:0 0 8px">👥 إعلانات أعضاء مجموعة دلالة</h3>
+  <p style="color:#64748b;margin:0 0 12px">الإعلانات التي تنقلها الإدارة من مجموعة فيسبوك بعد مراجعتها. لا يتم سحب منشورات المجموعة تلقائياً.</p>
+  <div id="groupAdsList" class="ads-container" aria-live="polite"></div>
+  <a href="https://www.facebook.com/groups/441375426275119/" target="_blank" rel="noopener noreferrer">فتح مجموعة دلالة على فيسبوك</a>
+</section>
 <!-- قسم الفوتر ومعلومات الاتصال الرسمية للدلالة -->
 <section class="contact-card-section">
 <h2 style="margin:0 0 8px; font-size:1.6rem; font-weight:900;">دلالة العربات والعقارات أم درمان والخرطوم</h2>
@@ -1024,7 +1031,20 @@ text-decoration:none;font-weight:bold;">
           </div>
           <button id="promoSubmitBtn" class="admin-primary-btn" type="submit">✨ رفع ونشر الدعاية المميزة</button>
         </form>
-        <div id="adminItems" class="admin-items" aria-live="polite"></div>
+        
+<section id="groupImportPanel" style="border:1px solid #ddd6fe;border-radius:14px;padding:14px;margin:18px 0;background:#faf5ff">
+<h4 style="margin:0 0 8px">👥 نقل إعلان من مجموعة فيسبوك إلى المنصة</h4>
+<p style="font-size:.85rem">أدخل تفاصيل المنشور الذي يسمح صاحبه بإعادة نشره. يظهر بعد الحفظ في قسم إعلانات المجموعة.</p>
+<form id="groupImportForm">
+<label class="form-label" for="groupPostUrl">رابط المنشور الأصلي *</label><input class="form-input" id="groupPostUrl" type="url" required placeholder="https://www.facebook.com/groups/.../posts/...">
+<label class="form-label" for="groupPostTitle">عنوان الإعلان *</label><input class="form-input" id="groupPostTitle" required maxlength="120" placeholder="مثال: هايلوكس للبيع">
+<label class="form-label" for="groupPostAuthor">اسم المعلن</label><input class="form-input" id="groupPostAuthor" maxlength="100" placeholder="اسم صاحب المنشور">
+<label class="form-label" for="groupPostDetails">تفاصيل الإعلان *</label><textarea class="form-textarea" id="groupPostDetails" required maxlength="1500" rows="3"></textarea>
+<label class="form-label" for="groupPostMedia">صورة أو فيديو (اختياري)</label><input id="groupPostMedia" type="file" accept="image/*,video/*">
+<p class="media-help">رفع الوسائط يتطلب عمل إعداد Cloudinary الحالي؛ إن تعذر الرفع، جرّب حفظ الإعلان دون ملف.</p>
+<button class="admin-primary-btn" id="groupImportSubmit" type="submit">حفظ ونشر الإعلان في المنصة</button>
+</form></section>
+<div id="adminItems" class="admin-items" aria-live="polite"></div>
       </div>
     </div>
   </div>
@@ -1289,10 +1309,50 @@ text-decoration:none;font-weight:bold;">
     return '<img alt="' + escapeHTML(item.title || 'صورة الإعلان') + '" loading="lazy" src="' + escapeHTML(mediaUrl) + '" style="width:100%;height:' + height + ';object-fit:cover;background:#f1f5f9"/>';
   }
 
+  function renderGroupAds() {
+    const holder = $('groupAdsList');
+    if (!holder) return;
+    holder.replaceChildren();
+    const items = publishedAds.filter(ad => ad.source === 'facebook_group').sort((a,b) => (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+    if (!items.length) { holder.innerHTML='<div class="empty-state">لا توجد إعلانات مجموعة معتمدة بعد. يمكن للإدارة نقل الإعلانات من لوحة الإدارة.</div>'; return; }
+    items.forEach(ad => {
+      const article=document.createElement('article'); article.className='ad-card';
+      const body=document.createElement('div'); body.className='ad-info';
+      const heading=document.createElement('h4'); heading.textContent=ad.title||'إعلان من المجموعة'; body.appendChild(heading);
+      const meta=document.createElement('small'); meta.textContent='👤 '+(ad.author||'عضو بالمجموعة'); body.appendChild(meta);
+      const description=document.createElement('p'); description.textContent=ad.details||''; body.appendChild(description);
+      const url=safeUrl(ad.sourceUrl||'');
+      if (url && /(^|\.)facebook\.com$/.test(new URL(url).hostname)) {
+        const a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent='مشاهدة المنشور الأصلي على فيسبوك'; body.appendChild(a);
+      }
+      const media=safeUrl(ad.mediaUrl||'');
+      if (media) { const el=document.createElement(ad.mediaType==='video'?'video':'img'); el.src=media; el.style.cssText='width:100%;max-height:280px;object-fit:contain'; if(el.tagName==='VIDEO'){el.controls=true;el.playsInline=true;} article.appendChild(el); }
+      article.appendChild(body);holder.appendChild(article);
+    });
+  }
+
+  $('groupImportForm')?.addEventListener('submit',async(event)=>{
+    event.preventDefault();
+    if (!db || !currentUser || currentUser.email?.toLowerCase() !== ADMIN_EMAIL || !currentUser.emailVerified) return toast('يلزم دخول الإدارة المعتمدة.','⚠️');
+    const url=$('groupPostUrl').value.trim();
+    let parsed;try{parsed=new URL(url);}catch{return toast('رابط غير صحيح','⚠️');}
+    if(parsed.protocol!=='https:' || !/(^|\.)(facebook\.com|fb\.com)$/.test(parsed.hostname)) return toast('استخدم رابط منشور فيسبوك صحيح','⚠️');
+    const button=$('groupImportSubmit');button.disabled=true;button.textContent='جارٍ الحفظ...';
+    try{
+      let mediaUrl='',mediaType='';const file=$('groupPostMedia').files[0];
+      if(file){const uploaded=await uploadMedia(file);mediaUrl=uploaded.url;mediaType=uploaded.type;}
+      await db.collection('ads').add({source:'facebook_group',sourceUrl:url,title:$('groupPostTitle').value.trim(),author:$('groupPostAuthor').value.trim(),details:$('groupPostDetails').value.trim(),category:'أخرى',city:'',price:'',phone:'',whatsapp:'',mediaUrl,mediaType,status:'published',createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+      $('groupImportForm').reset();toast('تم نشر إعلان المجموعة داخل المنصة.');
+    }catch(e){console.error(e);toast('فشل الحفظ أو رفع الوسائط. تحقق من صلاحيات Firebase وإعداد Cloudinary.','⚠️');}
+    finally{button.disabled=false;button.textContent='حفظ ونشر الإعلان في المنصة';}
+  });
+
   function renderAds() {
     const container = $('ads');
+    renderGroupAds();
     if (!container) return;
     const filtered = publishedAds.filter((ad) => {
+      if (ad.source === 'facebook_group') return false;
       const categoryMatch = !activeCategory || ad.category === activeCategory;
       const haystack = [ad.title, ad.category, ad.city, ad.details, ad.author].join(' ').toLowerCase();
       return categoryMatch && (!searchTerm || haystack.includes(searchTerm));
