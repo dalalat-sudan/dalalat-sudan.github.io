@@ -69,8 +69,7 @@
       
     
     
-      --shadow-lg: 0 20px 30px -10px rgba(6, 95, 70, 0.14);
-    }
+    /* تم حذف جزء CSS قديم غير مكتمل بعد متغيرات الألوان */
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
@@ -552,7 +551,56 @@
   
 
 
-    </style>
+    
+/* DALA_FACEBOOK_FIX_V1 — Facebook feed mobile layout; Page Plugin capped at 500px by Meta */
+#facebookIntegration{width:100%;max-width:100%;box-sizing:border-box;padding:16px 12px;overflow:visible}
+#facebookIntegration .fb-feed-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;width:100%}
+#facebookIntegration .fb-feed-panel,#facebookIntegration .fb-group-panel{box-sizing:border-box;width:100%;min-width:0}
+#facebookIntegration .fb-page-embed{width:100%;max-width:500px;margin:0 auto;overflow:hidden;border-radius:14px;min-height:680px}
+#facebookIntegration .fb-page-embed iframe{display:block;width:100%;max-width:500px;height:680px;border:0;margin:0 auto}
+#facebookIntegration .fb-posts-list{max-height:none;overflow:visible}
+#facebookIntegration .fb-post-card img{display:block;width:100%;max-width:100%;height:auto;max-height:none;object-fit:contain}
+#facebookIntegration .fb-feed-panel p{overflow-wrap:anywhere}
+#facebookIntegration .fb-refresh-btn{background:#673ab7;color:white;border:0;border-radius:12px;padding:10px 15px;font-size:.9rem;font-weight:800;min-height:42px;flex:1 1 100%}
+#facebookIntegration .fb-refresh-status{font-size:.78rem;color:#665b77;margin-top:9px;text-align:center;line-height:1.7}
+@media(max-width:700px){
+ #facebookIntegration{padding:10px 7px;border-radius:14px}
+ #facebookIntegration .fb-feed-panel{padding:10px 7px;border-radius:12px}
+ #facebookIntegration .fb-group-panel{padding:12px;border-radius:12px}
+ #facebookIntegration .fb-actions{width:100%;display:flex;flex-wrap:wrap;gap:8px}
+ #facebookIntegration .fb-actions a{flex:1 1 128px;min-width:0;text-align:center;padding:10px 5px;font-size:.78rem}
+ #facebookIntegration .fb-page-embed{min-height:680px}
+ #groupAdsList{grid-template-columns:minmax(0,1fr)}
+}
+
+
+/* DALA_FEED_FIX_V2 — تصميم يعرض المحتوى المحلي بكامل العرض، ويضبط مكون Meta حتى 500px */
+#facebookIntegration { width:100%;max-width:none;min-width:0;margin-inline:auto;box-sizing:border-box; }
+#facebookIntegration .fb-feed-grid {width:100%;min-width:0;grid-template-columns:minmax(0,1fr);}
+#facebookIntegration .fb-feed-panel { width:100%;min-width:0;overflow:hidden; }
+#facebookIntegration .fb-page-embed { display:flex;align-items:flex-start;justify-content:center;box-sizing:border-box;width:100%;max-width:500px;min-height:860px;margin-inline:auto;overflow:hidden;background:#f8fafc; }
+#facebookIntegration .fb-page-embed iframe { width:100%;max-width:500px;height:860px;min-height:860px;margin-inline:auto; }
+#facebookIntegration .fb-actions {width:100%;display:flex;flex-wrap:wrap;gap:8px;}
+#facebookIntegration .fb-actions a,#facebookIntegration .fb-refresh-btn {flex:1 1 180px;min-width:0;}
+.fb-disclosure {background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;color:#4c1d95;padding:11px 13px;margin:10px 0;font-size:.85rem;line-height:1.7}
+.feed-tools {display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:5px 0 16px}
+.feed-tools small {color:#64748b;line-height:1.6}
+.feed-tools button {border:0;border-radius:12px;padding:10px 14px;background:#673ab7;color:#fff;font-weight:800;min-height:42px}
+.feed-tools button:disabled,#facebookIntegration .fb-refresh-btn:disabled {opacity:.65;cursor:wait}
+.promo-media-card { min-width:clamp(280px, 80vw, 430px); }
+.promo-media-card img,.promo-media-card video {width:100%;height:245px!important;object-fit:contain!important;background:#171329}
+#groupAdsList {grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
+@media (min-width:980px){#facebookIntegration .fb-feed-grid{grid-template-columns:minmax(0,1.5fr) minmax(280px,.7fr);align-items:stretch}}
+@media (max-width:700px){
+  #facebookIntegration {padding:10px 5px;}
+  #facebookIntegration .fb-feed-panel {padding:10px 5px;}
+  #facebookIntegration .fb-feed-grid{grid-template-columns:minmax(0,1fr)}
+  #facebookIntegration .fb-page-embed{width:100%;max-width:500px;min-height:860px}
+  #facebookIntegration .fb-page-embed iframe{max-width:500px;height:860px;min-height:860px}
+  .promo-media-card{min-width:min(89vw,430px)}
+  #groupAdsList{grid-template-columns:minmax(0,1fr)}
+}
+</style>
     </head>
 <body>
   <a href="https://www.facebook.com/166462697387889" target="_blank" rel="noopener noreferrer">
@@ -679,6 +727,10 @@
 </div>
 <!-- شبكة الإعلانات الأساسية -->
 <div id="siteDataStatus" class="site-data-status" role="status" aria-live="polite"></div>
+<div class="feed-tools">
+  <button type="button" id="refreshSiteAdsBtn">🔄 تحديث إعلانات المنصة</button>
+  <small>الإعلانات المعتمدة تتحدث من قاعدة البيانات؛ منشورات مجموعة فيسبوك تحتاج نقلها من لوحة الإدارة.</small>
+</div>
 <main class="ads-container" id="ads">
 <!-- سيتم تعبئتها فوراً بالإعلانات الافتراضية الشاملة والمحفوظة عبر الجافاسكربت لمنع أي فراغ -->
 </main>
@@ -695,20 +747,23 @@
     <div class="fb-actions">
       <a href="https://www.facebook.com/166462697387889/" rel="noopener noreferrer" target="_blank">متابعة الصفحة ↗</a>
       <a href="https://www.facebook.com/groups/441375426275119/" rel="noopener noreferrer" target="_blank">دخول مجموعة الدلالة ↗</a>
+<button type="button" id="refreshFacebookFeedBtn" class="fb-refresh-btn">🔄 إعادة تحميل موجز الصفحة</button>
     </div>
   </div>
   <div class="fb-feed-grid">
     <div class="fb-feed-panel">
       <h4>آخر منشورات الصفحة الرسمية</h4>
-      <p>تظهر منشورات الصفحة العامة هنا عند سماح إعدادات الخصوصية والتضمين من فيسبوك.</p>
+      <p>يعرض هذا الإطار منشورات الصفحة العامة التي يسمح فيسبوك بتضمينها. لآخر المنشورات دون قيود التضمين، افتح الصفحة مباشرة.</p>
+      <div class="fb-disclosure">📌 عرض فيسبوك محدود تقنياً بعرض 500 بكسل، لكن بطاقات إعلانات دلالة تمتد بعرض الشاشة. إعادة التحميل لا تسحب منشورات المجموعة تلقائياً.</div>
       <div class="fb-page-embed">
-        <iframe
+        <iframe id="facebookPageFrame"
           title="آخر منشورات صفحة دلالة العربات والعقارات"
-          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F166462697387889%2F&tabs=timeline&width=500&height=520&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
-          width="500" height="520" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F166462697387889%2F&tabs=timeline&width=500&height=860&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
+          width="500" height="860" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" loading="lazy"></iframe>
       </div>
-      <div id="facebookPosts" class="fb-posts-list" aria-live="polite"><p class="fb-feed-note">لعرض أحدث المنشورات مباشرةً داخل الموقع يلزم ربط واجهة آمنة على الخادم بواجهة Facebook Graph API. يمكنك حالياً فتح المنشورات من الصفحة الرسمية.</p></div>
+<div id="facebookFeedRefreshStatus" class="fb-refresh-status" role="status">عرض الصفحة يعتمد على صلاحيات التضمين لدى فيسبوك.</div>
+      <div id="facebookPosts" class="fb-posts-list" aria-live="polite"><p class="fb-feed-note">إذا لم يظهر منشور جديد داخل الإطار، افتح الصفحة الرسمية مباشرة. العرض الآلي الكامل يحتاج خدمة خادم آمنة وصلاحيات Meta، ولا يمكن إضافته من ملف HTML وحده.</p></div>
     </div>
     <div class="fb-group-panel">
       <div class="fb-group-icon">👥</div>
@@ -722,7 +777,7 @@
 
 <section class="featured-box" id="groupAdsSection" aria-label="إعلانات أعضاء مجموعة دلالة">
   <h3 style="color:#4527a0;margin:0 0 8px">👥 إعلانات أعضاء مجموعة دلالة</h3>
-  <p style="color:#64748b;margin:0 0 12px">الإعلانات التي تنقلها الإدارة من مجموعة فيسبوك بعد مراجعتها. لا يتم سحب منشورات المجموعة تلقائياً.</p>
+  <p style="color:#64748b;margin:0 0 12px">الإعلانات المنقولة من المجموعة بعد موافقة أصحابها ومراجعة الإدارة. تظهر هنا فور حفظها في قاعدة بيانات المنصة، ولا يتم سحب منشورات المجموعة تلقائياً.</p>
   <div id="groupAdsList" class="ads-container" aria-live="polite"></div>
   <a href="https://www.facebook.com/groups/441375426275119/" target="_blank" rel="noopener noreferrer">فتح مجموعة دلالة على فيسبوك</a>
 </section>
@@ -924,9 +979,7 @@ text-decoration:none;font-weight:bold;">
 
 <p class="media-help">تظهر معاينة الصور والفيديو هنا. تُحفظ بيانات الإعلان للمراجعة، وتُرسل الملفات للإدارة عبر واتساب لإرفاقها قبل النشر.</p>
 </div>
-  📢 نشر الإعلان مجاناً الآن
-<button id="submitAdBtn" style="width:100%; background:linear-gradient(135deg, #065f46, #047857); color:#fff; border:none; padding:13px; font-size:1.05rem; font-weight:900; border-radius:var(--radius-md); box-shadow:0 6px 18px rgba(6,95,70,0.3); margin-top:8px; cursor:pointer;" type="submit">
-</button>
+<button id="submitAdBtn" style="width:100%; background:linear-gradient(135deg, #673ab7, #4527a0); color:#fff; border:none; padding:13px; font-size:1.05rem; font-weight:900; border-radius:var(--radius-md); box-shadow:0 6px 18px rgba(69,39,160,0.3); margin-top:8px; cursor:pointer;" type="submit">📨 إرسال الإعلان للمراجعة</button>
 </form>
 </div>
 </div>
@@ -1272,7 +1325,7 @@ text-decoration:none;font-weight:bold;">
     const holder = $('facebookPosts');
     if (!holder || !FACEBOOK_FEED_ENDPOINT) return;
     try {
-      const response = await fetch(FACEBOOK_FEED_ENDPOINT, {headers:{Accept:'application/json'}});
+      const response = await fetch(FACEBOOK_FEED_ENDPOINT, {cache:'no-store',headers:{Accept:'application/json'}});
       if (!response.ok) throw new Error('Facebook feed HTTP ' + response.status);
       const payload = await response.json();
       const posts = Array.isArray(payload) ? payload : payload.data;
@@ -1302,7 +1355,7 @@ text-decoration:none;font-weight:bold;">
   function mediaMarkup(item, compact = false) {
     const mediaUrl = safeUrl(item.mediaUrl || item.image || (Array.isArray(item.mediaUrls) ? item.mediaUrls[0] : '') || '');
     if (!mediaUrl) return '';
-    const height = compact ? '120px' : '230px';
+    const height = compact ? '245px' : '230px';
     if (item.mediaType === 'video' || item.type === 'video' || /\.(mp4|webm|mov)(\?|$)/i.test(mediaUrl)) {
       return '<video controls playsinline preload="metadata" style="width:100%;height:' + height + ';object-fit:cover;background:#0f172a"><source src="' + escapeHTML(mediaUrl) + '"></video>';
     }
@@ -1391,8 +1444,11 @@ text-decoration:none;font-weight:bold;">
   function renderPromos() {
     const slider = $('promoAds');
     if (!slider) return;
+    const empty = $('promoEmpty');
+    if (empty) empty.hidden = promos.length > 0;
     if (!promos.length) {
-      slider.innerHTML = '<div class="promo-empty">لا توجد دعاية مميزة حالياً. تابعنا أو أرسل إعلانك للإدارة.</div>';
+      slider.replaceChildren();
+      if (empty) empty.textContent = 'لا توجد دعاية مميزة حالياً. تابعنا أو أرسل إعلانك للإدارة.';
       return;
     }
     slider.innerHTML = '';
@@ -1653,8 +1709,92 @@ text-decoration:none;font-weight:bold;">
   $('pwaBannerInstallBtn')?.addEventListener('click', triggerPwaInstall);
   $('pwaBannerDismissBtn')?.addEventListener('click', () => { if ($('pwaInstallBanner')) $('pwaInstallBanner').style.display = 'none'; });
 
+
+
+  // طلب بيانات المنصة من الخادم؛ التحديث المستمر الطبيعي يعمل أيضاً عبر onSnapshot.
+  async function refreshSiteAds() {
+    const button = $('refreshSiteAdsBtn');
+    if (!db) return toast('قاعدة بيانات الموقع غير متاحة حالياً.','⚠️');
+    if (button) {button.disabled=true;button.textContent='⏳ جارٍ تحديث الإعلانات...';}
+    try {
+      const [adSnap, promoSnap] = await Promise.all([
+        db.collection('ads').where('status','==','published').get({source:'server'}),
+        db.collection('promos').where('visible','==',true).get({source:'server'})
+      ]);
+      publishedAds = adSnap.docs.map(doc => ({id:doc.id,...doc.data()}))
+        .sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+      promos = promoSnap.docs.map(doc => ({id:doc.id,...doc.data()}))
+        .sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+      renderAds();renderPromos();
+      setMessage('siteDataStatus','إعلانات منشورة: '+publishedAds.length+' — آخر فحص للخادم: '+new Date().toLocaleTimeString('ar-SD',{hour:'2-digit',minute:'2-digit'}));
+      toast('تم فحص الإعلانات والدعايات المنشورة في قاعدة بيانات المنصة.','🔄');
+    } catch (error) {
+      console.error('Site refresh:', error);
+      setMessage('siteDataStatus','تعذر التحديث من الخادم. تحقق من الاتصال أو صلاحيات Firestore.',true);
+      toast('تعذر تحديث إعلانات المنصة من الخادم.','⚠️');
+    } finally {
+      if (button) {button.disabled=false;button.textContent='🔄 تحديث إعلانات المنصة';}
+    }
+  }
+  $('refreshSiteAdsBtn')?.addEventListener('click', refreshSiteAds);
+  // DALA_FACEBOOK_FIX_V2 — إعادة تحميل تضمين PAGE فقط؛ ليست صلاحية لجلب منشورات المجموعة.
+  let facebookLastFrameWidth = 0;
+  let facebookLastFrameRequest = 0;
+  let facebookResizeDebounce = null;
+  function refreshFacebookFrame(force) {
+    const frame = $('facebookPageFrame');
+    const wrapper = frame && frame.parentElement;
+    if (!frame || !wrapper) return;
+    const width = Math.min(500, Math.max(180, Math.floor(wrapper.clientWidth || 320)));
+    if (!force && width === facebookLastFrameWidth) return;
+    const src = new URL(frame.getAttribute('src'), window.location.href);
+    src.searchParams.set('width', String(width));
+    src.searchParams.set('height', '860');
+    src.searchParams.set('adapt_container_width', 'true');
+    src.searchParams.set('_refresh', String(Date.now()));
+    frame.setAttribute('width', String(width));
+    frame.setAttribute('height', '860');
+    frame.style.width = width + 'px';
+    frame.style.height = '860px';
+    frame.src = src.toString();
+    facebookLastFrameWidth = width;
+    facebookLastFrameRequest = Date.now();
+    const info = $('facebookFeedRefreshStatus');
+    if (info) info.textContent = 'آخر محاولة لإعادة تحميل عرض الصفحة: ' + new Date().toLocaleTimeString('ar-SD', {hour:'2-digit', minute:'2-digit'}) + ' — المنشورات الظاهرة يحددها فيسبوك.';
+  }
+  function initFacebookFrameRefresh() {
+    if (!$('facebookPageFrame')) return;
+    refreshFacebookFrame(true);
+    $('facebookPageFrame')?.addEventListener('load', function() {
+      const info = $('facebookFeedRefreshStatus');
+      if (info) info.textContent = 'اكتمل تحميل إطار فيسبوك. قد تختلف المنشورات الظاهرة بحسب إعدادات الصفحة وفيسبوك.';
+    });
+    $('refreshFacebookFeedBtn')?.addEventListener('click', function() {
+      refreshFacebookFrame(true);
+      if (FACEBOOK_FEED_ENDPOINT) loadFacebookPosts();
+      toast('أعدنا طلب موجز الصفحة؛ فيسبوك هو الذي يحدد المنشورات الظاهرة.', '🔄');
+    });
+    window.addEventListener('resize', function() {
+      clearTimeout(facebookResizeDebounce);
+      facebookResizeDebounce = setTimeout(function(){ refreshFacebookFrame(false); }, 300);
+    });
+    document.addEventListener('visibilitychange', function(){
+      if (!document.hidden && Date.now() - facebookLastFrameRequest > 600000) refreshFacebookFrame(true);
+    });
+    window.setInterval(function(){
+      const section = $('facebookIntegration');
+      if (!section || document.hidden) return;
+      const rect = section.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        refreshFacebookFrame(true);
+        if (FACEBOOK_FEED_ENDPOINT) loadFacebookPosts();
+      }
+    }, 600000);
+  }
+
   subscribePublicData();
   loadFacebookPosts();
+  initFacebookFrameRefresh();
 })();
 
 </script>
