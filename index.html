@@ -601,7 +601,25 @@
   #groupAdsList{grid-template-columns:minmax(0,1fr)}
 }
 </style>
-    </head>
+    <style id="dalalaFlowStyles">
+/* Video-ad helper: additive styling; preserves the existing purple/orange design */
+.dalala-flow-card{border:1px solid #c4b5fd;border-radius:14px;padding:14px;margin:10px 0 16px;background:linear-gradient(135deg,#faf5ff,#fff7ed);color:#312e81;text-align:right}
+.dalala-flow-title{font-size:1.05rem;margin:0 0 7px;font-weight:900;color:#4c1d95}
+.dalala-flow-desc{font-size:.87rem;line-height:1.7;margin:5px 0 9px;color:#474569}
+.dalala-flow-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.dalala-flow-btn{display:flex;align-items:center;justify-content:center;border-radius:11px;padding:11px 9px;border:1px solid #a78bfa;min-height:44px;font-size:.9rem;font-weight:800;cursor:pointer;text-decoration:none;text-align:center;white-space:normal}
+.dalala-flow-open{background:#6d28d9;color:#fff;border-color:#6d28d9}
+.dalala-flow-copy{background:#fff;color:#5b21b6}
+.dalala-flow-pick{background:#ea580c;color:#fff;border-color:#ea580c;grid-column:1/-1}
+.dalala-flow-note{font-size:.77rem;color:#7c4a25;margin:8px 0}
+.dalala-flow-status{font-size:.8rem;color:#4c1d95;font-weight:700;margin:7px 0}
+.dalala-flow-prompt{direction:ltr;text-align:left;width:100%;min-height:118px;box-sizing:border-box;border:1px solid #a78bfa;border-radius:9px;padding:10px;font-size:.82rem}
+.dalala-flow-prompt[hidden]{display:none}
+.dalala-flow-public{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:linear-gradient(100deg,#4c1d95,#7c3aed);color:#fff;padding:13px 16px;border-radius:13px;margin:12px 0 18px;font-weight:800}
+.dalala-flow-public-btn{border:0;background:#ffedd5;color:#7c2d12;border-radius:10px;padding:10px 14px;font-weight:900;cursor:pointer}
+@media(max-width:380px){.dalala-flow-actions{grid-template-columns:1fr}.dalala-flow-pick{grid-column:auto}.dalala-flow-btn{font-size:.85rem}}
+</style>
+</head>
 <body>
   <a href="https://www.facebook.com/166462697387889" target="_blank" rel="noopener noreferrer">
 📘 صفحتنا على فيسبوك
@@ -1806,4 +1824,126 @@ text-decoration:none;font-weight:bold;">
   📘 مشاركة على فيسبوك
 </a>
 
+<script id="dalalaFlowScript">
+/* Dalalat Sudan - optional public Google Flow video ads assistant.
+   Does not change ad submission, Firestore rules, WhatsApp or admin approval. */
+(function () {
+  'use strict';
+
+  function make(tag, className, text) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (text != null) el.textContent = text;
+    return el;
+  }
+
+  function makePrompt() {
+    const get = (id) => (document.getElementById(id)?.value || '').trim();
+    const subject = get('adTitle') || 'the advertised item';
+    const category = get('adCategory') || 'local classified listing';
+    const city = get('adCity') || 'Sudan';
+    const details = get('adDetails') || 'as seen in the attached photos';
+    return `Create an authentic 8-second vertical (9:16) promotional video from my real photos.
+Listing: ${subject}
+Category: ${category}
+Location: ${city}, Sudan
+Real details: ${details}
+Preserve the exact identity, shape, color and physical features of the pictured item or property. Use smooth natural camera movement and realistic lighting. Do not add invented features, people, prices or misleading text. Make this suitable for a trustworthy local Sudanese classified listing.`;
+  }
+
+  function init() {
+    const form = document.getElementById('newAdForm');
+    const mediaInput = document.getElementById('adMediaFiles');
+    if (!form || !mediaInput || document.getElementById('dalalaFlowGuide')) return;
+
+    const card = make('section', 'dalala-flow-card');
+    card.id = 'dalalaFlowGuide';
+    card.setAttribute('aria-label', 'صناعة فيديو إعلاني بالذكاء الاصطناعي');
+    const title = make('h4', 'dalala-flow-title', '✨ حوّل صور إعلانك إلى فيديو');
+    const desc = make('p', 'dalala-flow-desc',
+      'ميزة متاحة لجميع المعلنين: أنشئ الفيديو في Google Flow ثم ارجع وارفعه مع إعلانك من الهاتف.');
+    const actions = make('div', 'dalala-flow-actions');
+    const flow = make('a', 'dalala-flow-btn dalala-flow-open', '🎬 افتح Google Flow');
+    flow.href = 'https://flow.google.com/';
+    flow.target = '_blank';
+    flow.rel = 'noopener noreferrer';
+    flow.setAttribute('aria-label', 'فتح خدمة Google Flow في نافذة جديدة');
+
+    const copy = make('button', 'dalala-flow-btn dalala-flow-copy', '📋 انسخ وصف فيديو جاهز');
+    copy.type = 'button';
+
+    const pick = make('button', 'dalala-flow-btn dalala-flow-pick', '📁 اختر صوراً أو فيديو من الهاتف');
+    pick.type = 'button';
+    pick.addEventListener('click', () => mediaInput.click());
+
+    const message = make('p', 'dalala-flow-desc dalala-flow-info',
+      'بعد تنزيل الفيديو من Flow، اختَره من جهازك في الحقل أدناه. النشر يتم بعد مراجعة الإدارة، والوسائط تُرسل عبر واتساب كما في النظام الحالي.');
+    const country = make('p', 'dalala-flow-note',
+      'تنبيه: خدمة Google Flow خارج المنصة، وتتطلب حساب Google وقد لا تتوفر في السودان. يمكنك رفع فيديو جاهز من أي تطبيق آخر.');
+    const status = make('p', 'dalala-flow-status', 'لم يتم اختيار ملفات بعد.');
+    status.setAttribute('aria-live', 'polite');
+    const promptBox = make('textarea', 'dalala-flow-prompt');
+    promptBox.id = 'dalalaFlowPrompt';
+    promptBox.readOnly = true;
+    promptBox.hidden = true;
+    promptBox.setAttribute('aria-label', 'وصف الفيديو للنسخ');
+
+    copy.addEventListener('click', async () => {
+      const prompt = makePrompt();
+      promptBox.hidden = false;
+      promptBox.value = prompt;
+      try {
+        if (!navigator.clipboard?.writeText) throw new Error('clipboard unavailable');
+        await navigator.clipboard.writeText(prompt);
+        status.textContent = '✅ تم نسخ وصف الفيديو. الصقه في Google Flow.';
+      } catch (_) {
+        promptBox.focus();
+        promptBox.select();
+        status.textContent = 'انسخ النص من المربع ثم الصقه داخل Google Flow.';
+      }
+    });
+
+    const updateStatus = () => {
+      const files = Array.from(mediaInput.files || []);
+      if (!files.length) {
+        status.textContent = 'لم يتم اختيار ملفات بعد.';
+        return;
+      }
+      const videos = files.filter(f => f.type.startsWith('video/')).length;
+      const images = files.filter(f => f.type.startsWith('image/')).length;
+      const oversize = files.filter(f => f.type.startsWith('video/') && f.size > 30 * 1024 * 1024);
+      status.textContent = `تم اختيار ${images} صورة و${videos} فيديو.` +
+        (oversize.length ? ' ⚠️ يوجد فيديو أكبر من 30 ميغابايت؛ قد يصعب إرساله عبر واتساب.' : '');
+    };
+    mediaInput.addEventListener('change', updateStatus);
+    form.addEventListener('reset', () => {
+      status.textContent = 'لم يتم اختيار ملفات بعد.';
+      promptBox.hidden = true;
+    });
+
+    actions.append(flow, copy, pick);
+    card.append(title, desc, actions, message, country, status, promptBox);
+    mediaInput.parentNode.insertBefore(card, mediaInput);
+
+    const mainCard = document.querySelector('#appDownloadSection') || document.querySelector('.hero-banner');
+    if (mainCard && !document.getElementById('dalalaFlowPublicBanner')) {
+      const banner = make('div', 'dalala-flow-public');
+      banner.id = 'dalalaFlowPublicBanner';
+      const caption = make('span', '', '🎥 ميزة جديدة: اصنع فيديو لإعلانك بالذكاء الاصطناعي — متاحة للجميع');
+      const go = make('button', 'dalala-flow-public-btn', 'ابدأ إعلان فيديو');
+      go.type = 'button';
+      go.addEventListener('click', () => {
+        document.getElementById('openFormTopBtn')?.click();
+        setTimeout(() => document.getElementById('dalalaFlowGuide')?.scrollIntoView({block:'nearest', behavior:'smooth'}), 120);
+      });
+      banner.append(caption, go);
+      mainCard.insertAdjacentElement('afterend', banner);
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+</script>
 </body></html>
